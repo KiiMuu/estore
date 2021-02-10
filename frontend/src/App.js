@@ -1,23 +1,17 @@
-import Button from 'antd/lib/button';
-import styled from 'styled-components';
+import { Switch, Route } from 'react-router-dom';
 
-const StyledParent = styled.div`
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    p {
-        margin-top: 1rem;
-    }
-`;
+// components
+import Home from './pages/home/Home';
+import Register from './pages/auth/Register';
+import Login from './pages/auth/Login';
 
 const App = () => {
     return (
-        <StyledParent>
-            <Button type="primary">eStore App</Button>
-            <p>This is an initial setup.</p>
-        </StyledParent>
+        <Switch>
+            <Route exact path='/' component={Home} />
+            <Route exact path='/register' component={Register} />
+            <Route exact path='/login' component={Login} />
+        </Switch>
     )
 }
 
