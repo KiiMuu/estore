@@ -13,6 +13,24 @@ const GloblaStyle = createGlobalStyle`
     body {
         line-height: 1.7;
     }
+    .container {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    
+    // global media query classes
+    @media screen and (max-width: 640px) {
+        .hide-md {
+            display: none !important;
+        }
+    }
+    @media screen and (max-width: 640px) {
+        .show-md {
+            display: block !important;
+        }
+    }
+
     ::selection {
         background-color: ${primaryColor};
         color: #f3f3f3;

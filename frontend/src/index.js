@@ -7,12 +7,10 @@ import GlobalStyles from './globalStyles';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-    <React.StrictMode>
+    <Router>
         <GlobalStyles />
-        <Router>
-            <App />
-        </Router>
-    </React.StrictMode>,
+        <App />
+    </Router>,
     document.getElementById('root')
 );
 
