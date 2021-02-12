@@ -8,6 +8,7 @@ import {
 } from '../../themes/colors';
 import { linkHover } from '../../themes/mixins';
 import { defaultFontSize } from '../../themes/fonts';
+import { headerHeight } from '../../themes/spaces';
 
 // @antd
 import Menu from 'antd/lib/menu';
@@ -19,13 +20,14 @@ export const HeaderWrapper = styled.header`
     position: fixed;
     top: 0;
     width: 100%;
+    z-index: 99;
 `;
 
 export const Nav = styled.nav`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 65px;
+    height: ${headerHeight};
 `;
 
 export const Logo = styled.div`
@@ -70,6 +72,7 @@ export const NavItemLink = styled(Link)`
 // mob nav
 export const MobileNav = styled.div`
     display: none;
+    z-index: 100;
 `;
 
 export const NavMenuIcon = styled.div`

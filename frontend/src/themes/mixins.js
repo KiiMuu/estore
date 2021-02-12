@@ -1,4 +1,4 @@
-import { lightColor, primaryColor } from './colors';
+import { lightColor, primaryColor, primaryDarkColor } from './colors';
 
 export const linkHover = () => {
     return `
@@ -25,4 +25,18 @@ export const linkHover = () => {
             transform-origin: top right;
         }
     `;
+}
+
+export const appName = () => {
+    return `
+        background-image: linear-gradient(
+            to right, 
+            ${primaryColor}, 
+            ${primaryDarkColor}
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        font-weight: 900;
+    `
 }
