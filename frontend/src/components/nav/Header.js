@@ -11,6 +11,13 @@ import {
     NavMenuContent,
     MenuHeader,
     MenuCloser,
+    MobNav,
+    MobNavItems,
+    MobListItem,
+    MobNavItemLink,
+    StyledMenu,
+    StyledSubMenu,
+    StyledItem,
 } from './styles';
 import useToggle from '../../hooks/useToggle';
 
@@ -26,7 +33,7 @@ import {
     CloseOutlined,
 } from '@ant-design/icons';
 
-const { Item } = Menu;
+const { Item, Divider } = Menu;
 
 const Header = () => {
 
@@ -34,9 +41,11 @@ const Header = () => {
 
     const userMenu = (
         <Menu>
-            <Item key='0'><span>Profile</span></Item>
-            <Item key='1'><span>Profile</span></Item>
-            <Item key='2'><span>Profile</span></Item>
+            <Item key='0' icon={<LoginOutlined />}>Profile</Item>
+            <Divider />
+            <Item key='1' icon={<LoginOutlined />}>Profile</Item>
+            <Divider />
+            <Item key='2' icon={<LoginOutlined />}>Profile</Item>
         </Menu>
     );
 
@@ -72,8 +81,6 @@ const Header = () => {
                                 <Dropdown 
                                     overlay={userMenu} 
                                     trigger={['click']}
-                                    placement='topCenter'
-                                    arrow
                                 >
                                     <NavItemLink
                                         className='ant-dropdown-link' 
@@ -86,6 +93,7 @@ const Header = () => {
                             </ListItem>
                         </NavItems>
                     </div>
+
                     {/* mob view */}
                     <MobileNav className='show-md'>
                         <NavMenuIcon onClick={handleToggle}>
@@ -100,7 +108,43 @@ const Header = () => {
                                     <CloseOutlined onClick={handleToggle} />
                                 </MenuCloser>
                             </MenuHeader>
-                            <div>content</div>
+                            <MobNav>
+                                <MobNavItems>
+                                    <MobListItem>
+                                        <MobNavItemLink to='/'>
+                                            <span><HomeOutlined /></span>
+                                            Home
+                                        </MobNavItemLink>
+                                    </MobListItem>
+                                    <MobListItem>
+                                        <MobNavItemLink to='/register'>
+                                            <span><UserAddOutlined /></span>
+                                            Register
+                                        </MobNavItemLink>
+                                    </MobListItem>
+                                    <MobListItem>
+                                        <MobNavItemLink to='/login'>
+                                            <span><LoginOutlined /></span>
+                                            Login
+                                        </MobNavItemLink>
+                                    </MobListItem>
+                                    <MobListItem>
+                                        <StyledMenu mode='inline'>
+                                            <StyledSubMenu 
+                                                icon={<SettingOutlined />}
+                                                title='Username'
+                                            >
+                                                <StyledItem key='0' icon={<LoginOutlined />}>
+                                                    Profile
+                                                </StyledItem>
+                                                <StyledItem key='1' icon={<LoginOutlined />}>
+                                                    Profile
+                                                </StyledItem>
+                                            </StyledSubMenu>
+                                        </StyledMenu>
+                                    </MobListItem>
+                                </MobNavItems>
+                            </MobNav>
                         </NavMenuContent>
                     </MobileNav>
                 </Nav>

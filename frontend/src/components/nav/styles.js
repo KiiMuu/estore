@@ -9,6 +9,11 @@ import {
 import { linkHover } from '../../themes/mixins';
 import { defaultFontSize } from '../../themes/fonts';
 
+// @antd
+import Menu from 'antd/lib/menu';
+
+const { SubMenu, Item } = Menu;
+
 export const HeaderWrapper = styled.header`
     background: ${primaryColor};
     position: fixed;
@@ -65,7 +70,6 @@ export const NavItemLink = styled(Link)`
 // mob nav
 export const MobileNav = styled.div`
     display: none;
-    /* position: relative; */
 `;
 
 export const NavMenuIcon = styled.div`
@@ -111,4 +115,59 @@ export const MenuCloser = styled.div`
     background-color: rgba(0, 0, 0, .1);
     opacity: .3;
     border-radius: 3px;
+`;
+
+export const MobNav = styled.nav`
+    background-color: ${lightColor};
+    border-radius: 3px;
+`;
+
+export const MobNavItems = styled.ul`
+    margin-bottom: 0;
+    padding: 1.5rem 1rem;
+`;
+
+export const MobListItem = styled.li`
+    &:not(:first-child) {
+        margin-top: 1rem;
+    }
+    list-style: none;
+    font-size: 1.4rem;
+`;
+
+export const MobNavItemLink = styled(Link)`
+    color: ${darkColor};
+    span {
+        margin-right: .3rem;
+    }
+`;
+
+// @antd override
+export const StyledMenu = styled(Menu)`
+    font-size: 1.4rem;
+`;
+
+export const StyledSubMenu = styled(SubMenu)`
+    background-color: ${lightColor};
+    div {
+        padding: 0 !important;
+        margin: 0 !important;
+        &:active {
+            background-color: transparent;
+        }
+    }
+    span:first-child {
+        margin-top: 0;
+        margin-right: .5rem;
+        font-size: 1.4rem;
+    }
+    i {
+        right: 0;
+    }
+`;
+
+export const StyledItem = styled(Item)`
+    font-size: 1.3rem;
+    padding: 0 1rem !important;
+    margin: 0 !important;
 `;
