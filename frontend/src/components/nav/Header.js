@@ -84,6 +84,7 @@ const Header = () => {
                                 >
                                     <NavItemLink
                                         className='ant-dropdown-link' 
+                                        to='#'
                                         onClick={e => e.preventDefault()}
                                     >
                                         <span><SettingOutlined /></span> 

@@ -3,6 +3,7 @@ import { lightColor, primaryColor, primaryDarkColor } from './colors';
 export const linkHover = () => {
     return `
         position: relative;
+        transition: transform .15s ease-in-out;
         &::before {
             content: '';
             position: absolute;
@@ -23,6 +24,9 @@ export const linkHover = () => {
         &:hover::before {
             transform: scale(1);
             transform-origin: top right;
+        }
+        &:active {
+            transform: scale(.9);
         }
     `;
 }

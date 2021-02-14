@@ -1,15 +1,19 @@
 import styled from 'styled-components';
-import { primaryColor } from '../../themes/colors';
-import { headerHeight, paddingBetweenSections } from '../../themes/spaces';
-import { mainHeadFontSize, descFontSize } from '../../themes/fonts';
-import { appName } from '../../themes/mixins';
+import { lightColor, primaryColor } from '../../themes/colors';
+import { descFontSize } from '../../themes/fonts';
+import { paddingBetweenSections } from '../../themes/spaces';
+import { appName, linkHover } from '../../themes/mixins';
+
+// @antd
+import Typography from 'antd/lib/typography';
+import Form from 'antd/lib/form';
+import Input from 'antd/lib/input';
+
+const {
+    Title,
+} = Typography;
 
 // register
-export const RegisterWrapper = styled.div`
-    /* background-color: rebeccapurple; */
-    /* padding-top: ${headerHeight}; */
-`;
-
 export const ImageWrapper = styled.div`
     height: 100vh;
 `;
@@ -22,7 +26,6 @@ export const StyledImg = styled.div`
     background-position: center;
     background-repeat: no-repeat;
     position: relative;
-    filter: drop-shadow(2px 4px 8px #585858);
     clip-path: polygon(0 0, 100% 0, 100% 95vh, 0 100%);
     background-color: ${primaryColor};
 `;
@@ -32,15 +35,41 @@ export const FormWrapper = styled.div`
     padding: ${paddingBetweenSections} 2rem;
 `;
 
-export const RegHeading = styled.h1`
-    font-size: ${mainHeadFontSize};
-    margin: 0;
-    text-transform: uppercase;
-    ${appName};
+export const StyledTitle = styled(Title)`
+    // for higher specifity;
+    // You can use as many & as you want, the more you use the higher the specificity will be!
+    && {
+        ${appName};
+        margin-bottom: .5rem;
+    }
 `;
 
-export const RegDesc = styled.p`
-    font-size: ${descFontSize};
-    margin: 0;
-    color: #aaa;
+export const StyledForm = styled(Form)`
+    margin-top: 2.5rem;
+    div {
+        margin-bottom: 0;
+    }
+`;
+
+export const StyledInput = styled(Input)`
+    && {
+        font-size: ${descFontSize};
+        margin-bottom: 0;
+    }
+`;
+
+export const StyledButton = styled.button`
+    padding: 1rem 3rem;
+    margin-top: 1.5rem;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    z-index: 1;
+    ${linkHover};
+    &::before {
+        background-color: ${primaryColor};
+    }
+    &:hover {
+        color: ${lightColor};
+    }
 `;
