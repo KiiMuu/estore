@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { auth } from '../../firebase';
+import { isEmailValid } from './validate';
 
 // styles
 import {
@@ -10,18 +11,20 @@ import {
     StyledForm,
     StyledInput,
     StyledButton,
+    Content,
+    InputControl,
 } from './styles';
 
 // @antd
 import Row from 'antd/lib/row';
 import Col from 'antd/lib/col';
 import Typography from 'antd/lib/typography';
-import Message from 'antd/lib/message';
+import message from 'antd/lib/message';
 import PopOver from 'antd/lib/popover';
 import Divider from 'antd/lib/divider';
 
 import {
-    UserOutlined
+    UserAddOutlined
 } from '@ant-design/icons';
 
 const {
@@ -32,32 +35,33 @@ const Register = () => {
 
     const [email, setEmail] = useState('');
 
-    const [form] = StyledForm.useForm();
+    const handleSubmit = async e => {
+        e.preventDefault();
 
-    const handleSubmit = async () => {
-
-        // firebase config
-        const config = {
-            url: process.env.REACT_APP_REGISTER_REDIRECT_URL,
-            handleCodeInApp: true
+        if (isEmailValid(email)) {
+            // firebase config
+            const config = {
+                url: process.env.REACT_APP_REGISTER_REDIRECT_URL,
+                handleCodeInApp: true
+            }
+    
+            await auth.sendSignInLinkToEmail(email, config);
+    
+            message.success({
+                content: `Email is sent to ${email}. Click the link to complete registration.`, 
+                style: {
+                    fontSize: '1.35rem',
+                    color: '#262626',
+                },
+                duration: 10
+            });
+    
+            // save user email in localStorage
+            // for non-repeat typing the same email in redirection
+            window.localStorage.setItem('registerEmail', email);
+    
+            setEmail('');
         }
-
-        await auth.sendSignInLinkToEmail(email, config);
-
-        Message.success({
-            content: `Email is sent to ${email}. Click the link to complete registration.`, 
-            style: {
-                fontSize: '1.35rem',
-                color: '#262626',
-            },
-            duration: 10
-        });
-
-        // save user email in localStorage
-        // for non-repeat typing the same email in redirection
-        window.localStorage.setItem('registerEmail', email);
-
-        form.resetFields();
     }
 
     return (
@@ -69,43 +73,32 @@ const Register = () => {
             </Col>
             <Col xs={24} lg={6}>
                 <FormWrapper>
-                    <StyledTitle level={3}>
-                        Register
-                    </StyledTitle>
-                    <Text type='secondary'>
-                        Create a new account
-                    </Text>
-                    <StyledForm 
-                        form={form}
-                        onFinish={handleSubmit}
-                        layout='vertical'
-                        requiredMark='optional'>
+                    <Content>
+                        <StyledTitle level={3}>
+                            Register
+                        </StyledTitle>
+                        <Text type='secondary'>
+                            Create a new account
+                        </Text>
+                        <StyledForm onSubmit={handleSubmit}>
                             <PopOver 
                                 content='Please make sure you provide a valid email address so you can complete your registration'
                                 trigger='focus'>
-                                <StyledForm.Item
-                                    name='email'
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please type your email'
-                                        }
-                                    ]}
-                                    label='Email Address'>
-                                    <StyledInput 
-                                        size='small'
-                                        prefix={<UserOutlined />}
+                                <InputControl>
+                                    <span><UserAddOutlined /></span>
+                                    <StyledInput
                                         type='email'
                                         inputMode='email'
                                         value={email}
                                         placeholder='Type your email'
-                                        onChange={e => setEmail(e.target.value)} 
+                                        onChange={e => setEmail(e.target.value)}  
                                     />
-                                </StyledForm.Item>
+                                </InputControl>
                             </PopOver>
-                        <StyledButton type='submit'>Register</StyledButton>
-                        <Divider orientation='center'>Or use</Divider>
-                    </StyledForm>
+                            <StyledButton type='submit'>Register</StyledButton>
+                            <Divider orientation='center'>Or use</Divider>
+                        </StyledForm>
+                    </Content>
                 </FormWrapper>
             </Col>
         </Row>

@@ -1,19 +1,18 @@
 import styled from 'styled-components';
 import { lightColor, primaryColor } from '../../themes/colors';
 import { descFontSize } from '../../themes/fonts';
-import { paddingBetweenSections } from '../../themes/spaces';
+import { boxPadding, topSpace } from '../../themes/spaces';
 import { appName, linkHover } from '../../themes/mixins';
+import { registerBoxQuery } from '../../themes/breakpoints';
 
 // @antd
 import Typography from 'antd/lib/typography';
-import Form from 'antd/lib/form';
-import Input from 'antd/lib/input';
 
 const {
     Title,
 } = Typography;
 
-// register
+
 export const ImageWrapper = styled.div`
     height: 100vh;
 `;
@@ -32,7 +31,19 @@ export const StyledImg = styled.div`
 
 export const FormWrapper = styled.div`
     height: 100%;
-    padding: ${paddingBetweenSections} 2rem;
+    padding-top: ${topSpace};
+`;
+
+export const Content = styled.div`
+    padding: 0 2rem;
+`;
+
+export const CompleteContent = styled.div`
+    padding: ${boxPadding};
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 .5rem 1rem rgba(154,160,185,.05), 0 1.5rem 4rem rgba(166,173,201,.2);
+    ${registerBoxQuery};
 `;
 
 export const StyledTitle = styled(Title)`
@@ -41,20 +52,39 @@ export const StyledTitle = styled(Title)`
     && {
         ${appName};
         margin-bottom: .5rem;
+        /* margin-top: ${topSpace}; */
     }
 `;
 
-export const StyledForm = styled(Form)`
+export const StyledForm = styled.form`
     margin-top: 2.5rem;
-    div {
-        margin-bottom: 0;
+`;
+
+export const InputControl = styled.div`
+    position: relative;
+    span {
+        position: absolute;
+        top: 50%;
+        transform: translate(50%, -50%);
+    }
+    &:not(:first-child) {
+        margin-top: 1rem;
     }
 `;
 
-export const StyledInput = styled(Input)`
-    && {
-        font-size: ${descFontSize};
-        margin-bottom: 0;
+export const StyledInput = styled.input`
+    display: block;
+    width: 100%;
+    height: 5rem;
+    padding-left: 3rem;
+    outline: none;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    font-size: ${descFontSize};
+    transition: all .15s ease;
+    &:focus {
+        border-color: ${primaryColor};
+        box-shadow: 0 0 .5rem .1rem ${primaryColor};
     }
 `;
 
