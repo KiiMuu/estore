@@ -1,4 +1,5 @@
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 
 // components
@@ -8,7 +9,48 @@ import RegisterComplete from './pages/auth/RegisterComplete';
 import Login from './pages/auth/Login';
 import Header from './components/nav/Header';
 
+import { auth } from './firebase';
+import {
+    LOGGED_IN_REQUEST,
+    LOGGED_IN_SUCCESS,
+    LOGGED_IN_FAIL,
+} from './state/constants/user';
+
 const App = () => {
+    const dispatch = useDispatch();
+
+    // check firebse auth state
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged(async user => {
+            try {
+                dispatch({
+                    type: LOGGED_IN_REQUEST,
+                });
+
+                if (user) {
+                    const tokenIdResult = await user.getIdTokenResult();
+    
+                    console.log('user', user);
+                    dispatch({
+                        type: LOGGED_IN_SUCCESS,
+                        payload: {
+                            email: user.email,
+                            token: tokenIdResult.token,
+                        },
+                    });
+                }
+            } catch (err) {
+                dispatch({
+                    type: LOGGED_IN_FAIL,
+                    payload: err.message,
+                });
+            }
+        });
+
+        // clean up
+        return () => unsubscribe();
+    }, []);
+
     return (
         <Fragment>
             <Header />

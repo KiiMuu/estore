@@ -3,7 +3,7 @@ import {
 } from 'redux';
 
 // reducers
-import { userReducer } from './userReducer';
+import { userReducer } from './user';
 
 const rootReducer = combineReducers({
     user: userReducer
