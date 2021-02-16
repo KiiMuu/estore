@@ -20,7 +20,7 @@ export const ImageWrapper = styled.div`
 export const StyledImg = styled.div`
     width: 100%;
     height: 100%;
-    background-image: url('/auth/register.svg');
+    background-image: ${props => props.location === '/register' ? "url('/auth/register.svg')" : "url('/auth/login.svg')"};
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -52,7 +52,6 @@ export const StyledTitle = styled(Title)`
     && {
         ${appName};
         margin-bottom: .5rem;
-        /* margin-top: ${topSpace}; */
     }
 `;
 
@@ -102,4 +101,8 @@ export const StyledButton = styled.button`
     &:hover {
         color: ${lightColor};
     }
+`;
+
+export const Indicator = styled.span`
+    color: red;
 `;

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { auth } from '../../firebase';
 import { isEmailValid } from './validate';
 import success from '../../components/layout/message/success';
@@ -21,7 +22,6 @@ import Row from 'antd/lib/row';
 import Col from 'antd/lib/col';
 import Typography from 'antd/lib/typography';
 import PopOver from 'antd/lib/popover';
-import Divider from 'antd/lib/divider';
 
 import {
     UserAddOutlined
@@ -32,6 +32,8 @@ const {
 } = Typography;
 
 const Register = () => {
+
+    const location = useLocation();
 
     const [email, setEmail] = useState('');
 
@@ -61,7 +63,7 @@ const Register = () => {
         <Row>
             <Col xs={24} lg={18}>
                 <ImageWrapper>
-                    <StyledImg></StyledImg>
+                    <StyledImg location={location.pathname}></StyledImg>
                 </ImageWrapper>
             </Col>
             <Col xs={24} lg={6}>
@@ -89,7 +91,6 @@ const Register = () => {
                                 </InputControl>
                             </PopOver>
                             <StyledButton type='submit'>Register</StyledButton>
-                            <Divider orientation='center'>Or use</Divider>
                         </StyledForm>
                     </Content>
                 </FormWrapper>

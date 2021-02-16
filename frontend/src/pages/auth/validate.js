@@ -1,5 +1,4 @@
 import error from '../../components/layout/message/error';
-import success from '../../components/layout/message/success';
 
 const isFormEmpty = (email, password) => {
     return !email || !password;
@@ -17,7 +16,7 @@ export const isFormValid = (email, password) => {
     if (isFormEmpty(email, password)) {
         error('All fields are required');
     } else if (!isValidPassword(password)) {
-        success('Password must be at least 6 characters long');
+        error('Password must be at least 6 characters long');
     } else {
         return true;
     }

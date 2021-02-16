@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { auth } from '../../firebase';
+import { auth, googleAuth } from '../../firebase';
 import { isFormValid } from './validate';
 import error from '../../components/layout/message/error';
 import { 
-    LOGGED_IN_FAIL, 
-    LOGGED_IN_SUCCESS 
+    LOGGED_IN_SUCCESS,
 } from '../../state/constants/user';
 
 // styles
@@ -25,10 +24,13 @@ import {
 import Row from 'antd/lib/row';
 import Col from 'antd/lib/col';
 import Typography from 'antd/lib/typography';
+import Divider from 'antd/lib/divider';
+import Button from 'antd/lib/button';
 
 import {
     UserAddOutlined,
     KeyOutlined,
+    GoogleOutlined,
 } from '@ant-design/icons';
 
 const {
@@ -39,21 +41,16 @@ const Login = ({ history }) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [loading, setLoading] = useState(false);
 
     const dispatch = useDispatch();
 
     const handleSubmit = async e => {
         e.preventDefault();
 
-        setLoading(true);
-
         if (isFormValid(email, password)) {
             try {
                 const result = await auth.signInWithEmailAndPassword(email, password);
-    
                 const { user } = result;
-    
                 const tokenIdResult = await user.getIdTokenResult();
                 
                 dispatch({
@@ -63,14 +60,33 @@ const Login = ({ history }) => {
                         token: tokenIdResult.token,
                     },
                 });
-    
+
                 history.push('/');
             } catch (err) {
                 error(err.message);
-
-                setLoading(false);
             }
         }
+    }
+
+    const googleLogin = async () => {
+        auth.signInWithPopup(googleAuth).then(async result => {
+            const { user } = result;
+            const tokenIdResult = await user.getIdTokenResult();
+
+            dispatch({
+                type: LOGGED_IN_SUCCESS,
+                payload: {
+                    email: user.email,
+                    token: tokenIdResult.token,
+                },
+            });
+
+            history.push('/');
+        }).catch(err => {
+            console.error(err);
+
+            error(err.message);
+        });
     }
 
     return (
@@ -110,7 +126,17 @@ const Login = ({ history }) => {
                                     onChange={e => setPassword(e.target.value)}  
                                 />
                             </InputControl>
-                            <StyledButton type='submit'>Login</StyledButton>
+                            <StyledButton type='submit'>
+                                Login
+                            </StyledButton>
+                            <Divider orientation='center'>Or login with</Divider>
+                            <Button 
+                                onClick={googleLogin} 
+                                type='danger'
+                                block
+                                icon={<GoogleOutlined />}>
+                                Google
+                            </Button>
                         </StyledForm>
                     </Content>
                 </FormWrapper>
