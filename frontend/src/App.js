@@ -11,7 +11,6 @@ import Header from './components/nav/Header';
 
 import { auth } from './firebase';
 import {
-    LOGGED_IN_REQUEST,
     LOGGED_IN_SUCCESS,
     LOGGED_IN_FAIL,
 } from './state/constants/user';
@@ -23,14 +22,9 @@ const App = () => {
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(async user => {
             try {
-                dispatch({
-                    type: LOGGED_IN_REQUEST,
-                });
-
                 if (user) {
                     const tokenIdResult = await user.getIdTokenResult();
     
-                    console.log('user', user);
                     dispatch({
                         type: LOGGED_IN_SUCCESS,
                         payload: {

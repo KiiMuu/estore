@@ -1,5 +1,5 @@
 import { Link, useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
     HeaderWrapper,
     Nav,
@@ -46,6 +46,9 @@ const Header = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
+    const { user } = useSelector(state => ({ ...state }));
+    const { userInfo } = user;
+
     const logout = () => {
         auth.signOut();
 
@@ -82,33 +85,39 @@ const Header = () => {
                                     Home
                                 </NavItemLink>
                             </ListItem>
-                            <ListItem>
-                                <NavItemLink to='/register'>
-                                    <span><UserAddOutlined /></span>
-                                    Register
-                                </NavItemLink>
-                            </ListItem>
-                            <ListItem>
-                                <NavItemLink to='/login'>
-                                    <span><LoginOutlined /></span>
-                                    Login
-                                </NavItemLink>
-                            </ListItem>
-                            <ListItem>
-                                <Dropdown 
-                                    overlay={userMenu} 
-                                    trigger={['click']}
-                                >
-                                    <NavItemLink
-                                        className='ant-dropdown-link' 
-                                        to='#'
-                                        onClick={e => e.preventDefault()}
+                            {!userInfo && (
+                                <>
+                                    <ListItem>
+                                        <NavItemLink to='/register'>
+                                            <span><UserAddOutlined /></span>
+                                            Register
+                                        </NavItemLink>
+                                    </ListItem>
+                                    <ListItem>
+                                        <NavItemLink to='/login'>
+                                            <span><LoginOutlined /></span>
+                                            Login
+                                        </NavItemLink>
+                                    </ListItem>
+                                </>
+                            )}
+                            {userInfo && (
+                                <ListItem>
+                                    <Dropdown 
+                                        overlay={userMenu} 
+                                        trigger={['click']}
                                     >
-                                        <span><SettingOutlined /></span> 
-                                        Username
-                                    </NavItemLink>
-                                </Dropdown>
-                            </ListItem>
+                                        <NavItemLink
+                                            className='ant-dropdown-link' 
+                                            to='#'
+                                            onClick={e => e.preventDefault()}
+                                        >
+                                            <span><SettingOutlined /></span> 
+                                            {userInfo?.email.split('@')[0]}
+                                        </NavItemLink>
+                                    </Dropdown>
+                                </ListItem>
+                            )}
                         </NavItems>
                     </div>
 
@@ -134,38 +143,44 @@ const Header = () => {
                                             Home
                                         </MobNavItemLink>
                                     </MobListItem>
-                                    <MobListItem>
-                                        <MobNavItemLink to='/register'>
-                                            <span><UserAddOutlined /></span>
-                                            Register
-                                        </MobNavItemLink>
-                                    </MobListItem>
-                                    <MobListItem>
-                                        <MobNavItemLink to='/login'>
-                                            <span><LoginOutlined /></span>
-                                            Login
-                                        </MobNavItemLink>
-                                    </MobListItem>
-                                    <MobListItem>
-                                        <StyledMenu mode='inline'>
-                                            <StyledSubMenu 
-                                                icon={<SettingOutlined />}
-                                                title='Username'
-                                            >
-                                                <StyledItem icon={<LoginOutlined />}>
-                                                    Profile
-                                                </StyledItem>
-                                                <StyledItem icon={<LoginOutlined />}>
-                                                    Profile
-                                                </StyledItem>
-                                                <StyledItem 
-                                                    icon={<LogoutOutlined />} 
-                                                    onClick={logout}>
-                                                        Logout
-                                                </StyledItem>
-                                            </StyledSubMenu>
-                                        </StyledMenu>
-                                    </MobListItem>
+                                    {!userInfo && (
+                                        <>
+                                            <MobListItem>
+                                                <MobNavItemLink to='/register'>
+                                                    <span><UserAddOutlined /></span>
+                                                    Register
+                                                </MobNavItemLink>
+                                            </MobListItem>
+                                            <MobListItem>
+                                                <MobNavItemLink to='/login'>
+                                                    <span><LoginOutlined /></span>
+                                                    Login
+                                                </MobNavItemLink>
+                                            </MobListItem>
+                                        </>
+                                    )}
+                                    {userInfo && (
+                                        <MobListItem>
+                                            <StyledMenu mode='inline'>
+                                                <StyledSubMenu 
+                                                    icon={<SettingOutlined />}
+                                                    title={userInfo?.email.split('@')[0]}
+                                                >
+                                                    <StyledItem icon={<LoginOutlined />}>
+                                                        Profile
+                                                    </StyledItem>
+                                                    <StyledItem icon={<LoginOutlined />}>
+                                                        Profile
+                                                    </StyledItem>
+                                                    <StyledItem 
+                                                        icon={<LogoutOutlined />} 
+                                                        onClick={logout}>
+                                                            Logout
+                                                    </StyledItem>
+                                                </StyledSubMenu>
+                                            </StyledMenu>
+                                        </MobListItem>
+                                    )}
                                 </MobNavItems>
                             </MobNav>
                         </NavMenuContent>
