@@ -6,11 +6,17 @@ import App from './App';
 import GlobalStyles from './globalStyles';
 import reportWebVitals from './reportWebVitals';
 
+// state
+import { Provider } from 'react-redux';
+import store from './store';
+
 ReactDOM.render(
-    <Router>
-        <GlobalStyles />
-        <App />
-    </Router>,
+    <Provider store={store}>
+        <Router>
+            <GlobalStyles />
+            <App />
+        </Router>
+    </Provider>,
     document.getElementById('root')
 );
 
