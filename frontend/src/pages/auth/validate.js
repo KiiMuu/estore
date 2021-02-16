@@ -1,4 +1,5 @@
-import message from 'antd/lib/message';
+import error from '../../components/layout/message/error';
+import success from '../../components/layout/message/success';
 
 const isFormEmpty = (email, password) => {
     return !email || !password;
@@ -14,23 +15,9 @@ const isValidPassword = password => {
 
 export const isFormValid = (email, password) => {
     if (isFormEmpty(email, password)) {
-        message.error({
-            content: 'All fields are required', 
-            style: {
-                fontSize: '1.35rem',
-                color: '#262626',
-            },
-            duration: 10
-        });
+        error('All fields are required');
     } else if (!isValidPassword(password)) {
-        message.error({
-            content: 'Password must be at least 6 characters long', 
-            style: {
-                fontSize: '1.35rem',
-                color: '#262626',
-            },
-            duration: 10
-        });
+        success('Password must be at least 6 characters long');
     } else {
         return true;
     }
@@ -38,14 +25,7 @@ export const isFormValid = (email, password) => {
 
 export const isEmailValid = email => {
     if (!email) {
-        message.error({
-            content: 'Please type your email address', 
-            style: {
-                fontSize: '1.35rem',
-                color: '#262626',
-            },
-            duration: 10
-        });
+        error('Please type your email address');
     } else {
         return true;
     }

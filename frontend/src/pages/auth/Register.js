@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { auth } from '../../firebase';
 import { isEmailValid } from './validate';
+import success from '../../components/layout/message/success';
 
 // styles
 import {
@@ -19,7 +20,6 @@ import {
 import Row from 'antd/lib/row';
 import Col from 'antd/lib/col';
 import Typography from 'antd/lib/typography';
-import message from 'antd/lib/message';
 import PopOver from 'antd/lib/popover';
 import Divider from 'antd/lib/divider';
 
@@ -47,14 +47,7 @@ const Register = () => {
     
             await auth.sendSignInLinkToEmail(email, config);
     
-            message.success({
-                content: `Email is sent to ${email}. Click the link to complete registration.`, 
-                style: {
-                    fontSize: '1.35rem',
-                    color: '#262626',
-                },
-                duration: 10
-            });
+            success(`Email is sent to ${email}. Click the link to complete registration.`);
     
             // save user email in localStorage
             // for non-repeat typing the same email in redirection

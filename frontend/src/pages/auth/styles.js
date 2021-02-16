@@ -31,7 +31,7 @@ export const StyledImg = styled.div`
 
 export const FormWrapper = styled.div`
     height: 100%;
-    padding-top: ${topSpace};
+    padding: ${topSpace} 0;
 `;
 
 export const Content = styled.div`

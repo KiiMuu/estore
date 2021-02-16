@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import { auth } from '../../firebase';
 import { isFormValid } from './validate';
+import error from '../../components/layout/message/error';
 
 // styles
 import {
@@ -18,7 +18,6 @@ import {
 import Row from 'antd/lib/row';
 import Col from 'antd/lib/col';
 import Typography from 'antd/lib/typography';
-import message from 'antd/lib/message';
 
 import {
     UserAddOutlined,
@@ -29,9 +28,7 @@ const {
     Text
 } = Typography;
 
-const RegisterComplete = () => {
-
-    const history = useHistory();
+const RegisterComplete = ({ history }) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -65,14 +62,7 @@ const RegisterComplete = () => {
                     history.push('/');
                 }
             } catch (err) {
-                message.error({
-                    content: err.message, 
-                    style: {
-                        fontSize: '1.35rem',
-                        color: '#262626',
-                    },
-                    duration: 10
-                });
+                error(err.message);
             }
         }
     }

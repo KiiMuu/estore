@@ -49,7 +49,7 @@ const App = () => {
 
         // clean up
         return () => unsubscribe();
-    }, []);
+    }, [dispatch]);
 
     return (
         <Fragment>
