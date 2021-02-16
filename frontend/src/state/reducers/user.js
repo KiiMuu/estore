@@ -2,9 +2,10 @@ import {
     LOGGED_IN_REQUEST,
     LOGGED_IN_SUCCESS,
     LOGGED_IN_FAIL,
+    LOGOUT,
 } from '../constants/user';
 
-export const userReducer = (state = null, action) => {
+export const userReducer = (state = {}, action) => {
     switch (action.type) {
         case LOGGED_IN_REQUEST:
             return {
@@ -20,6 +21,8 @@ export const userReducer = (state = null, action) => {
                 error: action.payload,
                 loading: false,
             }
+        case LOGOUT:
+            return {}
         default:
             return state;
     }

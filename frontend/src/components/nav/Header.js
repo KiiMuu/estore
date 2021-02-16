@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import {
     HeaderWrapper,
     Nav,
@@ -20,6 +21,8 @@ import {
     StyledItem,
 } from './styles';
 import useToggle from '../../hooks/useToggle';
+import { auth } from '../../firebase';
+import { LOGOUT } from '../../state/constants/user';
 
 // @antd
 import Menu from 'antd/lib/menu';
@@ -31,6 +34,7 @@ import {
     SettingOutlined,
     MenuOutlined,
     CloseOutlined,
+    LogoutOutlined,
 } from '@ant-design/icons';
 
 const { Item, Divider } = Menu;
@@ -39,13 +43,26 @@ const Header = () => {
 
     const { isOpen, handleToggle, elementRef } = useToggle();
 
+    const dispatch = useDispatch();
+    const history = useHistory();
+
+    const logout = () => {
+        auth.signOut();
+
+        dispatch({
+            type: LOGOUT,
+        });
+
+        history.push('/login');
+    }
+
     const userMenu = (
         <Menu>
-            <Item key='0' icon={<LoginOutlined />}>Profile</Item>
+            <Item icon={<LoginOutlined />}>Profile</Item>
             <Divider />
-            <Item key='1' icon={<LoginOutlined />}>Profile</Item>
+            <Item icon={<LoginOutlined />}>Profile</Item>
             <Divider />
-            <Item key='2' icon={<LoginOutlined />}>Profile</Item>
+            <Item icon={<LogoutOutlined />} onClick={logout}>Logout</Item>
         </Menu>
     );
 
@@ -135,11 +152,16 @@ const Header = () => {
                                                 icon={<SettingOutlined />}
                                                 title='Username'
                                             >
-                                                <StyledItem key='0' icon={<LoginOutlined />}>
+                                                <StyledItem icon={<LoginOutlined />}>
                                                     Profile
                                                 </StyledItem>
-                                                <StyledItem key='1' icon={<LoginOutlined />}>
+                                                <StyledItem icon={<LoginOutlined />}>
                                                     Profile
+                                                </StyledItem>
+                                                <StyledItem 
+                                                    icon={<LogoutOutlined />} 
+                                                    onClick={logout}>
+                                                        Logout
                                                 </StyledItem>
                                             </StyledSubMenu>
                                         </StyledMenu>
