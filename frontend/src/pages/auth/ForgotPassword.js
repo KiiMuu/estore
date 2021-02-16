@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { auth } from '../../firebase';
 import { isEmailValid } from './validate';
 import error from '../../components/layout/message/error';
@@ -28,13 +29,16 @@ const {
     Text
 } = Typography;
 
-const ForgotPassword = () => {
+const ForgotPassword = ({ history }) => {
 
     const [email, setEmail] = useState('');
 
+    const { user } = useSelector(state => ({ ...state }));
+    const { userInfo } = user;
+
     useEffect(() => {
-        setEmail(window.localStorage.getItem('registerEmail'));
-    }, []);
+        if (userInfo?.token) history.push('/');
+    }, [userInfo, history]);
 
     const handleSubmit = async e => {
         e.preventDefault();

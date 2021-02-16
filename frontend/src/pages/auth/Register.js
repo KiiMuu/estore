@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { auth } from '../../firebase';
 import { isEmailValid } from './validate';
@@ -32,11 +33,18 @@ const {
     Text
 } = Typography;
 
-const Register = () => {
+const Register = ({ history }) => {
 
     const location = useLocation();
 
     const [email, setEmail] = useState('');
+
+    const { user } = useSelector(state => ({ ...state }));
+    const { userInfo } = user;
+
+    useEffect(() => {
+        if (userInfo?.token) history.push('/');
+    }, [userInfo, history]);
 
     const handleSubmit = async e => {
         e.preventDefault();

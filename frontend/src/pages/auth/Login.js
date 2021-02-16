@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { auth, googleAuth } from '../../firebase';
 import { isFormValid } from './validate';
 import error from '../../components/layout/message/error';
@@ -45,6 +45,13 @@ const Login = ({ history }) => {
     const [password, setPassword] = useState('');
 
     const dispatch = useDispatch();
+
+    const { user } = useSelector(state => ({ ...state }));
+    const { userInfo } = user;
+
+    useEffect(() => {
+        if (userInfo?.token) history.push('/');
+    }, [userInfo, history]);
 
     const handleSubmit = async e => {
         e.preventDefault();
