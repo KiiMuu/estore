@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { auth } from '../../firebase';
 import { isEmailValid } from './validate';
 import success from '../../components/layout/message/success';
+import error from '../../components/layout/message/error';
 
 // styles
 import {
@@ -47,15 +48,17 @@ const Register = () => {
                 handleCodeInApp: true
             }
     
-            await auth.sendSignInLinkToEmail(email, config);
+            await auth.sendSignInLinkToEmail(email, config).then(() => {
+                success(`Email is sent to ${email}. Click the link to complete registration.`);
     
-            success(`Email is sent to ${email}. Click the link to complete registration.`);
-    
-            // save user email in localStorage
-            // for non-repeat typing the same email in redirection
-            window.localStorage.setItem('registerEmail', email);
-    
-            setEmail('');
+                // save user email in localStorage
+                // for non-repeat typing the same email in redirection
+                window.localStorage.setItem('registerEmail', email);
+        
+                setEmail('');
+            }).catch(err => {
+                error(err.message);
+            });
         }
     }
 

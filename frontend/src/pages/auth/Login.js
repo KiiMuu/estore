@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { auth, googleAuth } from '../../firebase';
 import { isFormValid } from './validate';
@@ -18,6 +19,7 @@ import {
     StyledButton,
     Content,
     InputControl,
+    StyledActions,
 } from './styles';
 
 // @antd
@@ -126,9 +128,12 @@ const Login = ({ history }) => {
                                     onChange={e => setPassword(e.target.value)}  
                                 />
                             </InputControl>
-                            <StyledButton type='submit'>
-                                Login
-                            </StyledButton>
+                            <StyledActions>
+                                <StyledButton type='submit'>
+                                    Login
+                                </StyledButton>
+                                <Link to='/password/forgot'>Forgot password?</Link>
+                            </StyledActions>
                             <Divider orientation='center'>Or login with</Divider>
                             <Button 
                                 onClick={googleLogin} 

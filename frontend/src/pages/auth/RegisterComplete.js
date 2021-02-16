@@ -96,6 +96,7 @@ const RegisterComplete = ({ history }) => {
                                         value={password}
                                         placeholder='Type your password'
                                         onChange={e => setPassword(e.target.value)}  
+                                        autoFocus
                                     />
                                 </InputControl>
                                 <StyledButton type='submit'>Continue</StyledButton>

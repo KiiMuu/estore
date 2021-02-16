@@ -76,6 +76,7 @@ export const StyledInput = styled.input`
     width: 100%;
     height: 5rem;
     padding-left: 3rem;
+    margin-bottom: 1.5rem;
     outline: none;
     border: 1px solid #ddd;
     background-color: #fff;
@@ -89,7 +90,6 @@ export const StyledInput = styled.input`
 
 export const StyledButton = styled.button`
     padding: 1rem 3rem;
-    margin-top: 1.5rem;
     border: none;
     cursor: pointer;
     outline: none;
@@ -103,6 +103,10 @@ export const StyledButton = styled.button`
     }
 `;
 
-export const Indicator = styled.span`
-    color: red;
+export const StyledActions = styled.div`
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
 `;

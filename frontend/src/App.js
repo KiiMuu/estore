@@ -4,10 +4,11 @@ import { Switch, Route } from 'react-router-dom';
 
 // components
 import Home from './pages/home/Home';
+import Header from './components/nav/Header';
 import Register from './pages/auth/Register';
 import RegisterComplete from './pages/auth/RegisterComplete';
 import Login from './pages/auth/Login';
-import Header from './components/nav/Header';
+import ForgotPassword from './pages/auth/ForgotPassword';
 
 import { auth } from './firebase';
 import {
@@ -53,6 +54,7 @@ const App = () => {
                 <Route exact path='/register' component={Register} />
                 <Route exact path='/register/complete' component={RegisterComplete} />
                 <Route exact path='/login' component={Login} />
+                <Route exact path='/password/forgot' component={ForgotPassword} />
             </Switch>
         </Fragment>
     )
