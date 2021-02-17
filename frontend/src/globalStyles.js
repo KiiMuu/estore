@@ -3,7 +3,7 @@ import { primaryColor } from './themes/colors';
 
 const GloblaStyle = createGlobalStyle`
     html {
-        font-size: 62.5%; // 1 rem = 10px; 10px / 16px = 62.5%
+        font-size: 62.5%; // * 1 rem = 10px; 10px / 16px = 62.5%
     }
     html,
     body {
@@ -19,7 +19,7 @@ const GloblaStyle = createGlobalStyle`
         padding: 0 20px;
     }
     
-    // global media query classes
+    // * global media query classes
     @media screen and (max-width: 640px) {
         .hide-md {
             display: none !important;

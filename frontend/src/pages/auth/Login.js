@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { auth, googleAuth } from '../../firebase';
 import { isFormValid } from './validate';
 import error from '../../components/layout/message/error';
+import useProtectRoute from '../../hooks/useProtectRoute';
 import { 
     LOGGED_IN_SUCCESS,
 } from '../../state/constants/user';
@@ -46,12 +47,7 @@ const Login = ({ history }) => {
 
     const dispatch = useDispatch();
 
-    const { user } = useSelector(state => ({ ...state }));
-    const { userInfo } = user;
-
-    useEffect(() => {
-        if (userInfo?.token) history.push('/');
-    }, [userInfo, history]);
+    useProtectRoute();
 
     const handleSubmit = async e => {
         e.preventDefault();

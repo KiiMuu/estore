@@ -2,7 +2,7 @@ import { Fragment, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 
-// components
+// * components
 import Home from './pages/home/Home';
 import Header from './components/nav/Header';
 import Register from './pages/auth/Register';
@@ -10,40 +10,18 @@ import RegisterComplete from './pages/auth/RegisterComplete';
 import Login from './pages/auth/Login';
 import ForgotPassword from './pages/auth/ForgotPassword';
 
-import { auth } from './firebase';
-import {
-    LOGGED_IN_SUCCESS,
-    LOGGED_IN_FAIL,
-} from './state/constants/user';
+// * functions
+import { userAuthState } from './state/actions/user';
 
 const App = () => {
     const dispatch = useDispatch();
 
-    // check firebse auth state
+    // * check firebase auth state
     useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged(async user => {
-            try {
-                if (user) {
-                    const tokenIdResult = await user.getIdTokenResult();
-    
-                    dispatch({
-                        type: LOGGED_IN_SUCCESS,
-                        payload: {
-                            email: user.email,
-                            token: tokenIdResult.token,
-                        },
-                    });
-                }
-            } catch (err) {
-                dispatch({
-                    type: LOGGED_IN_FAIL,
-                    payload: err.message,
-                });
-            }
-        });
+        userAuthState(dispatch);
 
-        // clean up
-        return () => unsubscribe();
+        // * clean up
+        return () => userAuthState();
     }, [dispatch]);
 
     return (

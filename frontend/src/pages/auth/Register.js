@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { auth } from '../../firebase';
 import { isEmailValid } from './validate';
 import success from '../../components/layout/message/success';
 import error from '../../components/layout/message/error';
+import useProtectRoute from '../../hooks/useProtectRoute';
 
 // styles
 import {
@@ -39,12 +39,7 @@ const Register = ({ history }) => {
 
     const [email, setEmail] = useState('');
 
-    const { user } = useSelector(state => ({ ...state }));
-    const { userInfo } = user;
-
-    useEffect(() => {
-        if (userInfo?.token) history.push('/');
-    }, [userInfo, history]);
+    useProtectRoute();
 
     const handleSubmit = async e => {
         e.preventDefault();
