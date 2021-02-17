@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { auth, googleAuth } from '../../firebase';
+import { auth } from '../../firebase';
 import { isFormValid } from './validate';
 import error from '../../components/layout/message/error';
 import useProtectRoute from '../../hooks/useProtectRoute';
+import googleLogin from './googleLogin';
 import { 
     LOGGED_IN_SUCCESS,
+    LOGGED_IN_FAIL,
 } from '../../state/constants/user';
 
 // styles
@@ -68,31 +70,17 @@ const Login = ({ history }) => {
 
                 history.push('/');
             } catch (err) {
+                dispatch({
+                    type: LOGGED_IN_FAIL,
+                    payload: err.message,
+                });
+
                 error(err.message);
             }
         }
     }
 
-    const googleLogin = async () => {
-        auth.signInWithPopup(googleAuth).then(async result => {
-            const { user } = result;
-            const tokenIdResult = await user.getIdTokenResult();
-
-            dispatch({
-                type: LOGGED_IN_SUCCESS,
-                payload: {
-                    email: user.email,
-                    token: tokenIdResult.token,
-                },
-            });
-
-            history.push('/');
-        }).catch(err => {
-            console.error(err);
-
-            error(err.message);
-        });
-    }
+    const googelLoginAuth = () => googleLogin(dispatch, history);
 
     return (
         <Row>
@@ -137,9 +125,9 @@ const Login = ({ history }) => {
                                 </StyledButton>
                                 <Link to='/password/forgot'>Forgot password?</Link>
                             </StyledActions>
-                            <Divider orientation='center'>Or login with</Divider>
+                            <Divider orientation='center'>OR LOGIN WITH</Divider>
                             <Button 
-                                onClick={googleLogin} 
+                                onClick={googelLoginAuth} 
                                 type='danger'
                                 block
                                 icon={<GoogleOutlined />}>

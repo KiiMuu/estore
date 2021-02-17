@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { auth } from '../../firebase';
 import { isEmailValid } from './validate';
 import success from '../../components/layout/message/success';
 import error from '../../components/layout/message/error';
 import useProtectRoute from '../../hooks/useProtectRoute';
+import googleLogin from './googleLogin';
 
 // styles
 import {
@@ -24,9 +26,12 @@ import Row from 'antd/lib/row';
 import Col from 'antd/lib/col';
 import Typography from 'antd/lib/typography';
 import PopOver from 'antd/lib/popover';
+import Divider from 'antd/lib/divider';
+import Button from 'antd/lib/button';
 
 import {
-    UserAddOutlined
+    UserAddOutlined,
+    GoogleOutlined,
 } from '@ant-design/icons';
 
 const {
@@ -36,6 +41,7 @@ const {
 const Register = ({ history }) => {
 
     const location = useLocation();
+    const dispatch = useDispatch();
 
     const [email, setEmail] = useState('');
 
@@ -64,6 +70,8 @@ const Register = ({ history }) => {
             });
         }
     }
+
+    const googelLoginAuth = () => googleLogin(dispatch, history);
 
     return (
         <Row>
@@ -97,6 +105,14 @@ const Register = ({ history }) => {
                                 </InputControl>
                             </PopOver>
                             <StyledButton type='submit'>Register</StyledButton>
+                            <Divider orientation='center'>OR USE</Divider>
+                            <Button 
+                                onClick={googelLoginAuth} 
+                                type='danger'
+                                block
+                                icon={<GoogleOutlined />}>
+                                Google
+                            </Button>
                         </StyledForm>
                     </Content>
                 </FormWrapper>
