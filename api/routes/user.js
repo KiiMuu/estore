@@ -1,5 +1,5 @@
-import express from 'express';
-const router = express.Router();
+import { Router } from 'express';
+const router = Router();
 
 // * @desc    get a user
 // * @route   POST /api/user

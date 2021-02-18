@@ -6,10 +6,10 @@ config();
 import colors from 'colors';
 import { readdirSync } from 'fs';
 
-import dbConnection from './config/dbConnection.js';
+import dbConnection from './config/dbConnection';
 import { 
     REQUEST_SIZE_LIMIT 
-} from './utils/contsants.js';
+} from './utils/contsants';
 
 // * app
 const app = express();
