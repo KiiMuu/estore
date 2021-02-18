@@ -4,8 +4,12 @@ import cors from 'cors';
 import { config } from 'dotenv';
 config();
 import colors from 'colors';
-import fs from 'fs';
+import { readdirSync } from 'fs';
+
 import dbConnection from './config/dbConnection.js';
+import { 
+    REQUEST_SIZE_LIMIT 
+} from './utils/contsants.js';
 
 // * app
 const app = express();
@@ -14,14 +18,16 @@ const app = express();
 dbConnection();
 
 // * middlewares
-app.use(express.json({ limit: '2mb' })); // * the maximum request body size. Defaults to '100kb'
+app.use(express.json({ 
+    limit: REQUEST_SIZE_LIMIT // * the maximum request body size. Defaults to '100kb'
+}));
 app.use(morgan('dev'));
 app.use(cors());
 
 // * use routes
-fs.readdirSync('./routes').map(route => {
+readdirSync('./routes').map(route => {
     import(`./routes/${route}`).then(r => {
-        app.use('/api', r.default);
+        app.use('/api', r.default)
     });
 });
 
