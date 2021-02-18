@@ -4,6 +4,7 @@ import cors from 'cors';
 import { config } from 'dotenv';
 config();
 import colors from 'colors';
+import fs from 'fs';
 import dbConnection from './config/dbConnection.js';
 
 // * app
@@ -17,12 +18,14 @@ app.use(express.json({ limit: '2mb' })); // * the maximum request body size. Def
 app.use(morgan('dev'));
 app.use(cors());
 
-// * get routes
-app.get('/api', (req, res) => {
-    res.json({ data: 'my name is ka' });
+// * use routes
+fs.readdirSync('./routes').map(route => {
+    import(`./routes/${route}`).then(r => {
+        app.use('/api', r.default);
+    });
 });
 
-// * app listenning
+// * app listening
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
