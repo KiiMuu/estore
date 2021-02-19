@@ -1,7 +1,8 @@
 import User from '../models/user';
 import { 
     OK,
-    CREATED 
+    CREATED,
+    BAD_REQUEST,
 } from '../utils/contsants';
 
 const createOrUpdateUser = async (req, res) => {
@@ -33,4 +34,22 @@ const createOrUpdateUser = async (req, res) => {
     }
 }
 
-export { createOrUpdateUser }
+const currentUser = async (req, res) => {
+    const { email } = req.user;
+
+    // * `.exec()` gives you a fully-fledged promise
+    User.findOne({ email }).exec((err, user) => {
+        if (err) {
+            return res.status(BAD_REQUEST).json({
+                message: err,
+            });
+        }
+
+        res.status(OK).json(user);
+    });
+}
+
+export { 
+    createOrUpdateUser,
+    currentUser,
+}
