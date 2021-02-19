@@ -6,6 +6,7 @@ const dbConnection = async () => {
             useUnifiedTopology: true,
             useNewUrlParser: true,
             useCreateIndex: true,
+            useFindAndModify: false,
         });
 
         console.log(`DB connected: ${conn.connection.host}`.green.underline);

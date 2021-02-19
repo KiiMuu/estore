@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import axios from 'axios';
 import { auth } from '../../firebase';
 import { isFormValid } from './validate';
 import error from '../../components/layout/message/error';
@@ -42,6 +43,14 @@ const {
     Text
 } = Typography;
 
+const createOrUpdateUser = async authtoken => {
+    return await axios.post(`${process.env.REACT_APP_API}/create-or-update-user`, {}, {
+        headers: {
+            authtoken,
+        }
+    });
+}
+
 const Login = ({ history }) => {
 
     const [email, setEmail] = useState('');
@@ -59,16 +68,22 @@ const Login = ({ history }) => {
                 const result = await auth.signInWithEmailAndPassword(email, password);
                 const { user } = result;
                 const tokenIdResult = await user.getIdTokenResult();
-                
-                dispatch({
-                    type: LOGGED_IN_SUCCESS,
-                    payload: {
-                        email: user.email,
-                        token: tokenIdResult.token,
-                    },
-                });
 
-                history.push('/');
+                createOrUpdateUser(tokenIdResult.token).then(res => {
+                    console.log('CREATE OR UPDATE RES: ', res);
+                }).catch(err => {
+                    console.log(err);
+                });
+                
+                // dispatch({
+                //     type: LOGGED_IN_SUCCESS,
+                //     payload: {
+                //         email: user.email,
+                //         token: tokenIdResult.token,
+                //     },
+                // });
+
+                // history.push('/');
             } catch (err) {
                 dispatch({
                     type: LOGGED_IN_FAIL,

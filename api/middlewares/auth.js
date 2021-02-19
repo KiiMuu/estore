@@ -1,9 +1,21 @@
 import admin from '../firebase';
+import { UNAUTHORIZED } from '../utils/contsants';
 
-const protectRoute = (req, res, next) => {
-    console.log(req.headers);
+const authCheck = async (req, res, next) => {
+    try {
+        // ? get user token from frontend
+        const firebaseUser = await admin.auth().verifyIdToken(req.headers.authtoken);
 
-    next();
+        req.user = firebaseUser;
+
+        next();
+    } catch (err) {
+        console.error(err);
+
+        res.status(UNAUTHORIZED).json({
+            message: 'Invalid or expired token'
+        });
+    }
 }
 
-export { protectRoute }
+export { authCheck }

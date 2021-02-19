@@ -2,14 +2,16 @@ import { Router } from 'express';
 const router = Router();
 
 // * controllers
-import { auth } from '../controllers/auth';
+import { 
+    createOrUpdateUser,
+ } from '../controllers/auth';
 
 // * middlewares
-import { protectRoute } from '../middlewares/auth';
+import { authCheck } from '../middlewares/auth';
 
-// * @desc    Create a user
+// * @desc    Create or update a user
 // * @route   POST /api/create-or-update-user
-// * @access  Private
-router.post('/create-or-update-user', protectRoute, auth);
+// * @access  Public
+router.post('/create-or-update-user', authCheck, createOrUpdateUser);
 
 export default router;
