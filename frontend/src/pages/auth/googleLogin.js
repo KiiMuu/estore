@@ -1,32 +1,42 @@
-import { auth, googleAuth } from '../../firebase';
-import error from '../../components/layout/message/error';
-import {
-    LOGGED_IN_SUCCESS,
-    LOGGED_IN_FAIL,
-} from '../../state/constants/user';
+// import { auth, googleAuth } from '../../firebase';
+// import error from '../../components/layout/message/error';
+// import { createOrUpdateUser } from '../../state/actions/user';
+// import {
+//     LOGGED_IN_SUCCESS,
+//     LOGGED_IN_FAIL,
+// } from '../../state/constants/user';
 
-const googleLogin = async (dispatch, history) => {
-    auth.signInWithPopup(googleAuth).then(async result => {
-        const { user } = result;
-        const tokenIdResult = await user.getIdTokenResult();
+// const googleLogin = history => async dispatch => {
+//     auth.signInWithPopup(googleAuth).then(async result => {
+//         const { user } = result;
+//         const tokenIdResult = await user.getIdTokenResult();
 
-        dispatch({
-            type: LOGGED_IN_SUCCESS,
-            payload: {
-                email: user.email,
-                token: tokenIdResult.token,
-            },
-        });
+//         createOrUpdateUser(tokenIdResult.token).then(res => {
+//             const { name, email, role, _id } = res.data;
 
-        history.push('/');
-    }).catch(err => {
-        dispatch({
-            type: LOGGED_IN_FAIL,
-            payload: err.message,
-        });
+//             dispatch({
+//                 type: LOGGED_IN_SUCCESS,
+//                 payload: {
+//                     name,
+//                     email,
+//                     role,
+//                     _id,
+//                     token: tokenIdResult.token,
+//                 },
+//             });
+//         }).catch(err => {
+//             console.error(err);
+//         });
 
-        error(err.message);
-    });
-}
+//         history.push('/');
+//     }).catch(err => {
+//         dispatch({
+//             type: LOGGED_IN_FAIL,
+//             payload: err.message,
+//         });
 
-export default googleLogin;
+//         error(err.message);
+//     });
+// }
+
+// export default googleLogin;

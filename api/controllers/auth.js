@@ -11,7 +11,7 @@ const createOrUpdateUser = async (req, res) => {
     // * new => return the updated user info, otherwise, you might get old info
     const user = await User.findOneAndUpdate(
         { email }, 
-        { name, picture }, 
+        { name: email.split('@')[0], picture },
         { new: true }
     );
 
@@ -22,7 +22,9 @@ const createOrUpdateUser = async (req, res) => {
         res.status(OK).json(user);
     } else {
         const newUser = await new User({
-            name, email, picture
+            name: email.split('@')[0], 
+            email, 
+            picture
         }).save();
 
         console.log('USER CREATED', newUser);

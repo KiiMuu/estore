@@ -6,7 +6,7 @@ import { isEmailValid } from './validate';
 import success from '../../components/layout/message/success';
 import error from '../../components/layout/message/error';
 import useProtectRoute from '../../hooks/useProtectRoute';
-import googleLogin from './googleLogin';
+import { googleLogin } from '../../state/actions/user';
 
 // styles
 import {
@@ -71,7 +71,7 @@ const Register = ({ history }) => {
         }
     }
 
-    const googelLoginAuth = () => googleLogin(dispatch, history);
+    const googelLoginAuth = () => dispatch(googleLogin(history));
 
     return (
         <Row>

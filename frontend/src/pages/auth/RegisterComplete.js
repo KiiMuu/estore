@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { auth } from '../../firebase';
+import { useDispatch } from 'react-redux';
 import { isFormValid } from './validate';
-import error from '../../components/layout/message/error';
+import { register } from '../../state/actions/user';
 
 // styles
 import {
@@ -33,37 +33,17 @@ const RegisterComplete = ({ history }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const dispatch = useDispatch();
+
     useEffect(() => {
         setEmail(window.localStorage.getItem('registerEmail'));
     }, []);
 
-    const handleSubmit = async e => {
+    const handleSubmit = e => {
         e.preventDefault();
 
         if (isFormValid(email, password)) {
-            try {
-                const result = await auth.signInWithEmailLink(email, window.location.href);
-    
-                if (result.user.emailVerified) {
-                    // remove user email from localStorae
-                    window.localStorage.removeItem('registerEmail');
-    
-                    // get user id token
-                    let user = auth.currentUser;
-    
-                    await user.updatePassword(password);
-    
-                    const tokenIdResult = await user.getIdTokenResult();
-    
-                    // redux store
-                    console.table({ user, tokenIdResult });
-    
-                    // redirect user
-                    history.push('/');
-                }
-            } catch (err) {
-                error(err.message);
-            }
+            dispatch(register(email, password, history));
         }
     }
 

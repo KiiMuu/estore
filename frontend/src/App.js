@@ -18,7 +18,7 @@ const App = () => {
 
     // * check firebase auth state
     useEffect(() => {
-        userAuthState(dispatch);
+        dispatch(userAuthState);
 
         // * clean up
         return () => userAuthState();

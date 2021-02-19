@@ -1,16 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import axios from 'axios';
-import { auth } from '../../firebase';
 import { isFormValid } from './validate';
-import error from '../../components/layout/message/error';
 import useProtectRoute from '../../hooks/useProtectRoute';
-import googleLogin from './googleLogin';
-import { 
-    LOGGED_IN_SUCCESS,
-    LOGGED_IN_FAIL,
-} from '../../state/constants/user';
+import { login, googleLogin } from '../../state/actions/user';
 
 // styles
 import {
@@ -43,14 +36,6 @@ const {
     Text
 } = Typography;
 
-const createOrUpdateUser = async authtoken => {
-    return await axios.post(`${process.env.REACT_APP_API}/create-or-update-user`, {}, {
-        headers: {
-            authtoken,
-        }
-    });
-}
-
 const Login = ({ history }) => {
 
     const [email, setEmail] = useState('');
@@ -60,42 +45,15 @@ const Login = ({ history }) => {
 
     useProtectRoute();
 
-    const handleSubmit = async e => {
+    const handleSubmit = e => {
         e.preventDefault();
 
         if (isFormValid(email, password)) {
-            try {
-                const result = await auth.signInWithEmailAndPassword(email, password);
-                const { user } = result;
-                const tokenIdResult = await user.getIdTokenResult();
-
-                createOrUpdateUser(tokenIdResult.token).then(res => {
-                    console.log('CREATE OR UPDATE RES: ', res);
-                }).catch(err => {
-                    console.log(err);
-                });
-                
-                // dispatch({
-                //     type: LOGGED_IN_SUCCESS,
-                //     payload: {
-                //         email: user.email,
-                //         token: tokenIdResult.token,
-                //     },
-                // });
-
-                // history.push('/');
-            } catch (err) {
-                dispatch({
-                    type: LOGGED_IN_FAIL,
-                    payload: err.message,
-                });
-
-                error(err.message);
-            }
+            dispatch(login(email, password, history));
         }
     }
 
-    const googelLoginAuth = () => googleLogin(dispatch, history);
+    const googelLoginAuth = () => dispatch(googleLogin(history));
 
     return (
         <Row>
