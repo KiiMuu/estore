@@ -31,7 +31,6 @@ import {
     KeyOutlined,
     GoogleOutlined,
 } from '@ant-design/icons';
-import RoleBasedRedirect from '../../private/roleBasedRedirect';
 
 const {
     Text

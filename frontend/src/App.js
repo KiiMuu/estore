@@ -9,6 +9,8 @@ import Register from './pages/auth/Register';
 import RegisterComplete from './pages/auth/RegisterComplete';
 import Login from './pages/auth/Login';
 import ForgotPassword from './pages/auth/ForgotPassword';
+import History from './pages/user/history/History';
+import UserRoute from './components/routes/UserRoute';
 
 // * functions
 import { userAuthState } from './state/actions/user';
@@ -33,6 +35,7 @@ const App = () => {
                 <Route exact path='/register/complete' component={RegisterComplete} />
                 <Route exact path='/login' component={Login} />
                 <Route exact path='/password/forgot' component={ForgotPassword} />
+                <UserRoute exact path='/user/history' component={History} />
             </Switch>
         </Fragment>
     )
