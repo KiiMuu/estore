@@ -1,9 +1,8 @@
-import { Route, useHistory } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import LoadingToRedirect from '../layout/redirect-loading/LoadingToRedirect';
 
 const UserRoute = ({ children, ...rest }) => {
-    const history = useHistory();
-
     const { user } = useSelector(state => ({ ...state }));
     const { userInfo } = user;
 
@@ -12,7 +11,7 @@ const UserRoute = ({ children, ...rest }) => {
             {...rest} 
             render={() => children} 
         />
-    ) : history.goBack();
+    ) : <LoadingToRedirect />;
 }
 
 export default UserRoute;
