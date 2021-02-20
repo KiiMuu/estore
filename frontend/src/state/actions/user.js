@@ -6,29 +6,48 @@ import {
     LOGGED_IN_FAIL,
 } from '../constants/user';
 
-export const userAuthState = () => async dispatch => auth.onAuthStateChanged(async user => {
-    try {
-        if (user) {
-            const tokenIdResult = await user.getIdTokenResult();
+export const currentUser = async authtoken => {
+    return await axios.post('/api/current-user', {}, {
+        headers: {
+            authtoken,
+        }
+    });
+}
 
+export const userAuthState = () => async dispatch => {
+    auth.onAuthStateChanged(async user => {
+        try {
+            if (user) {
+                const tokenIdResult = await user.getIdTokenResult();
+
+                currentUser(tokenIdResult.token).then(res => {
+                    const { name, email, role, _id } = res.data;
+        
+                    dispatch({
+                        type: LOGGED_IN_SUCCESS,
+                        payload: {
+                            name,
+                            email,
+                            role,
+                            _id,
+                            token: tokenIdResult.token,
+                        },
+                    });
+                }).catch(err => {
+                    console.error(err);
+                });
+            }
+        } catch (err) {
             dispatch({
-                type: LOGGED_IN_SUCCESS,
-                payload: {
-                    email: user.email,
-                    token: tokenIdResult.token,
-                },
+                type: LOGGED_IN_FAIL,
+                payload: err.message,
             });
         }
-    } catch (err) {
-        dispatch({
-            type: LOGGED_IN_FAIL,
-            payload: err.message,
-        });
-    }
-});
+    });
+}
 
 export const createOrUpdateUser = async authtoken => {
-    return await axios.post(`${process.env.REACT_APP_API}/create-or-update-user`, {}, {
+    return await axios.post('/api/create-or-update-user', {}, {
         headers: {
             authtoken,
         }
