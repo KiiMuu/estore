@@ -1,5 +1,17 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
+
+// * @antd
+import Spin from 'antd/lib/spin';
+import { LoadingOutlined } from '@ant-design/icons';
+
+const SpinnerContainer = styled.div`
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
 
 const LoadingToRedirect = () => {
     const history = useHistory();
@@ -17,9 +29,13 @@ const LoadingToRedirect = () => {
     }, [count, history]);
 
     return (
-        <div className='container' style={{ display: 'flex', height: '100vh', alignItems: 'center', justifyContent: 'center' }}>
-            <p>You will be redirected in {count}</p>
-        </div>
+        <SpinnerContainer className='container'>
+            <Spin 
+                tip={`You will be redirected in ${count}`} 
+                size='large'
+                indicator={<LoadingOutlined />}
+            />
+        </SpinnerContainer>
     )
 }
 
