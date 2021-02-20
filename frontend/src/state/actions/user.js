@@ -54,6 +54,14 @@ export const createOrUpdateUser = async authtoken => {
     });
 }
 
+export const roleBasedRedirect = (res, history) => {
+    if (res.data.role === 'admin') {
+        history.push('/admin/dashboard');
+    } else {
+        history.push('/user/history');
+    }
+}
+
 export const login = (email, password, history) => async dispatch => {
     try {
         const result = await auth.signInWithEmailAndPassword(email, password);
@@ -73,11 +81,11 @@ export const login = (email, password, history) => async dispatch => {
                     token: tokenIdResult.token,
                 },
             });
+
+            roleBasedRedirect(res, history);
         }).catch(err => {
             console.error(err);
         });
-
-        history.push('/');
     } catch (err) {
         dispatch({
             type: LOGGED_IN_FAIL,
@@ -151,11 +159,11 @@ export const googleLogin = history => async dispatch => {
                         token: tokenIdResult.token,
                     },
                 });
+
+                roleBasedRedirect(res, history);
             }).catch(err => {
                 console.error(err);
             });
-    
-            history.push('/');
         }).catch(err => {
             console.error(err);
         });
