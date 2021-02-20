@@ -9,7 +9,7 @@ const UserRoute = ({ children, ...rest }) => {
     return userInfo?.token ? (
         <Route 
             {...rest} 
-            render={() => children} 
+            render={() => children}
         />
     ) : <LoadingToRedirect />;
 }
