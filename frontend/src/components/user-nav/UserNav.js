@@ -18,12 +18,6 @@ const UserNav = () => {
         <Sider
             breakpoint='md'
             collapsedWidth='0'
-            onBreakpoint={broken => {
-                console.log(broken);
-            }}
-            onCollapse={(collapsed, type) => {
-                console.log(collapsed, type);
-            }}
         >
             <Menu mode='inline' defaultSelectedKeys={['3']}>
                 <ul style={{ marginTop: 65 }}>
@@ -40,7 +34,7 @@ const UserNav = () => {
                         </Link>
                     </li>
                     <li>
-                        <Link key='3' to='/user/password'>
+                        <Link key='3' to='/user/wishlist'>
                             <span><HeartFilled /></span>
                             Wishlist
                         </Link>

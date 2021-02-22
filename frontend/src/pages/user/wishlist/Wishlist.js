@@ -1,13 +1,13 @@
 import UserLayout from '../UserLayout';
 
-const History = () => {
+const Wishlist = () => {
     return (
         <UserLayout>
             <div style={{ minHeight: 360 }}>
-                History
+                Wishlist
             </div>
         </UserLayout>
     )
 }
 
-export default History;
+export default Wishlist;
