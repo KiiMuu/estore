@@ -1,5 +1,10 @@
 import UserNav from '../../components/user-nav/UserNav';
 
+// * styles 
+import {
+    ContentContainer,
+} from './styles';
+
 // * @antd
 import Layout from 'antd/lib/layout';
 
@@ -12,11 +17,10 @@ const UserLayout = ({ children }) => {
         <Layout style={{ height: '100vh' }}>
             <UserNav />
             <Layout>
-                <Content style={{ marginTop: 65 }}>
-                    {/* <div style={{ minHeight: 360 }}>
-                        content
-                    </div> */}
-                    {children}
+                <Content style={{ marginTop: 65, background: '#fff' }}>
+                    <ContentContainer className='container'>
+                        {children}
+                    </ContentContainer>
                 </Content>
             </Layout>
         </Layout>

@@ -1,4 +1,8 @@
-import { lightColor, primaryColor, primaryDarkColor } from './colors';
+import { 
+    lightColor, 
+    primaryColor, 
+    primaryDarkColor 
+} from './colors';
 
 export const linkHover = () => {
     return `
@@ -31,7 +35,7 @@ export const linkHover = () => {
     `;
 }
 
-export const appName = () => {
+export const headingStyle = () => {
     return `
         background-image: linear-gradient(
             to right, 
@@ -43,4 +47,45 @@ export const appName = () => {
         color: transparent;
         font-weight: 900;
     `
+}
+
+export const inputControl = () => {
+    return `
+        position: relative;
+        span {
+            position: absolute;
+            top: 50%;
+            transform: translate(50%, -50%);
+            color: ${primaryColor};
+            font-weight: 900;
+        }
+        input {
+            padding-left: 3rem;
+            border: .2rem solid;
+            border-color: transparent transparent #ddd transparent;
+            outline: none;
+            width: 100%;
+            height: 5rem;
+            background-color: #fff;
+            border-radius: 0;
+        }
+        strong {
+            &:after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                width: 0;
+                height: .2rem;
+                background-color: ${primaryColor};
+                transition: all .3s ease-in-out;
+            }
+        }
+        input:focus + strong {
+            &:after {
+                width: 100%;
+                left: 0;
+            }
+        }
+    `;
 }

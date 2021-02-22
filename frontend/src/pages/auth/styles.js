@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { lightColor, primaryColor } from '../../themes/colors';
 import { descFontSize } from '../../themes/fonts';
 import { boxPadding, topSpace } from '../../themes/spaces';
-import { appName, linkHover } from '../../themes/mixins';
+import { headingStyle, linkHover } from '../../themes/mixins';
 import { registerBoxQuery } from '../../themes/breakpoints';
 
 // @antd
@@ -50,7 +50,7 @@ export const StyledTitle = styled(Title)`
     // for higher specifity;
     // You can use as many & as you want, the more you use the higher the specificity will be!
     && {
-        ${appName};
+        ${headingStyle};
         margin-bottom: .5rem;
     }
 `;

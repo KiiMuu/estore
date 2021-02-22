@@ -4,17 +4,25 @@ import { auth } from '../../../firebase';
 import success from '../../../components/layout/message/success';
 import error from '../../../components/layout/message/error';
 
+// * styles
+import {
+    PasswordWrapper,
+    InputControl,
+    StyledTitle,
+    FormContainer,
+    StyledButton,
+} from '../styles';
+
 // * @antd
 import Typography from 'antd/lib/typography';
-import Button from 'antd/lib/button';
-import Space from 'antd/lib/space';
+import Col from 'antd/lib/col';
+import Row from 'antd/lib/row';
 
 import {
     KeyOutlined,
 } from '@ant-design/icons';
 
 const {
-    Title,
     Text,
 } = Typography;
 
@@ -42,39 +50,44 @@ const Password = () => {
     }
 
     const passwordUpdateForm = () => (
-        <form>
-            <Space size='middle' direction='vertical'>
-                <div>
-                    <span><KeyOutlined /></span>
-                    <input
-                        type='password'
-                        inputMode='text'
-                        value={password}
-                        placeholder='Type new password'
-                        onChange={e => setPassword(e.target.value)}  
-                    />
-                </div>
-                <Button 
-                    onClick={handleSubmit} 
-                    type='primary' 
-                    loading={loading ? true : false}>
-                    Update
-                </Button>
-            </Space>
-        </form>
+        <FormContainer>
+            <InputControl>
+                <span>
+                    <KeyOutlined />
+                </span>
+                <input
+                    type='password'
+                    inputMode='text'
+                    value={password}
+                    placeholder='Type new password'
+                    onChange={e => setPassword(e.target.value)}  
+                />
+                <strong></strong>
+            </InputControl>
+            <StyledButton 
+                onClick={handleSubmit} 
+                type='primary' 
+                loading={loading ? true : false}>
+                Update
+            </StyledButton>
+        </FormContainer>
     )
 
     return (
         <UserLayout>
-            <div style={{ minHeight: 360 }}>
-                <Title level={4}>
-                    Password update
-                </Title>
-                <Text type='secondary'>
-                    update your current password
-                </Text>
-                {passwordUpdateForm()}
-            </div>
+            <Row>
+                <Col xs={24} lg={12}>
+                    <PasswordWrapper>
+                        <StyledTitle level={4}>
+                            Password update
+                        </StyledTitle>
+                        <Text type='secondary'>
+                            update your current password
+                        </Text>
+                        {passwordUpdateForm()}
+                    </PasswordWrapper>
+                </Col>
+            </Row>
         </UserLayout>
     )
 }
