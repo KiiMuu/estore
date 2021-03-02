@@ -35,6 +35,10 @@ export const FormContainer = styled.form`
 
 export const InputControl = styled.div`
     ${inputControl};
+    span:nth-child(2) {
+        right: 1.5rem;
+        cursor: pointer;
+    }
 `;
 
 export const StyledButton = styled(Button)`

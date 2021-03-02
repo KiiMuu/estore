@@ -55,9 +55,8 @@ export const inputControl = () => {
         span {
             position: absolute;
             top: 50%;
-            transform: translate(50%, -50%);
+            transform: translate(0%, -50%);
             color: ${primaryColor};
-            font-weight: 900;
         }
         input {
             padding-left: 3rem;

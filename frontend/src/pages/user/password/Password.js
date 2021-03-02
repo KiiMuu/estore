@@ -20,6 +20,8 @@ import Row from 'antd/lib/row';
 
 import {
     KeyOutlined,
+    EyeInvisibleOutlined,
+    EyeOutlined,
 } from '@ant-design/icons';
 
 const {
@@ -30,6 +32,7 @@ const Password = () => {
 
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -49,14 +52,19 @@ const Password = () => {
         });
     }
 
+    const togglePassword = () => setIsPasswordVisible(!isPasswordVisible);
+
     const passwordUpdateForm = () => (
         <FormContainer>
             <InputControl>
                 <span>
                     <KeyOutlined />
                 </span>
+                <span onClick={togglePassword}>
+                    {isPasswordVisible ? <EyeOutlined /> : <EyeInvisibleOutlined />}
+                </span>
                 <input
-                    type='password'
+                    type={isPasswordVisible ? 'text' : 'password'}
                     inputMode='text'
                     value={password}
                     placeholder='Type new password'
