@@ -1,47 +1,54 @@
-import { Link } from 'react-router-dom';
+// * styled
+import {
+    StyledSider,
+    StyledNavLink,
+    List,
+    ListItem,
+} from './styles';
 
 // * @antd
-import Layout from 'antd/lib/layout';
-import Menu from 'antd/lib/menu';
 import { 
     HeartFilled,
-    UploadOutlined, 
-    UserOutlined,
+    KeyOutlined,
+    HistoryOutlined,
 } from '@ant-design/icons';
-
-const { 
-    Sider 
-} = Layout;
 
 const UserNav = () => {
     return (
-        <Sider
+        <StyledSider
             breakpoint='md'
             collapsedWidth='0'
         >
-            <Menu mode='inline' defaultSelectedKeys={['3']}>
-                <ul style={{ marginTop: 65 }}>
-                    <li>
-                        <Link key='1' to='/user/history'>
-                            <span><UserOutlined /></span>
-                            History
-                        </Link>
-                    </li>
-                    <li>
-                        <Link key='2' to='/user/password'>
-                            <span><UploadOutlined /></span>
-                            Password
-                        </Link>
-                    </li>
-                    <li>
-                        <Link key='3' to='/user/wishlist'>
-                            <span><HeartFilled /></span>
-                            Wishlist
-                        </Link>
-                    </li>
-                </ul>
-            </Menu>
-        </Sider>
+            <List>
+                <StyledNavLink 
+                    to='/user/history' 
+                    activeClassName='isActive'
+                >
+                    <ListItem>
+                        <span><HistoryOutlined /></span>
+                        History
+                    </ListItem>
+                </StyledNavLink>
+                <StyledNavLink 
+                    to='/user/password' 
+                    activeClassName='isActive'
+                >
+                    <ListItem>
+                        <span><KeyOutlined /></span>
+                        Password
+                    </ListItem>
+                </StyledNavLink>
+                <StyledNavLink 
+                    to='/user/wishlist' 
+                    activeClassName='isActive'
+                >
+                    <ListItem>
+                        <span><HeartFilled /></span>
+                        Wishlist
+                    </ListItem>
+                </StyledNavLink>
+            </List>
+        </StyledSider>
     )
 }
 

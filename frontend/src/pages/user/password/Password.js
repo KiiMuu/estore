@@ -60,13 +60,13 @@ const Password = () => {
                     inputMode='text'
                     value={password}
                     placeholder='Type new password'
-                    onChange={e => setPassword(e.target.value)}  
+                    onChange={e => setPassword(e.target.value)}
                 />
                 <strong></strong>
             </InputControl>
-            <StyledButton 
-                onClick={handleSubmit} 
-                type='primary' 
+            <StyledButton
+                onClick={handleSubmit}
+                type='primary'
                 loading={loading ? true : false}>
                 Update
             </StyledButton>
