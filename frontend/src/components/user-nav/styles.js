@@ -7,6 +7,7 @@ import {
     lightColor,
     darkColor,
     primaryDarkColor,
+    primaryColor,
 } from '../../themes/colors';
 
 // * @antd
@@ -31,6 +32,9 @@ export const StyledNavLink = styled(NavLink)`
         background-color: ${primaryDarkColor};
         li {
             color: ${lightColor};
+            span {
+                color: ${lightColor};
+            }
         }
     }
 `;
@@ -45,16 +49,6 @@ export const List = styled.ul`
         &:not(:last-child) {
             margin-bottom: .5rem;
         }
-
-        &:nth-child(1) {
-            span { color: #c0392b; }
-        }
-        &:nth-child(2) {
-            span { color: #2ecc71; }
-        }
-        &:nth-child(3) {
-            span { color: #2980b9; }
-        }
     }
 `;
 
@@ -68,8 +62,12 @@ export const ListItem = styled.li`
     }
     &:hover {
         color: ${lightColor};
+        span {
+            color: ${lightColor};
+        }
     }
     span {
         margin-right: .5rem;
+        color: ${primaryColor};
     }
 `;

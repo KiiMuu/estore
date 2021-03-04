@@ -32,6 +32,7 @@ import {
     UserAddOutlined,
     LoginOutlined,
     SettingOutlined,
+    DashboardOutlined,
     MenuOutlined,
     CloseOutlined,
     LogoutOutlined,
@@ -59,11 +60,21 @@ const Header = () => {
         history.push('/login');
     }
 
+    const adminMenu = (
+        <Menu>
+            <Item icon={<DashboardOutlined />}>
+                <Link to='/admin/dashboard'>Dashboard</Link>
+            </Item>
+            <Divider />
+            <Item icon={<LogoutOutlined />} onClick={logout}>Logout</Item>
+        </Menu>
+    );
+
     const userMenu = (
         <Menu>
-            <Item icon={<LoginOutlined />}>Profile</Item>
-            <Divider />
-            <Item icon={<LoginOutlined />}>Profile</Item>
+            <Item icon={<DashboardOutlined />}>
+                <Link to='/user/history'>Dashboard</Link>
+            </Item>
             <Divider />
             <Item icon={<LogoutOutlined />} onClick={logout}>Logout</Item>
         </Menu>
@@ -104,7 +115,7 @@ const Header = () => {
                             {userInfo && (
                                 <ListItem>
                                     <Dropdown 
-                                        overlay={userMenu} 
+                                        overlay={userInfo?.role === 'subscriber' ? userMenu : adminMenu}
                                         trigger={['click']}
                                     >
                                         <NavItemLink
@@ -166,12 +177,15 @@ const Header = () => {
                                                     icon={<SettingOutlined />}
                                                     title={userInfo?.email.split('@')[0]}
                                                 >
-                                                    <StyledItem icon={<LoginOutlined />}>
-                                                        Profile
-                                                    </StyledItem>
-                                                    <StyledItem icon={<LoginOutlined />}>
-                                                        Profile
-                                                    </StyledItem>
+                                                    {userInfo?.role === 'subscriber' ? (
+                                                        <StyledItem icon={<DashboardOutlined />}>
+                                                            <Link to='/user/history'>Dashboard</Link>
+                                                        </StyledItem>
+                                                    ) : (
+                                                        <StyledItem icon={<DashboardOutlined />}>
+                                                            <Link to='/admin/dashboard'>Dashboard</Link>
+                                                        </StyledItem>
+                                                    )}
                                                     <StyledItem 
                                                         icon={<LogoutOutlined />} 
                                                         onClick={logout}>
