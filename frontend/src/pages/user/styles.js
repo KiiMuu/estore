@@ -1,14 +1,32 @@
 import styled from 'styled-components';
-import { marginTopBox } from '../../themes/spaces';
-import { headingStyle, inputControl } from '../../themes/mixins';
+import { marginTopBox, headerHeight } from '../../themes/spaces';
+import { headingStyle, inputIcon } from '../../themes/mixins';
 
 // * @antd
+import Layout from 'antd/lib/layout';
 import Typography from 'antd/lib/typography';
 import Button from 'antd/lib/button';
 
 const {
     Title,
 } = Typography;
+
+const { 
+    Content,  
+} = Layout;
+
+export const StyledLayout = styled(Layout)`
+    && {
+        height: 100vh;
+    }
+`;
+
+export const StyledContent = styled(Content)`
+    && {
+        margin-top: ${headerHeight};
+        background-color: #fff;
+    }
+`;
 
 export const ContentContainer = styled.div`
     height: 100%;
@@ -34,7 +52,7 @@ export const FormContainer = styled.form`
 `;
 
 export const InputControl = styled.div`
-    ${inputControl};
+    ${inputIcon};
     span:nth-child(2) {
         right: 1.5rem;
         cursor: pointer;

@@ -32,7 +32,7 @@ export const getCategories = () => async dispatch => {
     } catch (err) {
         dispatch({
             type: CATEGORY_LIST_FAIL,
-            payload: err.message,
+            payload: err.response?.data.message ? err.response.data.message : err.message,
         });
     }
 }
@@ -52,7 +52,7 @@ export const getCategory = slug => async dispatch => {
     } catch (err) {
         dispatch({
             type: CATEGORY_SINGLE_FAIL,
-            payload: err.message,
+            payload: err.response?.data.message ? err.response.data.message : err.message,
         });
     }
 }
@@ -69,7 +69,7 @@ export const createCategory = (category, authtoken) => async dispatch => {
             }
         }
     
-        const { data } = await axios.post(`/api/category`, category, config);
+        const { data } = await axios.post('/api/category', category, config);
     
         dispatch({
             type: CATEGORY_CREATE_SUCCESS,
@@ -78,9 +78,15 @@ export const createCategory = (category, authtoken) => async dispatch => {
     } catch (err) {
         dispatch({
             type: CATEGORY_CREATE_FAIL,
-            payload: err.message,
+            payload: err.response?.data.message ? err.response.data.message : err.message,
         });
     }
+
+    // await axios.post('/api/category', category, {
+    //     headers: {
+    //         authtoken,
+    //     }
+    // }).then(res => console.log(res)).catch(err => console.log(err));
 }
 
 export const updateCategory = (slug, category, authtoken) => async dispatch => {
@@ -104,7 +110,7 @@ export const updateCategory = (slug, category, authtoken) => async dispatch => {
     } catch (err) {
         dispatch({
             type: CATEGORY_UPDATE_FAIL,
-            payload: err.message,
+            payload: err.response?.data.message ? err.response.data.message : err.message,
         });
     }
 }
@@ -129,7 +135,7 @@ export const deleteCategory = (slug, authtoken) => async (dispatch, getState) =>
     } catch (err) {
         dispatch({
             type: CATEGORY_DELETE_FAIL,
-            payload: err.message,
+            payload: err.response?.data.message ? err.response.data.message : err.message,
         });
     }
 }

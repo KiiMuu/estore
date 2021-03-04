@@ -1,4 +1,4 @@
-import UserNav from '../../components/user-nav/UserNav';
+import AdminNav from '../../components/user-nav/AdminNav';
 
 // * styles 
 import {
@@ -10,10 +10,10 @@ import {
 // * @antd
 import Layout from 'antd/lib/layout';
 
-const UserLayout = ({ children }) => {
+const AdminLayout = ({ children }) => {
     return (
         <StyledLayout>
-            <UserNav />
+            <AdminNav />
             <Layout>
                 <StyledContent>
                     <ContentContainer className='container'>
@@ -25,4 +25,4 @@ const UserLayout = ({ children }) => {
     )
 }
 
-export default UserLayout;
+export default AdminLayout;

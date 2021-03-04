@@ -49,7 +49,7 @@ export const headingStyle = () => {
     `
 }
 
-export const inputControl = () => {
+export const inputIcon = () => {
     return `
         position: relative;
         span {

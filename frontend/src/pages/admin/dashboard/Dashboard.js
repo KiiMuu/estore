@@ -1,8 +1,10 @@
+import AdminLayout from '../AdminLayout';
+
 const Dashboard = () => {
     return (
-        <div>
+        <AdminLayout>
             Admin Dash
-        </div>
+        </AdminLayout>
     )
 }
 

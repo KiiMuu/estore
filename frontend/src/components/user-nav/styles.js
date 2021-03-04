@@ -1,11 +1,9 @@
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { headerHeight } from '../../themes/spaces';
-import { defaultFontSize } from '../../themes/fonts';
 import { linkHover } from '../../themes/mixins';
 import {
     lightColor,
-    darkColor,
     primaryDarkColor,
     primaryColor,
 } from '../../themes/colors';
@@ -42,7 +40,6 @@ export const StyledNavLink = styled(NavLink)`
 export const List = styled.ul`
     padding: 2rem .5rem;
     list-style: none;
-    font-size: ${defaultFontSize};
     a {
         display: block;
         background-color: rgb(0 0 0 / 3%);
@@ -53,8 +50,8 @@ export const List = styled.ul`
 `;
 
 export const ListItem = styled.li`
-    padding: .5rem 1.5rem;
-    color: ${darkColor};
+    padding: 1rem 1.5rem;
+    color: #000;
     z-index: 1;
     ${linkHover};
     &::before {
