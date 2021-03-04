@@ -1,4 +1,5 @@
 import admin from '../firebase';
+import User from '../models/user';
 import { UNAUTHORIZED } from '../utils/contsants';
 
 const authCheck = async (req, res, next) => {
@@ -18,4 +19,18 @@ const authCheck = async (req, res, next) => {
     }
 }
 
-export { authCheck }
+const adminCheck = async (req, res, next) => {
+    const { email } = req.user;
+
+    const adminUser = await User.findOne({ email }).exec();
+
+    if (adminUser.role !== 'admin') {
+        res.status(UNAUTHORIZED).json({
+            message: 'Admin resource. Access denied.'
+        });
+    } else {
+        next();
+    }
+}
+
+export { authCheck, adminCheck }

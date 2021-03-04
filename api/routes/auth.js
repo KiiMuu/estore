@@ -8,16 +8,24 @@ import {
  } from '../controllers/auth';
 
 // * middlewares
-import { authCheck } from '../middlewares/auth';
+import { 
+    authCheck,
+    adminCheck,
+} from '../middlewares/auth';
 
 // * @desc    Create or update a user
 // * @route   POST /api/create-or-update-user
 // * @access  Public
 router.post('/create-or-update-user', authCheck, createOrUpdateUser);
 
-// * @desc    Get current user
+// * @desc    Post current user
 // * @route   POST /api/current-user
 // * @access  Private
 router.post('/current-user', authCheck, currentUser);
+
+// * @desc    Post current admin
+// * @route   POST /api/current-admin
+// * @access  Private
+router.post('/current-admin', authCheck, adminCheck, currentUser);
 
 export default router;
