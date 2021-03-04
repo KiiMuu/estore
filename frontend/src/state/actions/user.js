@@ -14,6 +14,14 @@ export const currentUser = async authtoken => {
     });
 }
 
+export const currentAdmin = async authtoken => {
+    return await axios.post('/api/current-admin', {}, {
+        headers: {
+            authtoken,
+        }
+    });
+}
+
 export const userAuthState = () => async dispatch => {
     auth.onAuthStateChanged(async user => {
         try {
