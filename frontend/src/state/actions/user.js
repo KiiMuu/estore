@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { auth, googleAuth } from '../../firebase';
-import error from '../../components/layout/message/error';
+import errorAlert from '../../components/layout/message/errorAlert';
 import {
     LOGGED_IN_SUCCESS,
     LOGGED_IN_FAIL,
@@ -100,7 +100,7 @@ export const login = (email, password, history) => async dispatch => {
             payload: err.message,
         });
 
-        error(err.message);
+        errorAlert(err.message);
     }
 }
 
@@ -144,7 +144,7 @@ export const register = (email, password, history) => async dispatch => {
             payload: err.message,
         });
         
-        error(err.message);
+        errorAlert(err.message);
     }
 }
 
@@ -181,6 +181,6 @@ export const googleLogin = history => async dispatch => {
             payload: err.message,
         });
 
-        error(err.message);
+        errorAlert(err.message);
     }
 }

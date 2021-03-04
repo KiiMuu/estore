@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import UserLayout from '../UserLayout';
 import { auth } from '../../../firebase';
-import success from '../../../components/layout/message/success';
-import error from '../../../components/layout/message/error';
+import successAlert from '../../../components/layout/message/successAlert';
+import errorAlert from '../../../components/layout/message/errorAlert';
 
 // * styles
 import {
@@ -42,13 +42,13 @@ const Password = () => {
         await auth.currentUser.updatePassword(password).then(() => {
             setLoading(false);
 
-            success('Password updated successfully');
+            successAlert('Password updated successfully');
 
             setPassword('');
         }).catch(err => {
             setLoading(false);
 
-            error(err.message);
+            errorAlert(err.message);
         });
     }
 

@@ -3,8 +3,8 @@ import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { auth } from '../../firebase';
 import { isEmailValid } from './validate';
-import success from '../../components/layout/message/success';
-import error from '../../components/layout/message/error';
+import successAlert from '../../components/layout/message/successAlert';
+import errorAlert from '../../components/layout/message/errorAlert';
 import useProtectRoute from '../../hooks/useProtectRoute';
 import { googleLogin } from '../../state/actions/user';
 
@@ -58,7 +58,7 @@ const Register = ({ history }) => {
             }
     
             await auth.sendSignInLinkToEmail(email, config).then(() => {
-                success(`Email is sent to ${email}. Click the link to complete registration.`);
+                successAlert(`Email is sent to ${email}. Click the link to complete registration.`);
     
                 // save user email in localStorage
                 // for non-repeat typing the same email in redirection
@@ -66,7 +66,7 @@ const Register = ({ history }) => {
         
                 setEmail('');
             }).catch(err => {
-                error(err.message);
+                errorAlert(err.message);
             });
         }
     }

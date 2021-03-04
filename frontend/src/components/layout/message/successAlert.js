@@ -1,6 +1,6 @@
 import message from 'antd/lib/message';
 
-const success = msgText => message.success({
+const successAlert = msgText => message.success({
     content: msgText, 
     style: {
         fontSize: '1.35rem',
@@ -9,4 +9,4 @@ const success = msgText => message.success({
     duration: 10
 });
 
-export default success;
+export default successAlert;

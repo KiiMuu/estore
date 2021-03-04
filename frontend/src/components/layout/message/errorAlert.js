@@ -1,6 +1,6 @@
 import message from 'antd/lib/message';
 
-const error = msgText => message.error({
+const errorAlert = msgText => message.error({
     content: msgText, 
     style: {
         fontSize: '1.35rem',
@@ -9,4 +9,4 @@ const error = msgText => message.error({
     duration: 10
 });
 
-export default error;
+export default errorAlert;

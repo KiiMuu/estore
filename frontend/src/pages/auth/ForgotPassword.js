@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { auth } from '../../firebase';
 import { isEmailValid } from './validate';
-import error from '../../components/layout/message/error';
-import success from '../../components/layout/message/success';
+import errorAlert from '../../components/layout/message/errorAlert';
+import successAlert from '../../components/layout/message/successAlert';
 import useProtectRoute from '../../hooks/useProtectRoute';
 
 // styles
@@ -45,11 +45,11 @@ const ForgotPassword = ({ history }) => {
             }
 
             await auth.sendPasswordResetEmail(email, config).then(() => {
-                success(`Email is sent to ${email}. Click the link to reset password.`);
+                successAlert(`Email is sent to ${email}. Click the link to reset password.`);
 
                 setEmail('');
             }).catch(err => {
-                error(err.message);
+                errorAlert(err.message);
             });
         }
     }
