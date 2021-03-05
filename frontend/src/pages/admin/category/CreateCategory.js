@@ -32,6 +32,7 @@ import { CATEGORY_CREATE_RESET } from '../../../state/constants/category';
 
 const CreateCategory = () => {
     const [name, setName] = useState('');
+    const [searchTerm, setSearchTerm] = useState('');
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
 
@@ -76,6 +77,16 @@ const CreateCategory = () => {
             setConfirmLoading(false);
         }
     }, [category?.name, error, success, dispatch]);
+
+    const handleSearch = e => {
+        e.preventDefault();
+
+        setSearchTerm(e.target.value.toLowerCase());
+    }
+
+    const searched = term => c => {
+        return c.name.toLowerCase().includes(term);
+    }
     
     const categoryForm = () => (
         <Modal
@@ -123,7 +134,9 @@ const CreateCategory = () => {
                                 <input
                                     type='text'
                                     inputMode='text'
-                                    placeholder='Search in categories'
+                                    placeholder='Filter categories'
+                                    value={searchTerm}
+                                    onChange={handleSearch}
                                 />
                                 <strong></strong>
                             </InputControl>
@@ -138,7 +151,7 @@ const CreateCategory = () => {
                         </AddButton>
                     </Col>
                 </Row>
-                <Categories />
+                <Categories searched={searched} searchTerm={searchTerm} />
             </CategoriesWrapper>
         </AdminLayout>
     )

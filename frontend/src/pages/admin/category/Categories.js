@@ -19,7 +19,7 @@ import {
     LoadingOutlined,
 } from '@ant-design/icons';
 
-const Categories = () => {
+const Categories = ({ searched, searchTerm }) => {
     const dispatch = useDispatch();
 
     // * categories state
@@ -40,9 +40,13 @@ const Categories = () => {
                 <StyledPageHeader
                     subTitle='No categories added yet, once you add categories they will be listed here'
                 />
+            ) : categories?.filter(searched(searchTerm)).length === 0 ? (
+                <StyledPageHeader
+                    subTitle='No categories matched your keyword'
+                />
             ) : categories?.map(category => (
                 <SingleCategory 
-                    category={category} 
+                    category={category}
                     key={category._id} 
                 />
             ))}
