@@ -2,12 +2,11 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AdminLayout from '../AdminLayout';
 import { 
-    createCategory, 
-    getCategories, 
-    deleteCategory,
+    createCategory, getCategories, 
 } from '../../../state/actions/category';
 import successAlert from '../../../components/layout/message/successAlert';
 import errorAlert from '../../../components/layout/message/errorAlert';
+import Categories from './Categories';
 
 // * styles 
 import {
@@ -57,11 +56,13 @@ const CreateCategory = () => {
     
     useEffect(() => {
         if (success) {
-            successAlert(`"${category.name}" created`);
+            successAlert(`"${category.name}" has been created`);
 
             setConfirmLoading(false);
 
             setName('');
+
+            dispatch(getCategories());
         }
 
         if (error) {
@@ -69,7 +70,7 @@ const CreateCategory = () => {
 
             setConfirmLoading(false);
         }
-    }, [category?.name, error, success]);
+    }, [category?.name, error, success, dispatch]);
     
     const categoryForm = () => (
         <Modal
@@ -132,6 +133,7 @@ const CreateCategory = () => {
                         </AddButton>
                     </Col>
                 </Row>
+                <Categories />
             </CategoriesWrapper>
         </AdminLayout>
     )

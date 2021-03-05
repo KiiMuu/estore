@@ -81,12 +81,6 @@ export const createCategory = (category, authtoken) => async dispatch => {
             payload: err.response?.data.message ? err.response.data.message : err.message,
         });
     }
-
-    // await axios.post('/api/category', category, {
-    //     headers: {
-    //         authtoken,
-    //     }
-    // }).then(res => console.log(res)).catch(err => console.log(err));
 }
 
 export const updateCategory = (slug, category, authtoken) => async dispatch => {
@@ -127,10 +121,11 @@ export const deleteCategory = (slug, authtoken) => async (dispatch, getState) =>
             }
         }
     
-        await axios.delete(`/api/category/${slug}`, config);
+        const { data } = await axios.delete(`/api/category/${slug}`, config);
     
         dispatch({
             type: CATEGORY_DELETE_SUCCESS,
+            payload: data,
         });
     } catch (err) {
         dispatch({

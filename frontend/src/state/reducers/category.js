@@ -30,7 +30,7 @@ export const categoryListReducer = (state = initialCategoriesList, action) => {
             }
         case CATEGORY_LIST_SUCCESS:
             return {
-                category: action.payload,
+                categories: action.payload,
                 loading: false,
                 success: true,
             }
@@ -134,6 +134,7 @@ export const categoryDeleteReducer = (state = initialCategoryDelete, action) => 
             }
         case CATEGORY_DELETE_SUCCESS:
             return {
+                removedCategory: action.payload,
                 success: true,
                 loading: false,
             }

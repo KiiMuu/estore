@@ -56,9 +56,7 @@ const updateCategory = async (req, res) => {
             { new: true }
         );
 
-        res.status(OK).json({
-            message: `${updatedCategory.name} updated successfully`
-        });
+        res.status(OK).json(updatedCategory);
     } catch (err) {
         res.status(BAD_REQUEST).json({
             message: 'Category updating failed'
@@ -72,9 +70,7 @@ const removeCategory = async (req, res) => {
 
         const removedCategory = await Category.findOneAndDelete({ slug });
 
-        res.status(OK).json({
-            message: `${removedCategory.name} deleted successfully`
-        });
+        res.status(OK).json(removedCategory);
     } catch (err) {
         res.status(BAD_REQUEST).json({
             message: 'Category deletion failed'
