@@ -14,8 +14,8 @@ import {
     CategoriesWrapper,
     StyledTitle,
     StyledText,
-    StyledButton,
-    SearchField,
+    InputLabel,
+    InputControl,
     AddButton,
 } from './styles';
 
@@ -26,15 +26,14 @@ import Modal from 'antd/lib/modal';
 import Button from 'antd/lib/button';
 
 import {
-    // KeyOutlined,
-    // EyeInvisibleOutlined,
-    // EyeOutlined,
     PlusOutlined,
+    SearchOutlined,
 } from '@ant-design/icons';
 
 const CreateCategory = () => {
     const [name, setName] = useState('');
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [confirmLoading, setConfirmLoading] = useState(false);
 
     const handleModalVisible = () => setIsModalVisible(!isModalVisible);
 
@@ -51,6 +50,8 @@ const CreateCategory = () => {
     const handleSubmit = e => {
         e.preventDefault();
 
+        setConfirmLoading(true);
+
         dispatch(createCategory({ name }, userInfo.token));
     }
     
@@ -58,11 +59,15 @@ const CreateCategory = () => {
         if (success) {
             successAlert(`"${category.name}" created`);
 
+            setConfirmLoading(false);
+
             setName('');
         }
 
         if (error) {
             errorAlert(error);
+
+            setConfirmLoading(false);
         }
     }, [category?.name, error, success]);
     
@@ -71,27 +76,24 @@ const CreateCategory = () => {
             title='Create new category'
             centered
             visible={isModalVisible}
-            onOk={handleModalVisible}
+            onOk={handleSubmit}
+            confirmLoading={confirmLoading}
+            okText={loading ? 'Creating...' : 'Create'}
             onCancel={handleModalVisible}
         >
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Name</label>
+                <InputLabel>
+                    <label htmlFor='categoryName'>Category Name</label>
                     <input
                         type='text'
+                        id='categoryName'
                         inputMode='text'
                         placeholder='Enter category name'
                         value={name}
                         onChange={e => setName(e.target.value)}
+                        autoFocus
                     />
-                </div>
-                <StyledButton
-                    onClick={handleSubmit}
-                    type='primary'
-                    loading={loading ? true : false}
-                >
-                    {loading ? 'Creating...' : 'Create'}
-                </StyledButton>
+                </InputLabel>
             </form>
         </Modal>
     ) 
@@ -105,13 +107,23 @@ const CreateCategory = () => {
                 <StyledText type='secondary'>
                     Create, update or remove categories
                 </StyledText>
-                <Row gutter={[10, 10]}>
-                    <Col xs={24} lg={12}>
-                        <SearchField>
-                            <input type='text' placeholder='Search in categories' />
-                        </SearchField>
+                <Row gutter={[10, 10]} align='top'>
+                    <Col xs={24} sm={12}>
+                        <div>
+                            <InputControl>
+                                <span>
+                                    <SearchOutlined />
+                                </span>
+                                <input
+                                    type='text'
+                                    inputMode='text'
+                                    placeholder='Search in categories'
+                                />
+                                <strong></strong>
+                            </InputControl>
+                        </div>
                     </Col>
-                    <Col xs={24} lg={12}>
+                    <Col xs={24} sm={12}>
                         <AddButton>
                             <Button type='primary' onClick={() => handleModalVisible()}>
                                 <PlusOutlined /> Create

@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import { headingStyle } from '../../../themes/mixins';
+import { headingStyle, inputIcon, inputLabel } from '../../../themes/mixins';
 import { marginBottomBox } from '../../../themes/spaces';
 
 // * @antd
 import Typography from 'antd/lib/typography';
-import Button from 'antd/lib/button';
+import { addButtonQuery } from '../../../themes/breakpoints';
 
 const {
     Title,
@@ -32,13 +32,20 @@ export const StyledText = styled(Text)`
     }
 `;
 
-export const StyledButton = styled(Button)`
-    margin-top: 1.5rem;
+export const InputLabel = styled.div`
+    ${inputLabel};
 `;
 
-export const SearchField = styled.div``;
+export const InputControl = styled.div`
+    ${inputIcon};
+    margin-top: -1rem;
+    input {
+        height: 4rem;
+    }
+`;
 
 export const AddButton = styled.div`
     display: flex;
     justify-content: flex-end;
+    ${addButtonQuery};
 `;

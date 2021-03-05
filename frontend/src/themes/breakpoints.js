@@ -7,3 +7,11 @@ export const registerBoxQuery = () => {
         }
     `;
 }
+
+export const addButtonQuery = () => {
+    return `
+        @media screen and (max-width: 576px) {
+            justify-content: flex-start;
+        }
+    `;
+}

@@ -88,3 +88,26 @@ export const inputIcon = () => {
         }
     `;
 }
+
+export const inputLabel = () => {
+    return `
+        label {
+            display: block;
+            color: #000;
+            font-weight: 500;
+            margin-bottom: .2rem;
+        }
+        input {
+            width: 100%;
+            outline: none;
+            height: 4rem;
+            padding-left: 1rem;
+            border: .1rem solid rgba(0 0 0 / 10%);
+            &:focus {
+                box-shadow: 0 0 .2rem .2rem ${primaryDarkColor};
+                border: .1rem solid ${primaryColor};
+                transition: all .15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            }
+        }
+    `;
+}
