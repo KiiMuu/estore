@@ -9,13 +9,16 @@
   "type": "module",
   "scripts": {
     "start": "node --experimental-specifier-resolution=node app",
-    "server": "nodemon --experimental-specifier-resolution=node app"
+    "server": "nodemon --experimental-specifier-resolution=node app",
+    "frontend": "npm start --prefix ../frontend",
+    "dev": "concurrently \"npm run server\" \"npm run frontend\""
   },
   "keywords": [],
   "author": "Kariim Muhamad",
   "license": "ISC",
   "dependencies": {
     "colors": "^1.4.0",
+    "concurrently": "^6.0.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
