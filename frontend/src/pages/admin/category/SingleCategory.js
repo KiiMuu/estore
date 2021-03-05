@@ -1,7 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { 
-    deleteCategory, getCategories,
+    deleteCategory, 
+    getCategories,
+    updateCategory,
 } from '../../../state/actions/category';
 
 // * styles
@@ -15,12 +17,16 @@ import Popover from 'antd/lib/popover';
 import Button from 'antd/lib/button';
 import Divider from 'antd/lib/divider';
 import {
-    DeleteOutlined,
+    DeleteOutlined, 
+    LoadingOutlined,
 } from '@ant-design/icons';
 import errorAlert from '../../../components/layout/message/errorAlert';
 import successAlert from '../../../components/layout/message/successAlert';
+import { CATEGORY_UPDATE_RESET } from '../../../state/constants/category';
 
 const SingleCategory = ({ category }) => {
+    const [name, setName] = useState(category.name);
+
     const dispatch = useDispatch();
 
     // * user state
@@ -28,6 +34,14 @@ const SingleCategory = ({ category }) => {
     const { userInfo } = user;
 
     // * category state
+    const categoryUpdating = useSelector(state => state.categoryUpdate);
+    const {
+        updatedCategory,
+        error: updateError,
+        success: updateSuccess,
+        loading: updateLoading,
+    } = categoryUpdating;
+
     const categoryDeletion = useSelector(state => state.categoryDelete);
     const { 
         removedCategory,
@@ -35,9 +49,29 @@ const SingleCategory = ({ category }) => {
         success,
     } = categoryDeletion;
 
+    const handleUpdateCategory = slug => {
+        dispatch(updateCategory(slug, { name }, userInfo.token));
+    }
+
     const handleDeleteCategory = slug => {
         dispatch(deleteCategory(slug, userInfo.token));
     }
+
+    useEffect(() => {
+        if (updateError) {
+            errorAlert(updateError);
+        }
+
+        if (updateSuccess && updatedCategory.name === name) {
+            dispatch({
+                type: CATEGORY_UPDATE_RESET,
+            });
+
+            successAlert(`"${category?.name}" has been updated to "${updatedCategory?.name}"`);
+
+            dispatch(getCategories());
+        }
+    }, [updateError, updateSuccess, category, updatedCategory, name, dispatch]);
 
     useEffect(() => {
         if (error) {
@@ -57,9 +91,15 @@ const SingleCategory = ({ category }) => {
                     <input 
                         type='text' 
                         placeholder='Type a new name'
-                        // value={category.name}
+                        value={name}
+                        onChange={e => setName(e.target.value)}
                     />
-                    <Button size='small' type='primary'>Update</Button>
+                    <Button 
+                        size='small' 
+                        type='primary'
+                        onClick={() => handleUpdateCategory(category.slug)}>
+                        {updateLoading ? <LoadingOutlined /> : 'Update'}
+                    </Button>
                 </Space>
             </form>
             <Divider />

@@ -28,6 +28,7 @@ import {
     PlusOutlined,
     SearchOutlined,
 } from '@ant-design/icons';
+import { CATEGORY_CREATE_RESET } from '../../../state/constants/category';
 
 const CreateCategory = () => {
     const [name, setName] = useState('');
@@ -56,6 +57,10 @@ const CreateCategory = () => {
     
     useEffect(() => {
         if (success) {
+            dispatch({
+                type: CATEGORY_CREATE_RESET,
+            });
+
             successAlert(`"${category.name}" has been created`);
 
             setConfirmLoading(false);

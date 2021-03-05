@@ -106,7 +106,7 @@ export const categoryUpdateReducer = (state = initialCategoryUpdate, action) => 
             }
         case CATEGORY_UPDATE_SUCCESS:
             return {
-                category: action.payload,
+                updatedCategory: action.payload,
                 success: true,
                 loading: false,
             }

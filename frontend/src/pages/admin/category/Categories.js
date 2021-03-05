@@ -3,21 +3,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { 
     getCategories, 
 } from '../../../state/actions/category';
+import SingleCategory from './SingleCategory';
 
 // * styles
 import {
     StyledCategories,
     Loader,
+    StyledPageHeader,
 } from './styles';
 
 // * @antd
 import Space from 'antd/lib/space';
 import Result from 'antd/lib/result';
-import Alert from 'antd/lib/alert';
 import {
     LoadingOutlined,
 } from '@ant-design/icons';
-import SingleCategory from './SingleCategory';
 
 const Categories = () => {
     const dispatch = useDispatch();
@@ -37,7 +37,9 @@ const Categories = () => {
     const catsItems = () => (
         <Space size={[8, 10]} wrap>
             {categories?.length === 0 ? (
-                <Alert message='No categories' type='info' />
+                <StyledPageHeader
+                    subTitle='No categories added yet, once you add categories they will be listed here'
+                />
             ) : categories?.map(category => (
                 <SingleCategory 
                     category={category} 

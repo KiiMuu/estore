@@ -9,10 +9,11 @@ import {
     marginTopBox 
 } from '../../../themes/spaces';
 import { addButtonQuery } from '../../../themes/breakpoints';
+import { primaryColor } from '../../../themes/colors';
 
 // * @antd
 import Typography from 'antd/lib/typography';
-import { primaryColor } from '../../../themes/colors';
+import PageHeader from 'antd/lib/page-header';
 
 const {
     Title,
@@ -83,4 +84,9 @@ export const Loader = styled.div`
     color: ${primaryColor};
     font-size: 2.5rem;
     text-align: center;
+`;
+
+
+export const StyledPageHeader = styled(PageHeader)`
+    border: 1px solid rgba(0 0 0 / 10%);
 `;
