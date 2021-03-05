@@ -16,6 +16,12 @@ import {
     adminCheck,
 } from '../middlewares/auth';
 
+// * validators
+import { runValidation } from '../validators';
+import {
+    categoryCreateValidator,
+} from '../validators/category';
+
 // * @desc    Create a new category
 // * @route   POST /api/category
 // * @access  Private
@@ -23,6 +29,8 @@ router.post(
     '/category',
     authCheck, 
     adminCheck, 
+    categoryCreateValidator,
+    runValidation,
     createCategory
 );
 
@@ -49,6 +57,8 @@ router.put(
     '/category/:slug', 
     authCheck, 
     adminCheck, 
+    categoryCreateValidator,
+    runValidation,
     updateCategory
 );
 
