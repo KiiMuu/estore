@@ -1,0 +1,21 @@
+export const SUB_CATEGORY_LIST_REQUEST = Symbol('SUB_CATEGORY_LIST_REQUEST').description;
+export const SUB_CATEGORY_LIST_SUCCESS = Symbol('SUB_CATEGORY_LIST_SUCCESS').description;
+export const SUB_CATEGORY_LIST_FAIL = Symbol('SUB_CATEGORY_LIST_FAIL').description;
+
+export const SUB_CATEGORY_SINGLE_REQUEST = Symbol('SUB_CATEGORY_SINGLE_REQUEST').description;
+export const SUB_CATEGORY_SINGLE_SUCCESS = Symbol('SUB_CATEGORY_SINGLE_SUCCESS').description;
+export const SUB_CATEGORY_SINGLE_FAIL = Symbol('SUB_CATEGORY_SINGLE_FAIL').description;
+
+export const SUB_CATEGORY_CREATE_REQUEST = Symbol('SUB_CATEGORY_CREATE_REQUEST').description;
+export const SUB_CATEGORY_CREATE_SUCCESS = Symbol('SUB_CATEGORY_CREATE_SUCCESS').description;
+export const SUB_CATEGORY_CREATE_FAIL = Symbol('SUB_CATEGORY_CREATE_FAIL').description;
+export const SUB_CATEGORY_CREATE_RESET = Symbol('SUB_CATEGORY_CREATE_RESET').description;
+
+export const SUB_CATEGORY_UPDATE_REQUEST = Symbol('SUB_CATEGORY_UPDATE_REQUEST').description;
+export const SUB_CATEGORY_UPDATE_SUCCESS = Symbol('SUB_CATEGORY_UPDATE_SUCCESS').description;
+export const SUB_CATEGORY_UPDATE_FAIL = Symbol('SUB_CATEGORY_UPDATE_FAIL').description;
+export const SUB_CATEGORY_UPDATE_RESET = Symbol('SUB_CATEGORY_UPDATE_RESET').description;
+
+export const SUB_CATEGORY_DELETE_REQUEST = Symbol('SUB_CATEGORY_DELETE_REQUEST').description;
+export const SUB_CATEGORY_DELETE_SUCCESS = Symbol('SUB_CATEGORY_DELETE_SUCCESS').description;
+export const SUB_CATEGORY_DELETE_FAIL = Symbol('SUB_CATEGORY_DELETE_FAIL').description;

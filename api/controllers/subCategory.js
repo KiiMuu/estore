@@ -4,10 +4,11 @@ import { BAD_REQUEST, CREATED, NOT_FOUND, OK } from '../utils/contsants';
 
 const createSubCategory = async (req, res) => {
     try {
-        const { name } = req.body;
+        const { name, parent } = req.body;
 
         const subCategory = await new SubCategory({ 
             name, 
+            parent,
             slug: slugify(name)
         }).save();
 
@@ -21,7 +22,11 @@ const createSubCategory = async (req, res) => {
 
 const getSubCategories = async (req, res) => {
     try {
-        const subCategories = await SubCategory.find({}).sort({ createdAt: -1 }).exec();
+        const subCategories = await SubCategory
+        .find({})
+        .sort({ createdAt: -1 })
+        .populate('parent', 'name')
+        .exec();
     
         res.status(OK).json(subCategories);
     } catch (err) {
@@ -47,12 +52,12 @@ const getSubCategory = async (req, res) => {
 
 const updateSubCategory = async (req, res) => {
     const slug = req.params.slug;
-    const { name } = req.body;
+    const { name, parent } = req.body;
 
     try {
         const updatedSubCategory = await SubCategory.findOneAndUpdate(
             { slug }, 
-            { name, slug: slugify(name) },
+            { name, parent, slug: slugify(name) },
             { new: true }
         );
 

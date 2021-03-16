@@ -2,12 +2,15 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AdminLayout from '../AdminLayout';
 import { 
-    createCategory, getCategories, 
+    createSubCategory, getSubCategories, 
+} from '../../../state/actions/subCategory';
+import { 
+     getCategories,
 } from '../../../state/actions/category';
 import successAlert from '../../../components/layout/message/successAlert';
 import errorAlert from '../../../components/layout/message/errorAlert';
-import Categories from './Categories';
-import { CATEGORY_CREATE_RESET } from '../../../state/constants/category';
+import SubCategories from './SubCategories';
+import { SUB_CATEGORY_CREATE_RESET } from '../../../state/constants/subCategory';
 import useUserHook from '../../../hooks/useUserHook';
 
 // * styles 
@@ -18,21 +21,26 @@ import {
     InputLabel,
     InputControl,
     AddButton,
-} from './styles';
+    StyledSelect,
+} from '../category/styles';
 
 // * @antd
 import Col from 'antd/lib/col';
 import Row from 'antd/lib/row';
 import Modal from 'antd/lib/modal';
 import Button from 'antd/lib/button';
+import Select from 'antd/lib/select';
 
 import {
     PlusOutlined,
     SearchOutlined,
 } from '@ant-design/icons';
 
-const CreateCategory = () => {
+const { Option } = Select;
+
+const CreateSubCategory = () => {
     const [name, setName] = useState('');
+    const [parentCategory, setParentCategory] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
@@ -44,31 +52,35 @@ const CreateCategory = () => {
     // * user state
     const { userInfo } = useUserHook();
 
-    // * category state
-    const categoryCreation = useSelector(state => state.categoryCreate);
-    const { success, error, loading, category } = categoryCreation;
+    // * sub category state
+    const subCategoryCreation = useSelector(state => state.subCategoryCreate);
+    const { success, error, loading, subCategory } = subCategoryCreation;
+
+    // * categories state
+    const catsList = useSelector(state => state.categoryList);
+    const { categories } = catsList;
     
     const handleSubmit = e => {
         e.preventDefault();
 
         setConfirmLoading(true);
 
-        dispatch(createCategory({ name }, userInfo.token));
+        dispatch(createSubCategory({ name, parent: parentCategory }, userInfo.token));
     }
     
     useEffect(() => {
         if (success) {
             dispatch({
-                type: CATEGORY_CREATE_RESET,
+                type: SUB_CATEGORY_CREATE_RESET,
             });
 
-            successAlert(`"${category.name}" has been created`);
+            successAlert(`"${subCategory.name}" has been created`);
 
             setConfirmLoading(false);
 
             setName('');
 
-            dispatch(getCategories());
+            dispatch(getSubCategories());
         }
 
         if (error) {
@@ -76,7 +88,9 @@ const CreateCategory = () => {
 
             setConfirmLoading(false);
         }
-    }, [category?.name, error, success, dispatch]);
+
+        dispatch(getCategories());
+    }, [subCategory?.name, error, success, dispatch]);
 
     const handleSearch = e => {
         e.preventDefault();
@@ -86,9 +100,9 @@ const CreateCategory = () => {
 
     const searched = term => category => category.name.toLowerCase().includes(term);
     
-    const categoryForm = () => (
+    const subCategoryForm = () => (
         <Modal
-            title='Create new category'
+            title='Create new sub category'
             centered
             visible={isModalVisible}
             onOk={handleSubmit}
@@ -98,17 +112,29 @@ const CreateCategory = () => {
         >
             <form onSubmit={handleSubmit}>
                 <InputLabel>
-                    <label htmlFor='categoryName'>Category Name</label>
+                    <label htmlFor='subCategoryName'>Sub Category Name</label>
                     <input
                         type='text'
-                        id='categoryName'
+                        id='subCategoryName'
                         inputMode='text'
-                        placeholder='Enter category name'
+                        placeholder='Enter sub category name'
                         value={name}
                         onChange={e => setName(e.target.value)}
                         autoFocus
                     />
                 </InputLabel>
+                <StyledSelect
+                    labelInValue
+                    defaultValue={{ value: 'Parent Category' }}
+                    onChange={e => setParentCategory(e.value)}
+                >
+                    {categories?.length > 0 && categories.map(category => (
+                        <Option 
+                            value={category._id} 
+                            key={category._id}
+                        >{category.name}</Option>
+                    ))}
+                </StyledSelect>
             </form>
         </Modal>
     ) 
@@ -117,10 +143,10 @@ const CreateCategory = () => {
         <AdminLayout>
             <CategoriesWrapper xs={24} lg={12}>
                 <StyledTitle level={4}>
-                    Categories
+                    Sub Categories
                 </StyledTitle>
                 <StyledText type='secondary'>
-                    Create, update, remove or filter categories
+                    Create, update, remove or filter sub categories
                 </StyledText>
                 <Row gutter={[10, 10]} align='top'>
                     <Col xs={24} sm={12}>
@@ -132,7 +158,7 @@ const CreateCategory = () => {
                                 <input
                                     type='text'
                                     inputMode='text'
-                                    placeholder='Filter categories'
+                                    placeholder='Filter sub categories'
                                     value={searchTerm}
                                     onChange={handleSearch}
                                 />
@@ -145,14 +171,17 @@ const CreateCategory = () => {
                             <Button type='primary' onClick={() => handleModalVisible()}>
                                 <PlusOutlined /> Create
                             </Button>
-                            {categoryForm()}
+                            {subCategoryForm()}
                         </AddButton>
                     </Col>
                 </Row>
-                <Categories searched={searched} searchTerm={searchTerm} />
+                <SubCategories 
+                    searched={searched} 
+                    searchTerm={searchTerm} 
+                />
             </CategoriesWrapper>
         </AdminLayout>
     )
 }
 
-export default CreateCategory;
+export default CreateSubCategory;

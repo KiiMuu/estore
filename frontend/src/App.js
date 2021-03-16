@@ -20,6 +20,7 @@ import Wishlist from './pages/user/wishlist/Wishlist';
 import AdminRoute from './components/routes/AdminRoute';
 import Dashboard from './pages/admin/dashboard/Dashboard';
 import CreateCategory from './pages/admin/category/CreateCategory';
+import CreateSubCategory from './pages/admin/sub-category/CreateSubCategory';
 
 // * functions
 import { userAuthState } from './state/actions/user';
@@ -53,6 +54,7 @@ const App = () => {
                 {/* admin */}
                 <AdminRoute exact path='/admin/dashboard' component={Dashboard} />
                 <AdminRoute exact path='/admin/category' component={CreateCategory} />
+                <AdminRoute exact path='/admin/sub' component={CreateSubCategory} />
             </Switch>
         </Fragment>
     )

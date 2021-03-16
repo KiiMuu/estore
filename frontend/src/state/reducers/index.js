@@ -11,14 +11,29 @@ import {
     categoryUpdateReducer,
     categoryDeleteReducer,
 } from './category';
+import { 
+    subCategoryListReducer,
+    subCategorySingleReducer,
+    subCategoryCreateReducer,
+    subCategoryUpdateReducer,
+    subCategoryDeleteReducer,
+} from './subCategory';
 
 const rootReducer = combineReducers({
+    // * user
     user: userReducer,
+    // * category
     categoryList: categoryListReducer,
     categorySingle: categorySingleReducer,
     categoryCreate: categoryCreateReducer,
     categoryUpdate: categoryUpdateReducer,
     categoryDelete: categoryDeleteReducer,
+    // * sub category
+    subCategoryList: subCategoryListReducer,
+    subCategorySingle: subCategorySingleReducer,
+    subCategoryCreate: subCategoryCreateReducer,
+    subCategoryUpdate: subCategoryUpdateReducer,
+    subCategoryDelete: subCategoryDeleteReducer,
 });
 
 export default rootReducer;

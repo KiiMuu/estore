@@ -19,8 +19,8 @@ import {
 // * validators
 import { runValidation } from '../validators';
 import {
-    categoryCreateValidator,
-} from '../validators/category';
+    subCategoryCreateValidator,
+} from '../validators/subCategory';
 
 // * @desc    Create a new sub category
 // * @route   POST /api/sub-category
@@ -29,7 +29,7 @@ router.post(
     '/sub-category',
     authCheck, 
     adminCheck, 
-    categoryCreateValidator,
+    subCategoryCreateValidator,
     runValidation,
     createSubCategory,
 );
@@ -57,7 +57,7 @@ router.put(
     '/sub-category/:slug', 
     authCheck, 
     adminCheck, 
-    categoryCreateValidator,
+    subCategoryCreateValidator,
     runValidation,
     updateSubCategory,
 );

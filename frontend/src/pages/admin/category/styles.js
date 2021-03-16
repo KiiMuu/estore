@@ -14,6 +14,7 @@ import { primaryColor } from '../../../themes/colors';
 // * @antd
 import Typography from 'antd/lib/typography';
 import PageHeader from 'antd/lib/page-header';
+import Select from 'antd/lib/select';
 
 const {
     Title,
@@ -89,4 +90,15 @@ export const Loader = styled.div`
 
 export const StyledPageHeader = styled(PageHeader)`
     border: 1px solid rgba(0 0 0 / 10%);
+`;
+
+// * createSubCategory.js
+export const StyledSelect = styled(Select)`
+    width: 100%;
+    margin-top: 1rem;
+`;
+
+// * SingleSubCategory.js
+export const StyledUpdateSelect = styled(Select)`
+    width: 100%;
 `;
