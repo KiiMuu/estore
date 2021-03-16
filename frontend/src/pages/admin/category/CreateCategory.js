@@ -7,6 +7,8 @@ import {
 import successAlert from '../../../components/layout/message/successAlert';
 import errorAlert from '../../../components/layout/message/errorAlert';
 import Categories from './Categories';
+import { CATEGORY_CREATE_RESET } from '../../../state/constants/category';
+import useUserHook from '../../../hooks/useUserHook';
 
 // * styles 
 import {
@@ -28,7 +30,6 @@ import {
     PlusOutlined,
     SearchOutlined,
 } from '@ant-design/icons';
-import { CATEGORY_CREATE_RESET } from '../../../state/constants/category';
 
 const CreateCategory = () => {
     const [name, setName] = useState('');
@@ -41,8 +42,7 @@ const CreateCategory = () => {
     const dispatch = useDispatch();
 
     // * user state
-    const { user } = useSelector(state => ({ ...state }));
-    const { userInfo } = user;
+    const { userInfo } = useUserHook();
 
     // * category state
     const categoryCreation = useSelector(state => state.categoryCreate);
@@ -84,9 +84,7 @@ const CreateCategory = () => {
         setSearchTerm(e.target.value.toLowerCase());
     }
 
-    const searched = term => c => {
-        return c.name.toLowerCase().includes(term);
-    }
+    const searched = term => category => category.name.toLowerCase().includes(term);
     
     const categoryForm = () => (
         <Modal
@@ -122,7 +120,7 @@ const CreateCategory = () => {
                     Categories
                 </StyledTitle>
                 <StyledText type='secondary'>
-                    Create, update or remove categories
+                    Create, updat remove or filter categories
                 </StyledText>
                 <Row gutter={[10, 10]} align='top'>
                     <Col xs={24} sm={12}>

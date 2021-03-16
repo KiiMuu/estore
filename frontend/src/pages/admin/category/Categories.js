@@ -44,10 +44,10 @@ const Categories = ({ searched, searchTerm }) => {
                 <StyledPageHeader
                     subTitle='No categories matched your keyword'
                 />
-            ) : categories?.map(category => (
+            ) : categories?.filter(searched(searchTerm)).map(category => (
                 <SingleCategory 
                     category={category}
-                    key={category._id} 
+                    key={category._id}
                 />
             ))}
         </Space>

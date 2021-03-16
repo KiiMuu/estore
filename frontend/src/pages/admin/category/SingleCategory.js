@@ -5,6 +5,10 @@ import {
     getCategories,
     updateCategory,
 } from '../../../state/actions/category';
+import errorAlert from '../../../components/layout/message/errorAlert';
+import successAlert from '../../../components/layout/message/successAlert';
+import { CATEGORY_UPDATE_RESET } from '../../../state/constants/category';
+import useUserHook from '../../../hooks/useUserHook';
 
 // * styles
 import {
@@ -20,9 +24,6 @@ import {
     DeleteOutlined, 
     LoadingOutlined,
 } from '@ant-design/icons';
-import errorAlert from '../../../components/layout/message/errorAlert';
-import successAlert from '../../../components/layout/message/successAlert';
-import { CATEGORY_UPDATE_RESET } from '../../../state/constants/category';
 
 const SingleCategory = ({ category }) => {
     const [name, setName] = useState(category.name);
@@ -30,8 +31,7 @@ const SingleCategory = ({ category }) => {
     const dispatch = useDispatch();
 
     // * user state
-    const { user } = useSelector(state => ({ ...state }));
-    const { userInfo } = user;
+    const { userInfo } = useUserHook();
 
     // * category state
     const categoryUpdating = useSelector(state => state.categoryUpdate);
@@ -47,6 +47,7 @@ const SingleCategory = ({ category }) => {
         removedCategory,
         error, 
         success,
+        loading,
     } = categoryDeletion;
 
     const handleUpdateCategory = slug => {
@@ -58,7 +59,7 @@ const SingleCategory = ({ category }) => {
     }
 
     useEffect(() => {
-        if (updateError) {
+        if (updateError && name === '') {
             errorAlert(updateError);
         }
 
@@ -106,7 +107,8 @@ const SingleCategory = ({ category }) => {
             <Button 
                 size='small' 
                 type='danger' 
-                onClick={() => handleDeleteCategory(category.slug)}>
+                onClick={() => handleDeleteCategory(category.slug)}
+                loading={loading ? true : false}>
                 <DeleteOutlined />
             </Button>
         </StyledActions>

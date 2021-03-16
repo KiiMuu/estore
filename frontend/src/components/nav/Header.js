@@ -1,5 +1,6 @@
 import { Link, useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import useUserHook from '../../hooks/useUserHook';
 import {
     HeaderWrapper,
     Nav,
@@ -47,8 +48,7 @@ const Header = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const { user } = useSelector(state => ({ ...state }));
-    const { userInfo } = user;
+    const { userInfo } = useUserHook();
 
     const logout = () => {
         auth.signOut();

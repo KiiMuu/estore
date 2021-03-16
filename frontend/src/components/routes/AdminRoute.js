@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Route } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import LoadingToRedirect from '../layout/redirect-loading/LoadingToRedirect';
 import { currentAdmin } from '../../state/actions/user';
+import useUserHook from '../../hooks/useUserHook';
 
 const AdminRoute = ({ ...rest }) => {
-    const { user } = useSelector(state => ({ ...state }));
-    const { userInfo } = user;
+    const { userInfo } = useUserHook();
 
     const [ok, setOk] = useState(false);
 

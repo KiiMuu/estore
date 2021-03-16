@@ -1,10 +1,9 @@
 import { Route } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import LoadingToRedirect from '../layout/redirect-loading/LoadingToRedirect';
+import useUserHook from '../../hooks/useUserHook';
 
 const UserRoute = ({ ...rest }) => {
-    const { user } = useSelector(state => ({ ...state }));
-    const { userInfo } = user;
+    const { userInfo } = useUserHook();
 
     return userInfo?.token ? <Route {...rest} /> : <LoadingToRedirect />;
 }
