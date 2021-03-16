@@ -74,7 +74,7 @@ const CreateSubCategory = () => {
                 type: SUB_CATEGORY_CREATE_RESET,
             });
 
-            successAlert(`"${subCategory.name}" has been created`);
+            successAlert(`"${subCategory.name}" has been created`, 3);
 
             setConfirmLoading(false);
 
@@ -84,7 +84,7 @@ const CreateSubCategory = () => {
         }
 
         if (error) {
-            errorAlert(error);
+            errorAlert(error, 3);
 
             setConfirmLoading(false);
         }
@@ -124,6 +124,7 @@ const CreateSubCategory = () => {
                     />
                 </InputLabel>
                 <StyledSelect
+                    size='large'
                     labelInValue
                     defaultValue={{ value: 'Parent Category' }}
                     onChange={e => setParentCategory(e.value)}

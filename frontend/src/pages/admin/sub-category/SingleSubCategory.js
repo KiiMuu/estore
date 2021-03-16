@@ -14,6 +14,7 @@ import useUserHook from '../../../hooks/useUserHook';
 import {
     StyledActions,
     StyledUpdateSelect,
+    ParentSubCat,
 } from '../category/styles';
 
 // * @antd
@@ -69,7 +70,7 @@ const SingleSubCategory = ({ subCategory, parent }) => {
 
     useEffect(() => {
         if (updateError && subCategory.name === name) {
-            errorAlert(updateError);
+            errorAlert(updateError, 3);
         }
 
         if (updateSuccess && updatedSubCategory.name === name) {
@@ -77,7 +78,7 @@ const SingleSubCategory = ({ subCategory, parent }) => {
                 type: SUB_CATEGORY_UPDATE_RESET,
             });
 
-            successAlert(`"${subCategory?.name}" has been updated to "${updatedSubCategory?.name}"`);
+            successAlert(`"${subCategory?.name}" has been updated to "${updatedSubCategory?.name}"`, 3);
 
             dispatch(getSubCategories());
         }
@@ -85,11 +86,11 @@ const SingleSubCategory = ({ subCategory, parent }) => {
 
     useEffect(() => {
         if (error) {
-            errorAlert(error);
+            errorAlert(error, 3);
         }
 
         if (success && removedSubCategory.name === subCategory.name) {
-            successAlert(`"${removedSubCategory.name}" has been deleted`);
+            successAlert(`"${removedSubCategory.name}" has been deleted`, 3);
             dispatch(getSubCategories());
         }
     }, [error, success, removedSubCategory?.name, subCategory, dispatch]);
@@ -142,9 +143,10 @@ const SingleSubCategory = ({ subCategory, parent }) => {
             title='Edit or delete a sub category' 
             trigger='click'
             key={subCategory._id}>
-            <Button type='primary'>
-                {subCategory.name} - {subCategory.parent.name}
-            </Button>
+            <ParentSubCat>
+                <span>{subCategory.parent.name}</span>
+                <span>{subCategory.name}</span>
+            </ParentSubCat>
         </Popover>
     )
 }

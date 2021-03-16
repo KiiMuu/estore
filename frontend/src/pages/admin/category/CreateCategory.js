@@ -62,7 +62,7 @@ const CreateCategory = () => {
                 type: CATEGORY_CREATE_RESET,
             });
 
-            successAlert(`"${category.name}" has been created`);
+            successAlert(`"${category.name}" has been created`, 3);
 
             setConfirmLoading(false);
 
@@ -72,7 +72,7 @@ const CreateCategory = () => {
         }
 
         if (error) {
-            errorAlert(error);
+            errorAlert(error, 3);
 
             setConfirmLoading(false);
         }

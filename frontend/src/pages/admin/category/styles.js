@@ -9,7 +9,7 @@ import {
     marginTopBox 
 } from '../../../themes/spaces';
 import { addButtonQuery } from '../../../themes/breakpoints';
-import { primaryColor } from '../../../themes/colors';
+import { lightColor, primaryColor } from '../../../themes/colors';
 
 // * @antd
 import Typography from 'antd/lib/typography';
@@ -101,4 +101,19 @@ export const StyledSelect = styled(Select)`
 // * SingleSubCategory.js
 export const StyledUpdateSelect = styled(Select)`
     width: 100%;
+`;
+
+export const ParentSubCat = styled.div`
+    cursor: pointer;
+    background: ${primaryColor};
+    border-radius: .3rem;
+    padding: .5rem 1rem;
+    span:first-child {
+        color: rgba(255 255 255 / 40%);
+        display: block;
+        font-size: 1.3rem;
+    }
+    span:last-child {
+        color: ${lightColor};
+    }
 `;

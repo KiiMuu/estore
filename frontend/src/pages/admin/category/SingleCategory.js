@@ -60,7 +60,7 @@ const SingleCategory = ({ category }) => {
 
     useEffect(() => {
         if (updateError && name === '') {
-            errorAlert(updateError);
+            errorAlert(updateError, 3);
         }
 
         if (updateSuccess && updatedCategory.name === name) {
@@ -68,7 +68,7 @@ const SingleCategory = ({ category }) => {
                 type: CATEGORY_UPDATE_RESET,
             });
 
-            successAlert(`"${category?.name}" has been updated to "${updatedCategory?.name}"`);
+            successAlert(`"${category?.name}" has been updated to "${updatedCategory?.name}"`, 3);
 
             dispatch(getCategories());
         }
@@ -80,7 +80,7 @@ const SingleCategory = ({ category }) => {
         }
 
         if (success && removedCategory.name === category.name) {
-            successAlert(`"${removedCategory.name}" has been deleted`);
+            successAlert(`"${removedCategory.name}" has been deleted`, 3);
             dispatch(getCategories());
         }
     }, [error, success, removedCategory?.name, category, dispatch]);
