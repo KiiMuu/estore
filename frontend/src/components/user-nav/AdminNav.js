@@ -38,17 +38,8 @@ const AdminNav = () => {
                     activeClassName='isActive'
                 >
                     <ListItem>
-                        <span><AppstoreAddOutlined /></span>
-                        Product
-                    </ListItem>
-                </StyledNavLink>
-                <StyledNavLink 
-                    to='/admin/products' 
-                    activeClassName='isActive'
-                >
-                    <ListItem>
                         <span><OrderedListOutlined /></span>
-                        Products
+                        Product
                     </ListItem>
                 </StyledNavLink>
                 <StyledNavLink 

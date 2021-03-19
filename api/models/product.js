@@ -29,22 +29,22 @@ const productSchema = new Schema({
         trim: true,
         maxLength: 32,
     },
-    category: {
-        type: ObjectId,
-        ref: 'Category',
-    },
-    subCategories: [{
-        type: ObjectId,
-        ref: 'SubCategory',
-    }],
+    // category: {
+    //     type: ObjectId,
+    //     ref: 'Category',
+    // },
+    // subCategories: [{
+    //     type: ObjectId,
+    //     ref: 'SubCategory',
+    // }],
     quantity: Number,
     sold: {
         type: Number,
         default: 0,
     },
-    images: {
-        type: Array,
-    },
+    // images: {
+    //     type: Array,
+    // },
     shipping: {
         type: String,
         enum: ['Yes', 'No'],

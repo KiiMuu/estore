@@ -104,7 +104,7 @@ export const inputLabel = () => {
             padding-left: 1rem;
             border: .1rem solid rgba(0 0 0 / 10%);
             &:focus {
-                box-shadow: 0 0 .2rem .2rem ${primaryDarkColor};
+                box-shadow: 0 0 .1rem .1rem ${primaryDarkColor};
                 border: .1rem solid ${primaryColor};
                 transition: all .15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             }

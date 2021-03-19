@@ -18,6 +18,9 @@ import {
     subCategoryUpdateReducer,
     subCategoryDeleteReducer,
 } from './subCategory';
+import {
+    productCreateReducer,
+} from './product';
 
 const rootReducer = combineReducers({
     // * user
@@ -34,6 +37,8 @@ const rootReducer = combineReducers({
     subCategoryCreate: subCategoryCreateReducer,
     subCategoryUpdate: subCategoryUpdateReducer,
     subCategoryDelete: subCategoryDeleteReducer,
+    // * product
+    productCreate: productCreateReducer,
 });
 
 export default rootReducer;

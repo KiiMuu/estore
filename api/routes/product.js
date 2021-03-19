@@ -4,7 +4,7 @@ const router = Router();
 // * controllers
 import { 
     createProduct,
- } from '../controllers';
+ } from '../controllers/product';
 
 // * middlewares
 import { 
@@ -25,8 +25,8 @@ router.post(
     '/product', 
     authCheck, 
     adminCheck,
-    runValidation,
     productCreateValidator,
+    runValidation,
     createProduct,
 );
 

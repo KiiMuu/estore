@@ -95,6 +95,13 @@ export const StyledPageHeader = styled(PageHeader)`
 // * createSubCategory.js
 export const StyledSelect = styled(Select)`
     width: 100%;
+`;
+
+export const StyledLabel = styled.label`
+    display: block;
+    color: #000;
+    font-weight: 500;
+    margin-bottom: .2rem;
     margin-top: 1rem;
 `;
 

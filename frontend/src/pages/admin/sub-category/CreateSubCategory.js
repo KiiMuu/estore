@@ -22,6 +22,7 @@ import {
     InputControl,
     AddButton,
     StyledSelect,
+    StyledLabel,
 } from '../category/styles';
 
 // * @antd
@@ -123,10 +124,11 @@ const CreateSubCategory = () => {
                         autoFocus
                     />
                 </InputLabel>
+                <StyledLabel>Parent Category</StyledLabel>
                 <StyledSelect
                     size='large'
                     labelInValue
-                    defaultValue={{ value: 'Parent Category' }}
+                    defaultValue={{ value: 'Select parent category' }}
                     onChange={e => setParentCategory(e.value)}
                 >
                     {categories?.length > 0 && categories.map(category => (
