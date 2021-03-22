@@ -15,6 +15,9 @@ import {
     CATEGORY_DELETE_REQUEST,
     CATEGORY_DELETE_SUCCESS,
     CATEGORY_DELETE_FAIL,
+    SUBS_OF_PARENT_REQUEST,
+    SUBS_OF_PARENT_SUCCESS,
+    SUBS_OF_PARENT_FAIL,
 } from '../constants/category';
 
 export const getCategories = () => async dispatch => {
@@ -130,6 +133,26 @@ export const deleteCategory = (slug, authtoken) => async (dispatch, getState) =>
     } catch (err) {
         dispatch({
             type: CATEGORY_DELETE_FAIL,
+            payload: err.response?.data.message ? err.response.data.message : err.message,
+        });
+    }
+}
+
+export const getSubsOfParent = _id => async dispatch => {
+    try {
+        dispatch({
+            type: SUBS_OF_PARENT_REQUEST,
+        });
+    
+        const { data } = await axios.get(`/api/category/sub-categories/${_id}`);
+    
+        dispatch({
+            type: SUBS_OF_PARENT_SUCCESS,
+            payload: data,
+        });
+    } catch (err) {
+        dispatch({
+            type: SUBS_OF_PARENT_FAIL,
             payload: err.response?.data.message ? err.response.data.message : err.message,
         });
     }

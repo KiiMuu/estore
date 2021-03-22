@@ -16,6 +16,9 @@ import {
     CATEGORY_DELETE_REQUEST,
     CATEGORY_DELETE_SUCCESS,
     CATEGORY_DELETE_FAIL,
+    SUBS_OF_PARENT_REQUEST,
+    SUBS_OF_PARENT_SUCCESS,
+    SUBS_OF_PARENT_FAIL,
 } from '../constants/category';
 
 const initialCategoriesList = {
@@ -139,6 +142,32 @@ export const categoryDeleteReducer = (state = initialCategoryDelete, action) => 
                 loading: false,
             }
         case CATEGORY_DELETE_FAIL:
+            return {
+                error: action.payload,
+                loading: false,
+            }
+        default:
+            return state;
+    }
+}
+
+const initialSubsOfParent = {
+    subs: []
+}
+
+export const subsOfParentReducer = (state = initialSubsOfParent, action) => {
+    switch (action.type) {
+        case SUBS_OF_PARENT_REQUEST:
+            return {
+                loading: true,
+            }
+        case SUBS_OF_PARENT_SUCCESS:
+            return {
+                subs: action.payload,
+                success: true,
+                loading: false,
+            }
+        case SUBS_OF_PARENT_FAIL:
             return {
                 error: action.payload,
                 loading: false,

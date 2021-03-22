@@ -10,6 +10,7 @@ import {
     categoryCreateReducer,
     categoryUpdateReducer,
     categoryDeleteReducer,
+    subsOfParentReducer,
 } from './category';
 import { 
     subCategoryListReducer,
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
     categoryCreate: categoryCreateReducer,
     categoryUpdate: categoryUpdateReducer,
     categoryDelete: categoryDeleteReducer,
+    subsOfParent: subsOfParentReducer,
     // * sub category
     subCategoryList: subCategoryListReducer,
     subCategorySingle: subCategorySingleReducer,

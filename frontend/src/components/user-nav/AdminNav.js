@@ -10,7 +10,6 @@ import {
 import { 
     DashboardOutlined,
     OrderedListOutlined,
-    AppstoreAddOutlined,
     AppstoreOutlined,
     BlockOutlined,
     KeyOutlined,
