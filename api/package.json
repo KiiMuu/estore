@@ -17,6 +17,7 @@
   "author": "Kariim Muhamad",
   "license": "ISC",
   "dependencies": {
+    "cloudinary": "^1.25.1",
     "colors": "^1.4.0",
     "concurrently": "^6.0.0",
     "cors": "^2.8.5",
