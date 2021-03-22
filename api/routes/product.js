@@ -4,6 +4,7 @@ const router = Router();
 // * controllers
 import { 
     createProduct,
+    getProducts,
  } from '../controllers/product';
 
 // * middlewares
@@ -29,5 +30,10 @@ router.post(
     runValidation,
     createProduct,
 );
+
+// * @desc    Get products
+// * @route   GET /api/products
+// * @access  Public
+router.get('/products', getProducts);
 
 export default router;

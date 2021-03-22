@@ -1,6 +1,6 @@
 import Product from '../models/product';
 import slugify from 'slugify';
-import { BAD_REQUEST, CREATED } from '../utils/contsants';
+import { BAD_REQUEST, CREATED, OK } from '../utils/contsants';
 
 const createProduct = async (req, res) => {
     try {
@@ -18,6 +18,19 @@ const createProduct = async (req, res) => {
     }
 }
 
+const getProducts = async (req, res) => {
+    try {
+        const products = await Product.find({}).sort({ createdAt: -1 }).exec();
+
+        res.status(OK).json(products);
+    } catch (err) {
+        res.status(BAD_REQUEST).json({
+            message: 'Products retrieving failed'
+        });
+    }
+}
+
 export {
     createProduct,
+    getProducts,
 }
