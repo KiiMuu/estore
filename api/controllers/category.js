@@ -1,4 +1,5 @@
 import Category from '../models/category';
+import SubCategory from '../models/subCategory';
 import slugify from 'slugify';
 import { BAD_REQUEST, CREATED, NOT_FOUND, OK } from '../utils/contsants';
 
@@ -78,10 +79,25 @@ const removeCategory = async (req, res) => {
     }
 }
 
+const getSubsOfSingleParent = (req, res) => {
+    const parentId = req.params._id;
+
+    SubCategory.find({ parent: parentId }).exec((err, subs) => {
+        if (err) {
+            return res.status(BAD_REQUEST).json({
+                message: 'Failed to get sub categories'
+            });
+        }
+
+        res.status(OK).json(subs);
+    });
+}
+
 export { 
     createCategory,
     getCategories,
     getCategory,
     updateCategory,
     removeCategory,
+    getSubsOfSingleParent,
 }

@@ -8,6 +8,7 @@ import {
     getCategory,
     updateCategory,
     removeCategory,
+    getSubsOfSingleParent,
  } from '../controllers/category';
 
 // * middlewares
@@ -71,5 +72,10 @@ router.delete(
     adminCheck, 
     removeCategory
 );
+
+// * @desc    Get sub categories of a parent category
+// * @route   get /api/category/sub-categories/:_id
+// * @access  Public
+router.get('/category/sub-categories/:_id', getSubsOfSingleParent);
 
 export default router;
