@@ -29,10 +29,10 @@ const productSchema = new Schema({
         trim: true,
         maxLength: 32,
     },
-    // category: {
-    //     type: ObjectId,
-    //     ref: 'Category',
-    // },
+    category: {
+        type: ObjectId,
+        ref: 'Category',
+    },
     // subCategories: [{
     //     type: ObjectId,
     //     ref: 'SubCategory',

@@ -4,6 +4,7 @@ import AdminLayout from '../AdminLayout';
 import { 
     createProduct,
 } from '../../../state/actions/product';
+import { getCategories } from '../../../state/actions/category';
 import successAlert from '../../../components/layout/message/successAlert';
 import errorAlert from '../../../components/layout/message/errorAlert';
 import { PRODUCT_CREATE_RESET } from '../../../state/constants/product';
@@ -41,7 +42,6 @@ const CreateProduct = () => {
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [category, setCategory] = useState('');
-    const [categories, setCategories] = useState([]);
     const [subCategories, setSubCategories] = useState([]);
     const [shipping, setShipping] = useState('Yes');
     const [quantity, setQuantity] = useState('');
@@ -65,6 +65,10 @@ const CreateProduct = () => {
     const productCreation = useSelector(state => state.productCreate);
     const { success, error, loading, product } = productCreation;
 
+    // * categories state
+    const catsList = useSelector(state => state.categoryList);
+    const { categories } = catsList;
+
     const handleSubmit = e => {
         e.preventDefault();
 
@@ -75,7 +79,6 @@ const CreateProduct = () => {
             description,
             price,
             category,
-            categories,
             subCategories,
             shipping,
             quantity,
@@ -109,7 +112,7 @@ const CreateProduct = () => {
             setConfirmLoading(false);
         }
 
-        // dispatch(getCategories());
+        dispatch(getCategories());
     }, [product?.title, error, success, dispatch]);
 
     // const handleSearch = e => {
@@ -193,7 +196,6 @@ const CreateProduct = () => {
                             labelInValue
                             defaultValue={{ value: 'Select color' }}
                             onChange={e => setColor(e.value)}
-                            allowClear
                         >
                             {colors.map(color => (
                                 <Option 
@@ -209,13 +211,27 @@ const CreateProduct = () => {
                             size='large'
                             defaultValue='Select brand'
                             onChange={e => setBrand(e.value)}
-                            allowClear
                         >
                             {brands.map(brand => (
                                 <Option 
                                     value={brand} 
                                     key={brand}
                                 >{brand}</Option>
+                            ))}
+                        </StyledSelect>
+                    </Col>
+                    <Col xs={24} md={12}>
+                        <StyledLabel>Category</StyledLabel>
+                        <StyledSelect
+                            size='large'
+                            defaultValue='Select category'
+                            onChange={e => setCategory(e)}
+                        >
+                            {categories?.length > 0 && categories.map(category => (
+                                <Option 
+                                    value={category._id} 
+                                    key={category._id}
+                                >{category.name}</Option>
                             ))}
                         </StyledSelect>
                     </Col>
