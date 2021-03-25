@@ -40,6 +40,6 @@ router.get('/products/:count', getProducts);
 // * @desc    Delete product
 // * @route   DELETE /api/product/:slug
 // * @access  Private
-router.get('/product/:slug', authCheck, adminCheck, removeProduct);
+router.delete('/product/:slug', authCheck, adminCheck, removeProduct);
 
 export default router;

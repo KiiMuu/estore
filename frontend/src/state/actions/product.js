@@ -6,6 +6,9 @@ import {
     PRODUCT_LIST_FAIL,
     PRODUCT_LIST_REQUEST,
     PRODUCT_LIST_SUCCESS,
+    PRODUCT_DELETE_REQUEST,
+    PRODUCT_DELETE_SUCCESS,
+    PRODUCT_DELETE_FAIL,
 } from '../constants/product';
 
 export const createProduct = (product, authtoken) => async dispatch => {
@@ -49,6 +52,32 @@ export const getProductsByCount = count => async dispatch => {
     } catch (err) {
         dispatch({
             type: PRODUCT_LIST_FAIL,
+            payload: err.response?.data.message ? err.response.data.message : err.message,
+        });
+    }
+}
+
+export const deleteProduct = (slug, authtoken) => async dispatch => {
+    try {
+        dispatch({
+            type: PRODUCT_DELETE_REQUEST,
+        });
+
+        const config = {
+            headers: {
+                authtoken,
+            }
+        }
+    
+        const { data } = await axios.delete(`/api/product/${slug}`, config);
+    
+        dispatch({
+            type: PRODUCT_DELETE_SUCCESS,
+            payload: data,
+        });
+    } catch (err) {
+        dispatch({
+            type: PRODUCT_DELETE_FAIL,
             payload: err.response?.data.message ? err.response.data.message : err.message,
         });
     }

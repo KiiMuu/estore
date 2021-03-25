@@ -14,7 +14,7 @@ const UserLayout = ({ children }) => {
     return (
         <StyledLayout>
             <UserNav />
-            <Layout>
+            <Layout style={{ marginLeft: 200 }}>
                 <StyledContent>
                     <ContentContainer className='container'>
                         {children}

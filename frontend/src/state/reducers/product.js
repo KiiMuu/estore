@@ -6,6 +6,9 @@ import {
     PRODUCT_LIST_REQUEST,
     PRODUCT_LIST_SUCCESS,
     PRODUCT_LIST_FAIL,
+    PRODUCT_DELETE_REQUEST,
+    PRODUCT_DELETE_SUCCESS,
+    PRODUCT_DELETE_FAIL,
 } from '../constants/product';
 
 const initialProductCreate = {}
@@ -51,6 +54,30 @@ export const productListReducer = (state = initialProductsList, action) => {
                 loading: false,
             }
         case PRODUCT_LIST_FAIL:
+            return {
+                error: action.payload,
+                loading: false,
+            }
+        default:
+            return state;
+    }
+}
+
+const initialProductDelete = {}
+
+export const productDeleteReducer = (state = initialProductDelete, action) => {
+    switch (action.type) {
+        case PRODUCT_DELETE_REQUEST:
+            return {
+                loading: true,
+            }
+        case PRODUCT_DELETE_SUCCESS:
+            return {
+                removedProduct: action.payload,
+                success: true,
+                loading: false,
+            }
+        case PRODUCT_DELETE_FAIL:
             return {
                 error: action.payload,
                 loading: false,

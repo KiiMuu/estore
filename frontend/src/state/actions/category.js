@@ -112,7 +112,7 @@ export const updateCategory = (slug, category, authtoken) => async dispatch => {
     }
 }
 
-export const deleteCategory = (slug, authtoken) => async (dispatch, getState) => {
+export const deleteCategory = (slug, authtoken) => async dispatch => {
     try {
         dispatch({
             type: CATEGORY_DELETE_REQUEST,

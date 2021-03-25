@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 // * @antd
 import Col from 'antd/lib/col';
 import Card from 'antd/lib/card';
@@ -7,19 +9,25 @@ import {
     EditOutlined,
     DeleteOutlined,
 } from '@ant-design/icons';
+import Popconfirm from 'antd/lib/popconfirm';
 
 const { Meta } = Card;
 
-const AdminProductCard = ({ product }) => {
+const AdminProductCard = ({ product, handleDeleteProduct, loading }) => {
+    const [visible, setVisible] = useState(false);
+
     const {
         title,
         description,
-        images
+        images,
+        slug
     } = product;
 
     const formatDesc = str => {
         return str.length > 30 ? `${str.substring(0, 30)}...` : str;
     }
+
+    const togglePopConfirm = () => setVisible(!visible);
 
     return (
         <Col xs={24} md={12} lg={6}>
@@ -43,7 +51,19 @@ const AdminProductCard = ({ product }) => {
                 }
                 actions={[
                     <EditOutlined key='edit' />,
-                    <DeleteOutlined key='delete' />,
+                    <Popconfirm
+                        title='Are you sure you want to delete?'
+                        visible={visible}
+                        onConfirm={() => handleDeleteProduct(slug)}
+                        okButtonProps={{ loading: loading }}
+                        onCancel={togglePopConfirm}
+                        okText='Yes'
+                    >
+                        <DeleteOutlined 
+                            key='delete' 
+                            onClick={togglePopConfirm}
+                        />
+                    </Popconfirm>
                 ]}
             >
                 <Meta

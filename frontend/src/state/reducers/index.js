@@ -21,6 +21,7 @@ import {
 } from './subCategory';
 import {
     productCreateReducer, 
+    productDeleteReducer, 
     productListReducer,
 } from './product';
 import {
@@ -47,6 +48,7 @@ const rootReducer = combineReducers({
     // * product
     productCreate: productCreateReducer,
     productList: productListReducer,
+    productDelete: productDeleteReducer,
     // * cloudinary
     uploadImgs: uploadImgsReducer,
     removeImg: removeImgReducer,
