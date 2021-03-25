@@ -32,8 +32,8 @@ router.post(
 );
 
 // * @desc    Get products
-// * @route   GET /api/products
+// * @route   GET /api/products/:count
 // * @access  Public
-router.get('/products', getProducts);
+router.get('/products/:count', getProducts);
 
 export default router;

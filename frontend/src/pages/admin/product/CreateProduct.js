@@ -103,6 +103,8 @@ const CreateProduct = () => {
             setDescription('');
             setPrice('');
             setQuantity('');
+            setImages([]);
+            setParentSubs([]);
         }
 
         if (error) {
