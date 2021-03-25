@@ -38,7 +38,22 @@ const getProducts = async (req, res) => {
     }
 }
 
+const removeProduct = async (req, res) => {
+    try {
+        const slug = req.params.slug;
+
+        const removedProduct = await Product.findOneAndDelete({ slug });
+
+        res.status(OK).json(removedProduct);
+    } catch (err) {
+        res.status(BAD_REQUEST).json({
+            message: 'Product deletion failed'
+        });
+    }
+}
+
 export {
     createProduct,
     getProducts,
+    removeProduct,
 }

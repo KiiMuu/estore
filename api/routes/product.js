@@ -5,6 +5,7 @@ const router = Router();
 import { 
     createProduct,
     getProducts,
+    removeProduct,
  } from '../controllers/product';
 
 // * middlewares
@@ -35,5 +36,10 @@ router.post(
 // * @route   GET /api/products/:count
 // * @access  Public
 router.get('/products/:count', getProducts);
+
+// * @desc    Delete product
+// * @route   DELETE /api/product/:slug
+// * @access  Private
+router.get('/product/:slug', authCheck, adminCheck, removeProduct);
 
 export default router;
