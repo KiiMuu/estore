@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AdminLayout from '../AdminLayout';
 import { 
-    createProduct,
+    createProduct, 
+    getProductsByCount,
 } from '../../../state/actions/product';
 import { 
     getCategories,
@@ -13,6 +14,7 @@ import errorAlert from '../../../components/layout/message/errorAlert';
 import { PRODUCT_CREATE_RESET } from '../../../state/constants/product';
 import useUserHook from '../../../hooks/useUserHook';
 import ProductCreationForm from './ProductCreationForm';
+import Products from './Products';
 
 // * styles 
 import {
@@ -105,6 +107,8 @@ const CreateProduct = () => {
             setQuantity('');
             setImages([]);
             setParentSubs([]);
+
+            dispatch(getProductsByCount(100));
         }
 
         if (error) {
@@ -190,7 +194,7 @@ const CreateProduct = () => {
                         </AddButton>
                     </Col>
                 </Row>
-                {/* <Products searched={searched} searchTerm={searchTerm} />              */}
+                <Products />             
             </ProductsWrapper>
         </AdminLayout>
     )

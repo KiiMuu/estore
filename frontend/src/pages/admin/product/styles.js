@@ -1,11 +1,13 @@
 import styled from 'styled-components';
 import { headingStyle, inputIcon, inputLabel } from '../../../themes/mixins';
-import { marginBottomBox } from '../../../themes/spaces';
+import { marginBottomBox, marginTopBox } from '../../../themes/spaces';
 import { addButtonQuery } from '../../../themes/breakpoints';
 
 // * @antd
 import Typography from 'antd/lib/typography';
 import Select from 'antd/lib/select';
+import PageHeader from 'antd/lib/page-header';
+import { primaryColor } from '../../../themes/colors';
 
 const {
     Title,
@@ -61,4 +63,19 @@ export const StyledLabel = styled.label`
     color: #000;
     font-weight: 500;
     margin-bottom: .2rem;
+`;
+
+// * Products.js
+export const StyledProducts = styled.div`
+    margin-top: ${marginTopBox};
+`;
+
+export const StyledPageHeader = styled(PageHeader)`
+    border: 1px solid rgba(0 0 0 / 10%);
+`;
+
+export const Loader = styled.div`
+    color: ${primaryColor};
+    font-size: 2.5rem;
+    text-align: center;
 `;

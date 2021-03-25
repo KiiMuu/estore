@@ -18,6 +18,12 @@ const UserNav = () => {
         <StyledSider
             breakpoint='md'
             collapsedWidth='0'
+            style={{
+                overflow: 'auto',
+                height: '100vh',
+                position: 'fixed',
+                left: 0,
+            }}
         >
             <List>
                 <StyledNavLink 

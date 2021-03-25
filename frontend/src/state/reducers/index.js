@@ -20,7 +20,8 @@ import {
     subCategoryDeleteReducer,
 } from './subCategory';
 import {
-    productCreateReducer,
+    productCreateReducer, 
+    productListReducer,
 } from './product';
 import {
     uploadImgsReducer,
@@ -45,6 +46,7 @@ const rootReducer = combineReducers({
     subCategoryDelete: subCategoryDeleteReducer,
     // * product
     productCreate: productCreateReducer,
+    productList: productListReducer,
     // * cloudinary
     uploadImgs: uploadImgsReducer,
     removeImg: removeImgReducer,

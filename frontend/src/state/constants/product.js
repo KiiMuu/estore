@@ -2,3 +2,7 @@ export const PRODUCT_CREATE_REQUEST = Symbol('PRODUCT_CREATE_REQUEST').descripti
 export const PRODUCT_CREATE_SUCCESS = Symbol('PRODUCT_CREATE_SUCCESS').description;
 export const PRODUCT_CREATE_FAIL = Symbol('PRODUCT_CREATE_FAIL').description;
 export const PRODUCT_CREATE_RESET = Symbol('PRODUCT_CREATE_RESET').description;
+
+export const PRODUCT_LIST_REQUEST = Symbol('PRODUCT_LIST_REQUEST').description;
+export const PRODUCT_LIST_SUCCESS = Symbol('PRODUCT_LIST_SUCCESS').description;
+export const PRODUCT_LIST_FAIL = Symbol('PRODUCT_LIST_FAIL').description;

@@ -3,6 +3,9 @@ import {
     PRODUCT_CREATE_REQUEST,
     PRODUCT_CREATE_SUCCESS,
     PRODUCT_CREATE_FAIL,
+    PRODUCT_LIST_FAIL,
+    PRODUCT_LIST_REQUEST,
+    PRODUCT_LIST_SUCCESS,
 } from '../constants/product';
 
 export const createProduct = (product, authtoken) => async dispatch => {
@@ -26,6 +29,26 @@ export const createProduct = (product, authtoken) => async dispatch => {
     } catch (err) {
         dispatch({
             type: PRODUCT_CREATE_FAIL,
+            payload: err.response?.data.message ? err.response.data.message : err.message,
+        });
+    }
+}
+
+export const getProductsByCount = count => async dispatch => {
+    try {
+        dispatch({
+            type: PRODUCT_LIST_REQUEST,
+        });
+
+        const { data } = await axios.get(`/api/products/${count}`);
+
+        dispatch({
+            type: PRODUCT_LIST_SUCCESS,
+            payload: data,
+        });
+    } catch (err) {
+        dispatch({
+            type: PRODUCT_LIST_FAIL,
             payload: err.response?.data.message ? err.response.data.message : err.message,
         });
     }

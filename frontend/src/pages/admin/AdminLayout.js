@@ -14,7 +14,7 @@ const AdminLayout = ({ children }) => {
     return (
         <StyledLayout>
             <AdminNav />
-            <Layout>
+            <Layout style={{ marginLeft: 200 }}>
                 <StyledContent>
                     <ContentContainer className='container'>
                         {children}
