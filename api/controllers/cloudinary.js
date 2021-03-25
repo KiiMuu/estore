@@ -4,7 +4,7 @@ import { BAD_REQUEST, OK } from '../utils/contsants';
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
-    api_secert: process.env.CLOUDINARY_API_SECERT,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 const uploadImages = async (req, res) => {
@@ -15,11 +15,10 @@ const uploadImages = async (req, res) => {
         });
     
         res.status(OK).json({
-            publicId: result.public_id,
+            public_id: result.public_id,
             url: result.secure_url,
         });
     } catch (err) {
-        console.log(err);
         res.status(BAD_REQUEST).json({
             message: 'Something went wrong'
         });
@@ -27,19 +26,12 @@ const uploadImages = async (req, res) => {
 }
 
 const removeImage = (req, res) => {
-    const image_id = req.body.publicId;
+    const image_id = req.body.public_id;
+    
+    cloudinary.uploader.destroy(image_id);
+    
+    res.json({ image_id });
 
-    cloudinary.uploader.destroy(image_id, (err, result) => {
-        if (err) {
-            res.status(BAD_REQUEST).json({
-                message: 'Something went wrong'
-            });
-        }
-
-        res.status(OK).json({
-            message: 'OK'
-        });
-    });
 }
 
 export { uploadImages, removeImage }

@@ -4,6 +4,7 @@ import {
     StyledSelect,
     StyledLabel,
 } from './styles';
+import FileUpload from '../../../components/forms/FileUpload';
 
 // * @antd
 import Col from 'antd/lib/col';
@@ -43,6 +44,8 @@ const ProductCreationForm = ({
     subs,
     shipping,
     setShipping,
+    images,
+    setImages,
 }) => {
     return (
         <Modal
@@ -182,6 +185,9 @@ const ProductCreationForm = ({
                             <Radio value='Yes'>Yes</Radio>
                             <Radio value='No'>No</Radio>
                         </Radio.Group>
+                    </Col>
+                    <Col xs={24} md={12}>
+                        <FileUpload images={images} setImages={setImages} />
                     </Col>
                 </Row>
             </form>

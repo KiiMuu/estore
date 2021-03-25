@@ -148,6 +148,8 @@ const CreateProduct = () => {
         subs,
         shipping,
         setShipping,
+        images,
+        setImages,
     }
     
     return (

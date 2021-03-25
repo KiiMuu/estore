@@ -22,6 +22,10 @@ import {
 import {
     productCreateReducer,
 } from './product';
+import {
+    uploadImgsReducer,
+    removeImgReducer,
+} from './cloudinary';
 
 const rootReducer = combineReducers({
     // * user
@@ -41,6 +45,10 @@ const rootReducer = combineReducers({
     subCategoryDelete: subCategoryDeleteReducer,
     // * product
     productCreate: productCreateReducer,
+    // * cloudinary
+    uploadImgs: uploadImgsReducer,
+    removeImg: removeImgReducer,
+
 });
 
 export default rootReducer;
