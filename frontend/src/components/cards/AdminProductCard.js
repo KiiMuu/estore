@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ProductUpdateForm from '../../pages/admin/product/ProductUpdateForm';
 
 // * @antd
 import Col from 'antd/lib/col';
@@ -10,24 +11,33 @@ import {
     DeleteOutlined,
 } from '@ant-design/icons';
 import Popconfirm from 'antd/lib/popconfirm';
+import Button from 'antd/lib/button';
 
 const { Meta } = Card;
 
-const AdminProductCard = ({ product, handleDeleteProduct, loading }) => {
+const AdminProductCard = ({ product, handleDeleteProduct, deletionLoading }) => {
     const [visible, setVisible] = useState(false);
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const togglePopConfirm = () => setVisible(!visible);
+    const handleModalVisible = () => setIsModalVisible(!isModalVisible);
 
     const {
         title,
         description,
         images,
-        slug
+        slug,
     } = product;
-
+    
     const formatDesc = str => {
         return str.length > 30 ? `${str.substring(0, 30)}...` : str;
     }
 
-    const togglePopConfirm = () => setVisible(!visible);
+    const props = {
+        product,
+        isModalVisible,
+        handleModalVisible,
+    }
 
     return (
         <Col xs={24} md={12} lg={6}>
@@ -50,12 +60,17 @@ const AdminProductCard = ({ product, handleDeleteProduct, loading }) => {
                     )
                 }
                 actions={[
-                    <EditOutlined key='edit' />,
+                    <>
+                        <Button type='text' onClick={() => handleModalVisible()}>
+                            <EditOutlined key='edit' /> 
+                        </Button>
+                        <ProductUpdateForm {...props} />
+                    </>,
                     <Popconfirm
                         title='Are you sure you want to delete?'
                         visible={visible}
                         onConfirm={() => handleDeleteProduct(slug)}
-                        okButtonProps={{ loading: loading }}
+                        okButtonProps={{ loading: deletionLoading }}
                         onCancel={togglePopConfirm}
                         okText='Yes'
                     >

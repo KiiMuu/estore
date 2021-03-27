@@ -9,6 +9,12 @@ import {
     PRODUCT_DELETE_REQUEST,
     PRODUCT_DELETE_SUCCESS,
     PRODUCT_DELETE_FAIL,
+    PRODUCT_SINGLE_REQUEST,
+    PRODUCT_SINGLE_SUCCESS,
+    PRODUCT_SINGLE_FAIL,
+    PRODUCT_UPDATE_REQUEST,
+    PRODUCT_UPDATE_SUCCESS,
+    PRODUCT_UPDATE_FAIL,
 } from '../constants/product';
 
 export const createProduct = (product, authtoken) => async dispatch => {
@@ -52,6 +58,52 @@ export const getProductsByCount = count => async dispatch => {
     } catch (err) {
         dispatch({
             type: PRODUCT_LIST_FAIL,
+            payload: err.response?.data.message ? err.response.data.message : err.message,
+        });
+    }
+}
+
+export const getProduct = slug => async dispatch => {
+    try {
+        dispatch({
+            type: PRODUCT_SINGLE_REQUEST,
+        });
+    
+        const { data } = await axios.get(`/api/product/${slug}`);
+    
+        dispatch({
+            type: PRODUCT_SINGLE_SUCCESS,
+            payload: data,
+        });
+    } catch (err) {
+        dispatch({
+            type: PRODUCT_SINGLE_FAIL,
+            payload: err.response?.data.message ? err.response.data.message : err.message,
+        });
+    }
+}
+
+export const updateProduct = (slug, product, authtoken) => async dispatch => {
+    try {
+        dispatch({
+            type: PRODUCT_UPDATE_REQUEST,
+        });
+
+        const config = {
+            headers: {
+                authtoken,
+            }
+        }
+    
+        const { data } = await axios.put(`/api/product/${slug}`, product, config);
+    
+        dispatch({
+            type: PRODUCT_UPDATE_SUCCESS,
+            payload: data,
+        });
+    } catch (err) {
+        dispatch({
+            type: PRODUCT_UPDATE_FAIL,
             payload: err.response?.data.message ? err.response.data.message : err.message,
         });
     }

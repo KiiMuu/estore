@@ -38,6 +38,42 @@ const getProducts = async (req, res) => {
     }
 }
 
+const getProduct = async (req, res) => {
+    const slug = req.params.slug;
+
+    const product = await Product
+    .findOne({ slug })
+    .populate('category')
+    .populate('subCategories')
+    .exec();
+
+    if (product) {
+        res.status(OK).json(product);
+    } else {
+        res.status(NOT_FOUND).json({
+            message: 'Product maybe deleted'
+        });
+    }
+}
+
+const updateProduct = async (req, res) => {
+    const slug = req.params.slug;
+
+    try {
+        if (req.body.title) {
+            req.body.slug = slugify(req.body.title);
+        }
+
+        const updatedProduct = await Product.findOneAndUpdate({ slug }, req.body, {new: true}).exec();
+
+        res.status(OK).json(updatedProduct);
+    } catch (err) {
+        res.status(BAD_REQUEST).json({
+            message: 'Product updating failed'
+        });
+    }
+}
+
 const removeProduct = async (req, res) => {
     try {
         const slug = req.params.slug;
@@ -54,6 +90,8 @@ const removeProduct = async (req, res) => {
 
 export {
     createProduct,
+    getProduct,
     getProducts,
+    updateProduct,
     removeProduct,
 }

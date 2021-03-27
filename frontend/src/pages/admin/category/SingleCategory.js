@@ -1,13 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { 
     deleteCategory, 
-    getCategories,
     updateCategory,
 } from '../../../state/actions/category';
-import errorAlert from '../../../components/layout/message/errorAlert';
-import successAlert from '../../../components/layout/message/successAlert';
-import { CATEGORY_UPDATE_RESET } from '../../../state/constants/category';
 import useUserHook from '../../../hooks/useUserHook';
 
 // * styles
@@ -35,20 +31,10 @@ const SingleCategory = ({ category }) => {
 
     // * category state
     const categoryUpdating = useSelector(state => state.categoryUpdate);
-    const {
-        updatedCategory,
-        error: updateError,
-        success: updateSuccess,
-        loading: updateLoading,
-    } = categoryUpdating;
+    const { loading: updateLoading } = categoryUpdating;
 
     const categoryDeletion = useSelector(state => state.categoryDelete);
-    const { 
-        removedCategory,
-        error, 
-        success,
-        loading,
-    } = categoryDeletion;
+    const { loading: deletionLoading } = categoryDeletion;
 
     const handleUpdateCategory = slug => {
         dispatch(updateCategory(slug, { name }, userInfo.token));
@@ -57,33 +43,6 @@ const SingleCategory = ({ category }) => {
     const handleDeleteCategory = slug => {
         dispatch(deleteCategory(slug, userInfo.token));
     }
-
-    useEffect(() => {
-        if (updateError && name === '') {
-            errorAlert(updateError, 3);
-        }
-
-        if (updateSuccess && updatedCategory.name === name) {
-            dispatch({
-                type: CATEGORY_UPDATE_RESET,
-            });
-
-            successAlert(`"${category?.name}" has been updated to "${updatedCategory?.name}"`, 3);
-
-            dispatch(getCategories());
-        }
-    }, [updateError, updateSuccess, category, updatedCategory, name, dispatch]);
-
-    useEffect(() => {
-        if (error) {
-            errorAlert(error);
-        }
-
-        if (success && removedCategory.name === category.name) {
-            successAlert(`"${removedCategory.name}" has been deleted`, 3);
-            dispatch(getCategories());
-        }
-    }, [error, success, removedCategory?.name, category, dispatch]);
 
     const categoryActions = (
         <StyledActions>
@@ -108,7 +67,7 @@ const SingleCategory = ({ category }) => {
                 size='small' 
                 type='danger' 
                 onClick={() => handleDeleteCategory(category.slug)}
-                loading={loading ? true : false}>
+                loading={deletionLoading ? true : false}>
                 <DeleteOutlined />
             </Button>
         </StyledActions>

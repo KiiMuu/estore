@@ -1,13 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { 
     deleteSubCategory, 
-    getSubCategories,
     updateSubCategory,
 } from '../../../state/actions/subCategory';
-import errorAlert from '../../../components/layout/message/errorAlert';
-import successAlert from '../../../components/layout/message/successAlert';
-import { SUB_CATEGORY_UPDATE_RESET } from '../../../state/constants/subCategory';
 import useUserHook from '../../../hooks/useUserHook';
 
 // * styles
@@ -41,24 +37,14 @@ const SingleSubCategory = ({ subCategory, parent }) => {
 
     // * category state
     const subCategoryUpdating = useSelector(state => state.subCategoryUpdate);
-    const {
-        updatedSubCategory,
-        error: updateError,
-        success: updateSuccess,
-        loading: updateLoading,
-    } = subCategoryUpdating;
+    const { loading: updateLoading } = subCategoryUpdating;
 
     // * categories state
     const catsList = useSelector(state => state.categoryList);
     const { categories } = catsList;
 
     const subCategoryDeletion = useSelector(state => state.subCategoryDelete);
-    const { 
-        removedSubCategory,
-        error, 
-        success,
-        loading,
-    } = subCategoryDeletion;
+    const { loading: deletionLoading } = subCategoryDeletion;
 
     const handleUpdateSubCategory = slug => {
         dispatch(updateSubCategory(slug, { name, parent: parentCategory }, userInfo.token));
@@ -67,33 +53,6 @@ const SingleSubCategory = ({ subCategory, parent }) => {
     const handleDeleteCategory = slug => {
         dispatch(deleteSubCategory(slug, userInfo.token));
     }
-
-    useEffect(() => {
-        if (updateError && subCategory.name === name) {
-            errorAlert(updateError, 3);
-        }
-
-        if (updateSuccess && updatedSubCategory.name === name) {
-            dispatch({
-                type: SUB_CATEGORY_UPDATE_RESET,
-            });
-
-            successAlert(`"${subCategory?.name}" has been updated to "${updatedSubCategory?.name}"`, 3);
-
-            dispatch(getSubCategories());
-        }
-    }, [updateError, updateSuccess, subCategory, updatedSubCategory, name, dispatch]);
-
-    useEffect(() => {
-        if (error) {
-            errorAlert(error, 3);
-        }
-
-        if (success && removedSubCategory.name === subCategory.name) {
-            successAlert(`"${removedSubCategory.name}" has been deleted`, 3);
-            dispatch(getSubCategories());
-        }
-    }, [error, success, removedSubCategory?.name, subCategory, dispatch]);
 
     const subCategoryActions = (
         <StyledActions>
@@ -131,7 +90,7 @@ const SingleSubCategory = ({ subCategory, parent }) => {
                 size='small' 
                 type='danger' 
                 onClick={() => handleDeleteCategory(subCategory.slug)}
-                loading={loading ? true : false}>
+                loading={deletionLoading ? true : false}>
                 <DeleteOutlined />
             </Button>
         </StyledActions>
@@ -144,7 +103,7 @@ const SingleSubCategory = ({ subCategory, parent }) => {
             trigger='click'
             key={subCategory._id}>
             <ParentSubCat>
-                <span>{subCategory.parent.name}</span>
+                <span>{subCategory.parent?.name}</span>
                 <span>{subCategory.name}</span>
             </ParentSubCat>
         </Popover>

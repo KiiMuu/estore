@@ -5,6 +5,8 @@ const router = Router();
 import { 
     createProduct,
     getProducts,
+    getProduct,
+    updateProduct,
     removeProduct,
  } from '../controllers/product';
 
@@ -36,6 +38,23 @@ router.post(
 // * @route   GET /api/products/:count
 // * @access  Public
 router.get('/products/:count', getProducts);
+
+// * @desc    Get product
+// * @route   GET /api/products/:slug
+// * @access  Public
+router.get('/product/:slug', getProduct);
+
+// * @desc    Update product
+// * @route   PUT /api/product/:slug
+// * @access  Private
+router.put(
+    '/product/:slug', 
+    authCheck, 
+    adminCheck,
+    productCreateValidator,
+    runValidation,
+    updateProduct,
+);
 
 // * @desc    Delete product
 // * @route   DELETE /api/product/:slug

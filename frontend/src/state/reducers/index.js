@@ -23,6 +23,8 @@ import {
     productCreateReducer, 
     productDeleteReducer, 
     productListReducer,
+    productSingleReducer,
+    productUpdateReducer,
 } from './product';
 import {
     uploadImgsReducer,
@@ -48,6 +50,8 @@ const rootReducer = combineReducers({
     // * product
     productCreate: productCreateReducer,
     productList: productListReducer,
+    productSingle: productSingleReducer,
+    productUpdate: productUpdateReducer,
     productDelete: productDeleteReducer,
     // * cloudinary
     uploadImgs: uploadImgsReducer,

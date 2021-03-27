@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { 
     getCategories, 
 } from '../../../state/actions/category';
+import errorAlert from '../../../components/layout/message/errorAlert';
+import successAlert from '../../../components/layout/message/successAlert';
 import SingleCategory from './SingleCategory';
+import { CATEGORY_UPDATE_RESET } from '../../../state/constants/category';
 
 // * styles
 import {
@@ -33,6 +36,48 @@ const Categories = ({ searched, searchTerm }) => {
     useEffect(() => {
         dispatch(getCategories());
     }, [dispatch]);
+
+    // * category state
+    const categoryUpdating = useSelector(state => state.categoryUpdate);
+    const {
+        updatedCategory,
+        error: updateError,
+        success: updateSuccess,
+    } = categoryUpdating;
+
+    const categoryDeletion = useSelector(state => state.categoryDelete);
+    const { 
+        removedCategory,
+        error: removeError, 
+        success: removeSuccess,
+    } = categoryDeletion;
+
+    useEffect(() => {
+        if (updateError) {
+            errorAlert(updateError, 3);
+        }
+
+        if (updateSuccess) {
+            dispatch({
+                type: CATEGORY_UPDATE_RESET,
+            });
+
+            successAlert(`Category has been updated to "${updatedCategory?.name}"`, 3);
+
+            dispatch(getCategories());
+        }
+    }, [updateError, updateSuccess, updatedCategory, dispatch]);
+
+    useEffect(() => {
+        if (removeError) {
+            errorAlert(removeError);
+        }
+
+        if (removeSuccess) {
+            successAlert(`"${removedCategory.name}" has been deleted`, 3);
+            dispatch(getCategories());
+        }
+    }, [removeSuccess, removeError, dispatch, removedCategory]);
 
     const catsItems = () => (
         <Space size={[8, 10]} wrap>

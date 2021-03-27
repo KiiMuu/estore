@@ -1,3 +1,12 @@
+import { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { 
+    getCategories, 
+    getSubsOfParent 
+} from '../../../state/actions/category';
+import { updateProduct } from '../../../state/actions/product';
+import useUserHook from '../../../hooks/useUserHook';
+
 // * styles 
 import {
     InputLabel,
@@ -12,53 +21,99 @@ import Row from 'antd/lib/row';
 import Select from 'antd/lib/select';
 import Modal from 'antd/lib/modal';
 import Radio from 'antd/lib/radio';
-
 import { LoadingOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
 
-const ProductCreationForm = ({
+const ProductUpdateForm = ({
+    product,
     isModalVisible,
-    handleSubmit,
-    confirmLoading,
-    loading,
     handleModalVisible,
-    title,
-    setTitle,
-    description,
-    setDescription,
-    price,
-    setPrice,
-    quantity,
-    setQuantity,
-    setColor,
-    colors,
-    setBrand,
-    brands,
-    handleSubsOfParentChange,
-    categories,
-    areSubsVisible,
-    setParentSubs,
-    subsLoading,
-    parentSubs,
-    subs,
-    shipping,
-    setShipping,
-    images,
-    setImages,
 }) => {
+    const [title, setTitle] = useState(product.title);
+    const [description, setDescription] = useState(product.description);
+    const [price, setPrice] = useState(product.price);
+    const [category] = useState(product.category); 
+    const [parentSubs] = useState(product.subCategories);
+    const [shipping, setShipping] = useState(product.shipping);
+    const [quantity, setQuantity] = useState(product.quantity);
+    const [images, setImages] = useState(product.images);
+    const [colors] = useState(['Black', 'White', 'Brown', 'Silver', 'Blue']);
+    const [brands] = useState(['Apple', 'Samsung', 'Dell', 'Acer', 'Microsoft']);
+    const [color, setColor] = useState(product.color);
+    const [brand, setBrand] = useState(product.brand);
+    const [arrOfSubsIds, setArrOfSubsIds] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState('');
+
+    const dispatch = useDispatch();
+
+    // * user state
+    const { userInfo } = useUserHook();
+
+    // * categories state
+    const catsList = useSelector(state => state.categoryList);
+    const { categories } = catsList;
+
+    // * subs of parent state
+    const subsOfParentList = useSelector(state => state.subsOfParent);
+    const { subs, loading: subsLoading } = subsOfParentList;
+
+    // * product state
+    const productUpdating = useSelector(state => state.productUpdate);
+    const { loading: updateLoading } = productUpdating;
+
+    const handleSubmit = e => {
+        e.preventDefault();
+
+        dispatch(updateProduct(product.slug, {
+            title,
+            description,
+            price,
+            category: selectedCategory ? selectedCategory : category,
+            subCategories: arrOfSubsIds,
+            shipping,
+            quantity,
+            images,
+            brand,
+            color,
+        }, userInfo.token));
+    }
+
+    const subsIds = useCallback(() => {
+        let arr = [];
+
+        parentSubs?.map(s => arr.push(s.name));
+
+        setArrOfSubsIds(prev => arr);
+    }, [parentSubs]);
+
+    const handleSubsOfParentChange = e => {
+        setSelectedCategory(e);
+        dispatch(getSubsOfParent(e));
+        
+        if (category._id === e) {
+            subsIds();
+        } else {
+            setArrOfSubsIds([]);
+        }
+    }
+    
+    useEffect(() => {
+        dispatch(getCategories());
+        subsIds();
+    }, [dispatch, subsIds]);
+
     return (
         <Modal
-            title='Create new product'
+            title='Update product'
             visible={isModalVisible}
             onOk={handleSubmit}
-            confirmLoading={confirmLoading}
-            okText={loading ? 'Creating...' : 'Create'}
+            okText={updateLoading ? 'Updating...' : 'Update'}
             onCancel={handleModalVisible}
             width={1000}
             style={{ padding: '1rem', top: 20 }}
         >
-            <form onSubmit={handleSubmit}>
+            <form>
                 <Row gutter={[10, 10]}>
                     <Col xs={24} md={12}>
                         <InputLabel>
@@ -118,7 +173,7 @@ const ProductCreationForm = ({
                         <StyledSelect
                             size='large'
                             labelInValue
-                            defaultValue={{ value: 'Select color' }}
+                            defaultValue={{ value: color }}
                             onChange={e => setColor(e.value)}
                         >
                             {colors.map(color => (
@@ -134,7 +189,7 @@ const ProductCreationForm = ({
                         <StyledSelect
                             size='large'
                             labelInValue
-                            defaultValue={{ value: 'Select brand' }}
+                            defaultValue={{ value: brand }}
                             onChange={e => setBrand(e.value)}
                         >
                             {brands.map(brand => (
@@ -149,7 +204,7 @@ const ProductCreationForm = ({
                         <StyledLabel>Category</StyledLabel>
                         <StyledSelect
                             size='large'
-                            defaultValue='Select category'
+                            defaultValue={selectedCategory ? selectedCategory : category._id}
                             onChange={handleSubsOfParentChange}
                         >
                             {categories?.length > 0 && categories.map(category => (
@@ -165,10 +220,9 @@ const ProductCreationForm = ({
                         <StyledSelect
                             size='large'
                             mode='multiple'
-                            disabled={areSubsVisible ? false : true}
                             placeholder={subsLoading ? <LoadingOutlined /> : 'Select categories'}
-                            value={parentSubs}
-                            onChange={e => setParentSubs(e)}
+                            value={arrOfSubsIds}
+                            onChange={e => setArrOfSubsIds(e)}
                         >
                             {subs?.length > 0 && subs.map(subCategory => (
                                 <Option 
@@ -182,7 +236,8 @@ const ProductCreationForm = ({
                         <StyledLabel>Shipping</StyledLabel>
                         <Radio.Group 
                             defaultValue={shipping} 
-                            onChange={e => setShipping(e.target.value)}>
+                            onChange={e => setShipping(e.target.value)}
+                        >
                             <Radio value='Yes'>Yes</Radio>
                             <Radio value='No'>No</Radio>
                         </Radio.Group>
@@ -196,4 +251,4 @@ const ProductCreationForm = ({
     )
 }
 
-export default ProductCreationForm;
+export default ProductUpdateForm;
