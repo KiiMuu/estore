@@ -48,12 +48,12 @@ const AdminProductCard = ({ product, handleDeleteProduct, deletionLoading }) => 
                         <img 
                             alt={title} 
                             src={images[0].url} 
-                            style={{ height: '15rem', objectFit: 'cover' }}
+                            style={{ height: '20rem', objectFit: 'cover' }}
                         />
                     ) : (
                         <Image
                             style={{ objectFit: 'cover' }}
-                            height='15rem'
+                            height='20rem'
                             src='error'
                             fallback='https://via.placeholder.com/300/?text=no+preview+image'
                         />

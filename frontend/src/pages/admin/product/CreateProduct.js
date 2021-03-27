@@ -51,7 +51,7 @@ const CreateProduct = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [areSubsVisible, setAreSubsVisible] = useState(false);
-    const [searchTerm, setSearchTerm] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
     
     const handleModalVisible = () => setIsModalVisible(!isModalVisible);
 
@@ -127,6 +127,16 @@ const CreateProduct = () => {
         setParentSubs([]);
     }
 
+    const handleSearch = e => {
+        e.preventDefault();
+
+        setSearchTerm(e.target.value.toLowerCase());
+    }
+
+    const searched = term => product => {
+        return product.title.toLowerCase().includes(term) || product.description.toLowerCase().includes(term);
+    }
+
     const props = {
         isModalVisible,
         handleSubmit,
@@ -178,8 +188,8 @@ const CreateProduct = () => {
                                     type='text'
                                     inputMode='text'
                                     placeholder='Filter products'
-                                    // value={searchTerm}
-                                    // onChange={handleSearch}
+                                    value={searchTerm}
+                                    onChange={handleSearch}
                                 />
                                 <strong></strong>
                             </InputControl>
@@ -194,7 +204,7 @@ const CreateProduct = () => {
                         </AddButton>
                     </Col>
                 </Row>
-                <Products />             
+                <Products searched={searched} searchTerm={searchTerm} />             
             </ProductsWrapper>
         </AdminLayout>
     )

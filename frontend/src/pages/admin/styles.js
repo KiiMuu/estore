@@ -3,6 +3,7 @@ import { headerHeight } from '../../themes/spaces';
 
 // * @antd
 import Layout from 'antd/lib/layout';
+import { layoutQuery } from '../../themes/breakpoints';
 
 const { 
     Content,  
@@ -18,6 +19,7 @@ export const StyledContent = styled(Content)`
     && {
         margin-top: ${headerHeight};
         background-color: #fff;
+        ${layoutQuery};
     }
 `;
 

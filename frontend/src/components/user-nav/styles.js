@@ -7,7 +7,6 @@ import {
     primaryDarkColor,
     primaryColor,
 } from '../../themes/colors';
-import { siderQuery } from '../../themes/breakpoints';
 
 // * @antd
 import Layout from 'antd/lib/layout';
@@ -22,6 +21,10 @@ export const StyledSider = styled(Sider)`
         background: #fff;
         border-right: .1rem solid #eee;
         box-shadow: 0 0 0.3rem 0.2rem rgb(0 0 0 / 3%);
+        position: fixed;
+        height: 100vh;
+        left: 0;
+        z-index: 98;
     }
 `;
 
@@ -39,7 +42,7 @@ export const StyledNavLink = styled(NavLink)`
 `;
 
 export const List = styled.ul`
-    padding: 2rem .5rem;
+    padding: .5rem;
     list-style: none;
     a {
         display: block;

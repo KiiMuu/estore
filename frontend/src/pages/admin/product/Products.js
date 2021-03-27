@@ -18,7 +18,7 @@ import Row from 'antd/lib/row';
 import Result from 'antd/lib/result';
 import { LoadingOutlined } from '@ant-design/icons';
 
-const Products = () => {
+const Products = ({ searched, searchTerm }) => {
     const dispatch = useDispatch();
 
     // * product state
@@ -76,7 +76,7 @@ const Products = () => {
                 <StyledPageHeader
                     subTitle='No products added yet, once you add products they will be listed here'
                 />
-            ) : products?.map(product => (
+            ) : products?.filter(searched(searchTerm)).map(product => (
                 <SingleProduct 
                     product={product}
                     key={product._id}
