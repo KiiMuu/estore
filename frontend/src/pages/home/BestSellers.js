@@ -5,7 +5,7 @@ import CardSkeleton from '../../components/layout/skeletons/CardSkeleton';
 
 // * styles
 import { 
-    LatestArrivals, 
+    TopSellers, 
     StyledTitle,
     StyledText,
 } from './styles';
@@ -14,15 +14,15 @@ import {
 import Row from 'antd/lib/row';
 import Alert from 'antd/lib/alert';
 
-const NewArrivals = () => {
+const BestSellers = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
-    const loadNewArrivals = () => {
+    const loadBestSellers = () => {
         setLoading(true);
 
-        listAllProducts('createdAt', 'desc', 3).then(res => {
+        listAllProducts('sold', 'desc', 3).then(res => {
             setLoading(false);
             setProducts(res);
         }).catch(err => {
@@ -32,10 +32,10 @@ const NewArrivals = () => {
     }
 
     useEffect(() => {
-        loadNewArrivals();
+        loadBestSellers();
     }, []);
 
-    const showNewArrivals = () => (
+    const showBestSellers = () => (
         <Row gutter={[20, 20]}>
             {products?.map(product => (
                 <ProductCard product={product} key={product._id} />
@@ -44,20 +44,20 @@ const NewArrivals = () => {
     )
 
     return (
-        <LatestArrivals>
-            <StyledTitle level={4}>New Arrivals</StyledTitle>
+        <TopSellers>
+            <StyledTitle level={4}>Top Sellers</StyledTitle>
             <StyledText type='secondary'>
-                See our latest arrivals products
+                See our most sold products
             </StyledText>
             {loading ? (
                 <CardSkeleton count={3} />
             ) : error ? (
                 <Alert message={error} type='error' showIcon />
             ) : (
-                showNewArrivals()
+                showBestSellers()
             )}
-        </LatestArrivals>
+        </TopSellers>
     )
 }
 
-export default NewArrivals;
+export default BestSellers;

@@ -32,8 +32,8 @@ export const Preview = styled.div`
     margin-top: ${headerHeight};
     background-image: linear-gradient(
         to right bottom,
-        rgba(0, 0, 0, .96),
-        rgba(0, 0, 0, .8)),
+        rgba(255, 255, 255, .76),
+        rgba(255, 255, 255, .6)),
     url('/home/home_preview.jpg');
     height: 100vh;
     background-size: cover;
@@ -52,7 +52,7 @@ export const PreviewText = styled.div`
         color: ${primaryLightColor};
     }
     p {
-        color: #ccc;
+        color: #444;
         font-size: 1.6rem;
         letter-spacing: .2rem;
         span {
@@ -60,4 +60,9 @@ export const PreviewText = styled.div`
             color: ${primaryLightColor};
         }
     }
+`;
+
+// * BestSellers.js
+export const TopSellers = styled.div`
+    padding: 0 0 ${topSpace} 0;
 `;

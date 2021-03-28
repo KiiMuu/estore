@@ -9,7 +9,7 @@ const CardSkeleton = ({ count }) => {
 
         for (let i = 0; i < count; i++) {
             totalCards.push(
-                <Col xs={24} md={12} lg={8}>
+                <Col xs={24} md={12} lg={8} key={i}>
                     <Card>
                         <Skeleton active></Skeleton>
                     </Card>
