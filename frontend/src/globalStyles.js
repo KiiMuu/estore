@@ -7,7 +7,7 @@ const GloblaStyle = createGlobalStyle`
     }
     html,
     body {
-        font-family: 'Open Sans', sans-serif;
+        font-family: 'Poppins', sans-serif;
         scroll-behavior: smooth;
     }
     body {

@@ -82,7 +82,7 @@ const ProductUpdateForm = ({
     const subsIds = useCallback(() => {
         let arr = [];
 
-        parentSubs?.map(s => arr.push(s.name));
+        parentSubs?.map(s => arr.push(s._id));
 
         setArrOfSubsIds(prev => arr);
     }, [parentSubs]);

@@ -1,9 +1,11 @@
+import NewArrivals from './NewArrivals';
+
 const Home = () => {
     return (
-        <div>
-            Homepage
+        <div className='container'>
+            <NewArrivals />
         </div>
     )
 }
 
-export default Home
+export default Home;
