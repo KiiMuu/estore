@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { marginBottomBox, topSpace } from '../../themes/spaces';
-import { darkColor } from '../../themes/colors';
+import { headerHeight, marginBottomBox, topSpace } from '../../themes/spaces';
+import { darkColor, primaryLightColor } from '../../themes/colors';
 
 // * @antd
 import Typography from 'antd/lib/typography';
@@ -24,5 +24,40 @@ export const StyledText = styled(Text)`
     && {
         display: block;
         margin-bottom: ${marginBottomBox};
+    }
+`;
+
+// * HomePreview.js
+export const Preview = styled.div`
+    margin-top: ${headerHeight};
+    background-image: linear-gradient(
+        to right bottom,
+        rgba(0, 0, 0, .96),
+        rgba(0, 0, 0, .8)),
+    url('/home/home_preview.jpg');
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+export const PreviewText = styled.div`
+    text-align: center;
+    div {
+        font-size: 5rem;
+        font-weight: 900;
+        color: ${primaryLightColor};
+    }
+    p {
+        color: #ccc;
+        font-size: 1.6rem;
+        letter-spacing: .2rem;
+        span {
+            font-weight: 900;
+            color: ${primaryLightColor};
+        }
     }
 `;

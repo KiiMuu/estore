@@ -1,10 +1,16 @@
+import { Fragment } from 'react';
+
+import HomePreview from './HomePreview';
 import NewArrivals from './NewArrivals';
 
 const Home = () => {
     return (
-        <div className='container'>
-            <NewArrivals />
-        </div>
+        <Fragment>
+            <HomePreview />
+            <div className='container'>
+                <NewArrivals />
+            </div>
+        </Fragment>
     )
 }
 
