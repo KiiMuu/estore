@@ -4,8 +4,8 @@ import { linkHover } from '../../themes/mixins';
 
 // * ProductCard.js
 export const Card = styled.div`
-    background: linear-gradient(to right, #F0FDF4, rgba(16, 185, 129, .4));
-    padding: 1rem;
+    background-color: #fff;
+    padding: .5rem;
     border-radius: .3rem;
     box-shadow: 0 0 .5rem .3rem rgba(0, 0, 0, .1);
 `;
@@ -26,6 +26,8 @@ export const CardHeading = styled.div`
         color: ${darkColor};
         word-break: break-all;
         margin: 0;
+        font-size: 1.8rem;
+        text-transform: capitalize;
     }
     span {
         font-size: 1.8rem;
