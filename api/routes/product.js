@@ -4,10 +4,11 @@ const router = Router();
 // * controllers
 import { 
     createProduct,
-    getProducts,
+    getProductsByCount,
     getProduct,
     updateProduct,
     removeProduct,
+    getProducts,
  } from '../controllers/product';
 
 // * middlewares
@@ -37,7 +38,7 @@ router.post(
 // * @desc    Get products
 // * @route   GET /api/products/:count
 // * @access  Public
-router.get('/products/:count', getProducts);
+router.get('/products/:count', getProductsByCount);
 
 // * @desc    Get product
 // * @route   GET /api/products/:slug
@@ -60,5 +61,11 @@ router.put(
 // * @route   DELETE /api/product/:slug
 // * @access  Private
 router.delete('/product/:slug', authCheck, adminCheck, removeProduct);
+
+// * @desc    Get products
+// * @route   POST /api/products
+// * @access  Public
+// * post -> to send data and params in req.body
+router.post('/products', getProducts);
 
 export default router;

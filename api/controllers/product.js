@@ -18,7 +18,7 @@ const createProduct = async (req, res) => {
     }
 }
 
-const getProducts = async (req, res) => {
+const getProductsByCount = async (req, res) => {
     const count = req.params.count;
 
     try {
@@ -88,10 +88,31 @@ const removeProduct = async (req, res) => {
     }
 }
 
+const getProducts = async (req, res) => {
+    try {
+        const { sort, order, limit } = req.body;
+
+        const products = await Product
+        .find({})
+        .populate('category')
+        .populate('subCategories')
+        .sort([[sort, order]])
+        .limit(limit)
+        .exec();
+
+        res.status(OK).json(products);
+    } catch (err) {
+        res.status(BAD_REQUEST).json({
+            message: 'Products retrieving failed'
+        });
+    }
+}
+
 export {
     createProduct,
     getProduct,
-    getProducts,
+    getProductsByCount,
     updateProduct,
     removeProduct,
+    getProducts,
 }
