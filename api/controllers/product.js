@@ -88,16 +88,43 @@ const removeProduct = async (req, res) => {
     }
 }
 
+// * without pagination
+// const getProducts = async (req, res) => {
+//     try {
+//         const { sort, order, limit } = req.body;
+
+//         const products = await Product
+//         .find({})
+//         .populate('category')
+//         .populate('subCategories')
+//         .sort([[sort, order]])
+//         .limit(limit)
+//         .exec();
+
+//         res.status(OK).json(products);
+//     } catch (err) {
+//         console.log(err);
+//         res.status(BAD_REQUEST).json({
+//             message: 'Products retrieving failed'
+//         });
+//     }
+// }
+
+// * with pagination
 const getProducts = async (req, res) => {
     try {
-        const { sort, order, limit } = req.body;
+        const { sort, order, page } = req.body;
+
+        const currentPage = page || 1;
+        const perPage = 3;
 
         const products = await Product
         .find({})
+        .skip((currentPage - 1) * perPage)
         .populate('category')
         .populate('subCategories')
         .sort([[sort, order]])
-        .limit(limit)
+        .limit(perPage)
         .exec();
 
         res.status(OK).json(products);
@@ -108,6 +135,12 @@ const getProducts = async (req, res) => {
     }
 }
 
+const productsCount = async (req, res) => {
+    let totalProducts = await Product.find({}).estimatedDocumentCount().exec();
+
+    res.status(OK).json(totalProducts);
+}
+
 export {
     createProduct,
     getProduct,
@@ -115,4 +148,5 @@ export {
     updateProduct,
     removeProduct,
     getProducts,
+    productsCount,
 }

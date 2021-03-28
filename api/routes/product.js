@@ -9,6 +9,7 @@ import {
     updateProduct,
     removeProduct,
     getProducts,
+    productsCount,
  } from '../controllers/product';
 
 // * middlewares
@@ -34,6 +35,11 @@ router.post(
     runValidation,
     createProduct,
 );
+
+// * @desc    Get total products
+// * @route   GET /api/products/total
+// * @access  Public
+router.get('/products/total', productsCount);
 
 // * @desc    Get products
 // * @route   GET /api/products/:count

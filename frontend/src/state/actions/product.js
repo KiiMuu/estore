@@ -135,13 +135,23 @@ export const deleteProduct = (slug, authtoken) => async dispatch => {
     }
 }
 
-export const listAllProducts = async (sort, order, limit) => {
+export const listAllProducts = async (sort, order, page) => {
     try {
         const { data } = await axios.post('/api/products', {
             sort,
             order,
-            limit,
+            page,
         });
+
+        return data;
+    } catch (err) {
+        return err.response?.data.message ? err.response.data.message : err.message;
+    }
+}
+
+export const getTotalProducts = async () => {
+    try {
+        const { data } = await axios.get('/api/products/total');
 
         return data;
     } catch (err) {

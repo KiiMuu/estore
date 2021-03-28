@@ -23,11 +23,11 @@ const BestSellers = () => {
         setLoading(true);
 
         listAllProducts('sold', 'desc', 3).then(res => {
-            setLoading(false);
             setProducts(res);
-        }).catch(err => {
             setLoading(false);
+        }).catch(err => {
             setError(err);
+            setLoading(false);
         })
     }
 

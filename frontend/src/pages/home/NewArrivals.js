@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { listAllProducts } from '../../state/actions/product';
+import { listAllProducts, getTotalProducts } from '../../state/actions/product';
 import ProductCard from '../../components/cards/ProductCard';
 import CardSkeleton from '../../components/layout/skeletons/CardSkeleton';
 
@@ -13,26 +13,37 @@ import {
 // * @antd
 import Row from 'antd/lib/row';
 import Alert from 'antd/lib/alert';
+import Pagination from 'antd/lib/pagination';
 
 const NewArrivals = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [productsCount, setProductsCount] = useState(0);
+    const [page, setPage] = useState(1);
 
     const loadNewArrivals = () => {
         setLoading(true);
 
-        listAllProducts('createdAt', 'desc', 3).then(res => {
-            setLoading(false);
+        listAllProducts('createdAt', 'desc', page).then(res => {
             setProducts(res);
-        }).catch(err => {
             setLoading(false);
+        }).catch(err => {
             setError(err);
+            setLoading(false);
         })
+    }
+
+    const loadProductsCount = () => {
+        getTotalProducts().then(res => setProductsCount(res));
     }
 
     useEffect(() => {
         loadNewArrivals();
+    }, [page]);
+
+    useEffect(() => {
+        loadProductsCount();
     }, []);
 
     const showNewArrivals = () => (
@@ -56,6 +67,11 @@ const NewArrivals = () => {
             ) : (
                 showNewArrivals()
             )}
+            <Pagination 
+                total={(productsCount / 3) * 10} 
+                current={page} 
+                onChange={val => setPage(val)}
+            />
         </LatestArrivals>
     )
 }
