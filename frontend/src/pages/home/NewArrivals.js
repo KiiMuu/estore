@@ -8,6 +8,7 @@ import {
     LatestArrivals, 
     StyledTitle,
     StyledText,
+    StyledPagination,
 } from './styles';
 
 // * @antd
@@ -40,6 +41,8 @@ const NewArrivals = () => {
 
     useEffect(() => {
         loadNewArrivals();
+
+        // eslint-disable-next-line
     }, [page]);
 
     useEffect(() => {
@@ -67,11 +70,13 @@ const NewArrivals = () => {
             ) : (
                 showNewArrivals()
             )}
-            <Pagination 
-                total={(productsCount / 3) * 10} 
-                current={page} 
-                onChange={val => setPage(val)}
-            />
+            <StyledPagination>
+                <Pagination 
+                    total={(productsCount / 3) * 10} 
+                    current={page} 
+                    onChange={val => setPage(val)}
+                />
+            </StyledPagination>
         </LatestArrivals>
     )
 }

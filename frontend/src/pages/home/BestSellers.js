@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { listAllProducts } from '../../state/actions/product';
+import { getTotalProducts, listAllProducts } from '../../state/actions/product';
 import ProductCard from '../../components/cards/ProductCard';
 import CardSkeleton from '../../components/layout/skeletons/CardSkeleton';
 
@@ -8,21 +8,25 @@ import {
     TopSellers, 
     StyledTitle,
     StyledText,
+    StyledPagination,
 } from './styles';
 
 // * @antd
 import Row from 'antd/lib/row';
 import Alert from 'antd/lib/alert';
+import Pagination from 'antd/lib/pagination';
 
 const BestSellers = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [productsCount, setProductsCount] = useState(0);
+    const [page, setPage] = useState(1);
 
     const loadBestSellers = () => {
         setLoading(true);
 
-        listAllProducts('sold', 'desc', 3).then(res => {
+        listAllProducts('sold', 'desc', page).then(res => {
             setProducts(res);
             setLoading(false);
         }).catch(err => {
@@ -31,8 +35,18 @@ const BestSellers = () => {
         })
     }
 
+    const loadProductsCount = () => {
+        getTotalProducts().then(res => setProductsCount(res));
+    }
+
     useEffect(() => {
         loadBestSellers();
+
+        // eslint-disable-next-line
+    }, [page]);
+
+    useEffect(() => {
+        loadProductsCount();
     }, []);
 
     const showBestSellers = () => (
@@ -56,6 +70,13 @@ const BestSellers = () => {
             ) : (
                 showBestSellers()
             )}
+            <StyledPagination>
+                <Pagination
+                    total={(productsCount / 3) * 10}
+                    current={page} 
+                    onChange={val => setPage(val)}
+                />
+            </StyledPagination>
         </TopSellers>
     )
 }

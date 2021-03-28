@@ -1,5 +1,10 @@
 import styled from 'styled-components';
-import { headerHeight, marginBottomBox, topSpace } from '../../themes/spaces';
+import { 
+    headerHeight, 
+    marginBottomBox, 
+    topSpace,
+    marginTopBox,
+} from '../../themes/spaces';
 import { darkColor, primaryLightColor } from '../../themes/colors';
 
 // * @antd
@@ -65,4 +70,9 @@ export const PreviewText = styled.div`
 // * BestSellers.js
 export const TopSellers = styled.div`
     padding: 0 0 ${topSpace} 0;
+`;
+
+export const StyledPagination = styled.div`
+    margin-top: ${marginTopBox};
+    text-align: center;
 `;
