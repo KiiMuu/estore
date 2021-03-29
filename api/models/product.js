@@ -57,13 +57,13 @@ const productSchema = new Schema({
         type: String,
         enum: ['Apple', 'Samsung', 'Dell', 'Acer', 'Microsoft'],
     },
-    // ratings: [{
-    //     star: Number,
-    //     postedBy: {
-    //         type: ObjectId,
-    //         ref: 'User',
-    //     },
-    // }],
+    ratings: [{
+        numberOfStars: Number,
+        ratedBy: {
+            type: ObjectId,
+            ref: 'User',
+        },
+    }],
 }, {
     timestamps: true,
 });

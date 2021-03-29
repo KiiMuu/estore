@@ -10,6 +10,7 @@ import {
     removeProduct,
     getProducts,
     productsCount,
+    rateProduct,
  } from '../controllers/product';
 
 // * middlewares
@@ -73,5 +74,11 @@ router.delete('/product/:slug', authCheck, adminCheck, removeProduct);
 // * @access  Public
 // * post -> to send data and params in req.body
 router.post('/products', getProducts);
+
+// * @desc    Post a rate
+// * @route   PUT /api/product/rate/:id
+// * @access  Private
+// * put -> as we're going to update the product
+router.put('/product/rate/:id', authCheck, rateProduct);
 
 export default router;

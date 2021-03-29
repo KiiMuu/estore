@@ -1,4 +1,5 @@
 import Product from '../models/product';
+import User from '../models/user';
 import slugify from 'slugify';
 import { BAD_REQUEST, CREATED, OK } from '../utils/contsants';
 
@@ -141,6 +142,57 @@ const productsCount = async (req, res) => {
     res.status(OK).json(totalProducts);
 }
 
+const rateProduct = async (req, res) => {
+    try {
+        const productId = req.params.id;
+        const currentUser = req.user.email;
+
+        const product = await Product.findById(productId).exec();
+        const user = await User.findOne({ email: currentUser }).exec();
+
+        const { numberOfStars } = req.body;
+
+        // * check if currently logged in user have already added rating to this product
+        let existingRating = product.ratings
+        .find(ele => ele.ratedBy.toString() === user._id.toString());
+
+        // * if user haven't left rating yet, then, push it
+        // * else, update it
+        if (existingRating === undefined) {
+            let ratingAdded = await Product.findByIdAndUpdate(product._id, {
+                $push: {
+                    ratings: {
+                        numberOfStars,
+                        ratedBy: user._id,
+                    }
+                }
+            }, {
+                new: true, // * to send newly and updated info to client
+            }).exec();
+
+            res.status(OK).json(ratingAdded);
+        } else {
+            let ratingUpdated = await Product.updateOne({
+                ratings: {
+                    $elemMatch: existingRating,
+                }
+            }, {
+                $set: {
+                    'ratings.$.numberOfStars': numberOfStars,
+                }
+            }, {
+                new: true,
+            }).exec();
+
+            res.status(OK).json(ratingUpdated);
+        }
+    } catch (err) {
+        res.status(BAD_REQUEST).json({
+            message: 'Products retrieving failed'
+        });
+    }
+}
+
 export {
     createProduct,
     getProduct,
@@ -149,4 +201,5 @@ export {
     removeProduct,
     getProducts,
     productsCount,
+    rateProduct,
 }
