@@ -15,6 +15,7 @@ import {
     PRODUCT_UPDATE_SUCCESS,
     PRODUCT_UPDATE_FAIL,
     PRODUCT_UPDATE_RESET,
+    PRODUCT_SINGLE_SUCCESS,
 } from '../constants/product';
 
 const initialProductCreate = {}
@@ -75,10 +76,9 @@ export const productSingleReducer = (state = initialProductSingle, action) => {
     switch (action.type) {
         case PRODUCT_SINGLE_REQUEST:
             return {
-                ...state,
                 loading: true,
             }
-        case PRODUCT_CREATE_FAIL:
+        case PRODUCT_SINGLE_SUCCESS:
             return {
                 product: action.payload,
                 loading: false,

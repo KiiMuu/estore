@@ -1,6 +1,12 @@
 import styled from 'styled-components';
-import { darkColor, lightColor, primaryColor } from '../../themes/colors';
-import { linkHover } from '../../themes/mixins';
+import { darkColor, primaryColor } from '../../themes/colors';
+import { buttonStyle } from '../../themes/mixins';
+
+// * @antd
+import Typography from 'antd/lib/typography';
+import { marginBottomBox, marginTopBox } from '../../themes/spaces';
+
+const { Title } = Typography;
 
 // * ProductCard.js
 export const Card = styled.div`
@@ -63,16 +69,74 @@ export const ViewProduct = styled.div`
 
 export const AddToCart = styled.div`
     button {
-        padding: 1rem 1.5rem;
-        border: none;
-        cursor: pointer;
-        outline: none;
-        z-index: 1;
-        ${linkHover};
-        background-color: ${primaryColor};
-        color: ${lightColor};
+        ${buttonStyle};
+    }
+`;
+
+// * SingleProduct.js
+export const StyledTitle = styled(Title)`
+    && {
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+        color: ${primaryColor};
+    }
+`;
+
+export const StyledText = styled.p`
+    && {
+        display: block;
+        margin-bottom: ${marginBottomBox};
+        line-height: 2.5rem;
+        color: rgba(0 0 0 / 75%);
+    }
+`;
+
+export const ProductInfo = styled.div`
+    border: 1px solid rgba(0 0 0 / 15%);
+    padding: 1rem;
+`;
+export const InfoItem = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &:not(:first-child) {
+        margin-top: .5rem;
+    }
+    p {
+        color: ${primaryColor};
+        margin: 0;
+    }
+    span {
+        color: ${darkColor};
+    }
+`;
+
+export const ProductActions = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: ${marginTopBox};
+`;
+
+export const ActionItem = styled.div`
+    button {
+        ${buttonStyle};
+    }
+    a {
+        background-color: rgba(0 0 0 / 5%);
+        color: ${primaryColor};
+        padding: .65rem;
+        border-radius: .3rem;
         span {
             margin-right: .3rem;
+        }
+    }
+`;
+
+export const CarouselItem = styled.div`
+    div {
+        img {
+            border: 1px solid rgba(0 0 0 / 15%);
         }
     }
 `;
