@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCategory } from '../../state/actions/category';
+import { getSubCategory } from '../../state/actions/subCategory';
 import ProductCard from '../../components/cards/ProductCard';
 import CardSkeleton from '../../components/layout/skeletons/CardSkeleton';
 
 // * styles
 import {
-    CategoryScreen,
+    SubCategoryScreen,
     StyledText, 
     StyledTitle,
 } from './styles';
@@ -16,56 +16,56 @@ import Row from 'antd/lib/row';
 import Alert from 'antd/lib/alert';
 import Tag from 'antd/lib/tag';
 
-const CategoryHome = ({ match }) => {
+const SubCategoryHome = ({ match }) => {
     const dispatch = useDispatch();
     const { slug } = match.params;
 
     // * category & category products state
-    const singleCat = useSelector(state => state.categorySingle);
+    const singleSubCat = useSelector(state => state.subCategorySingle);
     const { 
-        loading: categoryLoading, 
-        error: categoryError, 
-        category,
-    } = singleCat;
+        loading: subCategoryLoading, 
+        error: subCategoryError, 
+        subCategory,
+    } = singleSubCat;
     
     useEffect(() => {
-        dispatch(getCategory(slug));
+        dispatch(getSubCategory(slug));
     }, [dispatch, slug]);
 
-    const showCategoryProducts = () => (
-        category?.categoryProducts.map(product => (
+    const showSubCategoryProducts = () => (
+        subCategory?.subCategoryProducts.map(product => (
             <ProductCard product={product} key={product._id} />
         ))
     )
 
     return (
         <div className='container'>
-            <CategoryScreen>
+            <SubCategoryScreen>
                 <StyledTitle level={4}>
-                    <span>{category?.category.name}</span> products
+                    <span>{subCategory?.subCategory.name}</span> products
                 </StyledTitle>
                 <StyledText type='secondary'>
-                    <Tag color='#059669'>{category?.categoryProducts.length}</Tag> products in {`"${category?.category.name}"`} category
+                    <Tag color='#059669'>{subCategory?.subCategoryProducts.length}</Tag> products in {`"${subCategory?.subCategory.name}"`} sub category
                 </StyledText>
-                {categoryLoading ? (
+                {subCategoryLoading ? (
                     <CardSkeleton count={3} />
-                ) : categoryError ? (
-                    <Alert message={categoryError} type='error' showIcon />
-                ) : category?.categoryProducts.length === 0 ? (
+                ) : subCategoryError ? (
+                    <Alert message={subCategoryError} type='error' showIcon />
+                ) : subCategory?.subCategoryProducts.length === 0 ? (
                     <Alert 
-                        message='This category has no products yet.' 
+                        message='This sub category has no products yet.' 
                         type='info' 
                         closeText='Hide' 
                         showIcon
                     />
                 ) : (
                     <Row gutter={[20, 20]}>
-                        {showCategoryProducts()}
+                        {showSubCategoryProducts()}
                     </Row>
                 )}
-            </CategoryScreen>
+            </SubCategoryScreen>
         </div>
     )
 }
 
-export default CategoryHome;
+export default SubCategoryHome;

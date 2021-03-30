@@ -4,6 +4,7 @@ import HomePreview from './HomePreview';
 import NewArrivals from './NewArrivals';
 import BestSellers from './BestSellers';
 import CategoryList from '../../components/category/CategoryList';
+import SubCategoryList from '../../components/sub-category/SubCategoryList';
 
 const Home = () => {
     return (
@@ -13,6 +14,7 @@ const Home = () => {
                 <NewArrivals />
                 <BestSellers />
                 <CategoryList />
+                <SubCategoryList />
             </div>
         </Fragment>
     )

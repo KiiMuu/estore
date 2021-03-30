@@ -7,7 +7,7 @@ import { darkColor, primaryColor } from '../../themes/colors';
 
 const { Title, Text } = Typography;
 
-export const CategoryScreen = styled.div`
+export const SubCategoryScreen = styled.div`
     padding: ${topSpace} 0;
 `;
 

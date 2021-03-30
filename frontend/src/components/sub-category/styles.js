@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { topSpace } from '../../themes/spaces';
 
-export const StyledCatgeories = styled.div`
+export const StyledSubCatgeories = styled.div`
     padding-bottom: ${topSpace};
 `;

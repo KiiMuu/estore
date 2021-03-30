@@ -89,14 +89,14 @@ const SingleProduct = ({
                     <InfoItem>
                         <p>Category</p>
                         <Link to={`/category/${product?.category.slug}`}>
-                            <Tag>{product?.category.name}</Tag>
+                            <Tag color='#059669' style={{ color: '#fff' }}>{product?.category.name}</Tag>
                         </Link>
                     </InfoItem>
                     <InfoItem>
                         <p>Sub Categories</p>
                         {product?.subCategories.map(sub => (
                             <Link to={`/sub/${sub.slug}`} key={sub._id}>
-                                <Tag>{sub.name}</Tag>
+                                <Tag color='#059669' style={{ color: '#fff' }}>{sub.name}</Tag>
                             </Link>
                         ))}
                     </InfoItem>

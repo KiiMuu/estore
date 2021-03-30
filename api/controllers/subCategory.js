@@ -1,4 +1,5 @@
 import SubCategory from '../models/subCategory';
+import Product from '../models/product';
 import slugify from 'slugify';
 import { BAD_REQUEST, CREATED, NOT_FOUND, OK } from '../utils/contsants';
 
@@ -41,8 +42,16 @@ const getSubCategory = async (req, res) => {
 
     const subCategory = await SubCategory.findOne({ slug }).exec();
 
+    // * get sub category products
+    const subCategoryProducts = await Product.find({ subCategories: subCategory })
+    .populate('category')
+    .exec();
+
     if (subCategory) {
-        res.status(OK).json(subCategory);
+        res.status(OK).json({
+            subCategory,
+            subCategoryProducts,
+        });
     } else {
         res.status(NOT_FOUND).json({
             message: 'Sub-category maybe deleted'

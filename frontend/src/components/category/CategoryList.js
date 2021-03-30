@@ -6,14 +6,14 @@ import { getCategories } from '../../state/actions/category';
 // * styles
 import { 
     StyledCatgeories, 
-    StyledTag,
 } from './styles';
+import { StyledText, StyledTitle } from '../../pages/home/styles';
 
 // * @antd
 import Space from 'antd/lib/space';
 import Alert from 'antd/lib/alert';
+import Tag from 'antd/lib/tag';
 import { LoadingOutlined } from '@ant-design/icons';
-import { StyledText, StyledTitle } from '../../pages/home/styles';
 
 const CategoryList = () => {
     const dispatch = useDispatch();
@@ -33,10 +33,14 @@ const CategoryList = () => {
     const showCategoires = () => (
         <Space size={[8, 10]} wrap>
             {categories?.length === 0 ? (
-                'No categories added yet'
+                <Alert 
+                    message='No categories added yet.' 
+                    type='info' 
+                    showIcon
+                />
             ) : categories?.map(category => (
                 <Link key={category._id} to={`/category/${category.slug}`}>
-                    <StyledTag>{category.name}</StyledTag>
+                    <Tag color='#059669'>{category.name}</Tag>
                 </Link>
             ))}
         </Space>
