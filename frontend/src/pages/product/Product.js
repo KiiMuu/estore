@@ -1,6 +1,6 @@
-import { Fragment, useEffect } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProduct } from '../../state/actions/product';
+import { getProduct, rateProduct } from '../../state/actions/product';
 import SingleProduct from '../../components/cards/SingleProduct';
 import ProductSkeleton from '../../components/layout/skeletons/ProductSkeleton';
 
@@ -15,11 +15,18 @@ import {
 import Row from 'antd/lib/row';
 import Typography from 'antd/lib/typography';
 import Alert from 'antd/lib/alert';
+import useUserHook from '../../hooks/useUserHook';
+import errorAlert from '../../components/layout/message/errorAlert';
+import successAlert from '../../components/layout/message/successAlert';
 
 const { Title } = Typography;
 
 const Product = ({ match }) => {
+    const [star, setStar] = useState(0);
+
     const dispatch = useDispatch();
+
+    const { userInfo } = useUserHook();
 
     useEffect(() => {
         dispatch(getProduct(match.params.slug));
@@ -28,6 +35,41 @@ const Product = ({ match }) => {
     // * product state
     const prod = useSelector(state => state.productSingle);
     const { error, loading, product } = prod;
+
+    const prodRate = useSelector(state => state.productRating);
+    const { 
+        loading: rateLoading, 
+        error: rateError, 
+        success: rateSuccess,
+    } = prodRate;
+
+    const onStarChange = newRate => setStar(newRate);
+
+    const handleRateSubmit = () => {
+        dispatch(rateProduct(product?._id, star, userInfo?.token));
+    }
+
+    useEffect(() => {
+        // * get current user's rating stars
+        if (userInfo && product?.ratings) {
+            let existingRating = product.ratings
+            .find(ele => ele.ratedBy.toString() === userInfo._id.toString());
+
+            existingRating && setStar(existingRating.numberOfStars);
+        }
+    }, [userInfo, product?.ratings]);
+
+    useEffect(() => {
+        if (rateError) {
+            errorAlert(rateError, 3);
+        }
+
+        if (rateSuccess) {
+            successAlert('Thanks for your rating!', 3);
+
+            dispatch(getProduct(match.params.slug));
+        }
+    }, [rateError, rateSuccess, dispatch, match.params.slug]);
 
     return (
         <div className='container'>
@@ -39,7 +81,13 @@ const Product = ({ match }) => {
                 <Fragment>
                     <StyledProduct>
                         <Row gutter={[20, 20]}>
-                            <SingleProduct product={product} />
+                            <SingleProduct 
+                                product={product} 
+                                star={star}
+                                onStarChange={onStarChange} 
+                                rateLoading={rateLoading}
+                                handleRateSubmit={handleRateSubmit}
+                            />
                         </Row>
                     </StyledProduct>
                     <RelatedProducts>

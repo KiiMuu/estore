@@ -19,3 +19,7 @@ export const PRODUCT_UPDATE_RESET = Symbol('PRODUCT_UPDATE_RESET').description;
 export const PRODUCT_DELETE_REQUEST = Symbol('PRODUCT_DELETE_REQUEST').description;
 export const PRODUCT_DELETE_SUCCESS = Symbol('PRODUCT_DELETE_SUCCESS').description;
 export const PRODUCT_DELETE_FAIL = Symbol('PRODUCT_DELETE_FAIL').description;
+
+export const PRODUCT_RATING_REQUEST = Symbol('PRODUCT_RATING_REQUEST').description;
+export const PRODUCT_RATING_SUCCESS = Symbol('PRODUCT_RATING_SUCCESS').description;
+export const PRODUCT_RATING_FAIL = Symbol('PRODUCT_RATING_FAIL').description;

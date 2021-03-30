@@ -63,10 +63,16 @@ export const createOrUpdateUser = async authtoken => {
 }
 
 export const roleBasedRedirect = (res, history) => {
-    if (res.data.role === 'admin') {
-        history.push('/admin/dashboard');
+    let intended = history.location.state;
+
+    if (intended) {
+        history.push(intended.from);
     } else {
-        history.push('/user/history');
+        if (res.data.role === 'admin') {
+            history.push('/admin/dashboard');
+        } else {
+            history.push('/user/history');
+        }
     }
 }
 

@@ -15,6 +15,9 @@ import {
     PRODUCT_UPDATE_REQUEST,
     PRODUCT_UPDATE_SUCCESS,
     PRODUCT_UPDATE_FAIL,
+    PRODUCT_RATING_REQUEST,
+    PRODUCT_RATING_SUCCESS,
+    PRODUCT_RATING_FAIL,
 } from '../constants/product';
 
 export const createProduct = (product, authtoken) => async dispatch => {
@@ -156,5 +159,30 @@ export const getTotalProducts = async () => {
         return data;
     } catch (err) {
         return err.response?.data.message ? err.response.data.message : err.message;
+    }
+}
+
+export const rateProduct = (id, numberOfStars, authtoken) => async dispatch => {
+    try {
+        dispatch({
+            type: PRODUCT_RATING_REQUEST,
+        });
+
+        const config = {
+            headers: {
+                authtoken,
+            }
+        }
+    
+        await axios.put(`/api/product/rate/${id}`, { numberOfStars }, config);
+    
+        dispatch({
+            type: PRODUCT_RATING_SUCCESS,
+        });
+    } catch (err) {
+        dispatch({
+            type: PRODUCT_RATING_FAIL,
+            payload: err.response?.data.message ? err.response.data.message : err.message,
+        });
     }
 }

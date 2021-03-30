@@ -16,6 +16,9 @@ import {
     PRODUCT_UPDATE_FAIL,
     PRODUCT_UPDATE_RESET,
     PRODUCT_SINGLE_SUCCESS,
+    PRODUCT_RATING_REQUEST,
+    PRODUCT_RATING_SUCCESS,
+    PRODUCT_RATING_FAIL,
 } from '../constants/product';
 
 const initialProductCreate = {}
@@ -138,6 +141,29 @@ export const productDeleteReducer = (state = initialProductDelete, action) => {
                 loading: false,
             }
         case PRODUCT_DELETE_FAIL:
+            return {
+                error: action.payload,
+                loading: false,
+            }
+        default:
+            return state;
+    }
+}
+
+const initialProductRating = {}
+
+export const productRatingReducer = (state = initialProductRating, action) => {
+    switch (action.type) {
+        case PRODUCT_RATING_REQUEST:
+            return {
+                loading: true,
+            }
+        case PRODUCT_RATING_SUCCESS:
+            return {
+                success: true,
+                loading: false,
+            }
+        case PRODUCT_RATING_FAIL:
             return {
                 error: action.payload,
                 loading: false,

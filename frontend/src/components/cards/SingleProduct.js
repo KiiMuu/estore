@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import RatingModal from '../layout/rating/RatingModal';
 
 // * styles
 import { 
@@ -8,8 +9,10 @@ import {
     ProductInfo,
     InfoItem,
     ProductActions,
-    ActionItem,
     CarouselItem,
+    StyledRating,
+    CartAction,
+    WishListAction,
 } from './styles';
 
 // * @antd
@@ -20,14 +23,14 @@ import Tag from 'antd/lib/tag';
 import Tabs from 'antd/lib/tabs';
 
 import {
-    HeartOutlined,
     ShoppingCartOutlined,
     MoreOutlined,
+    HeartFilled,
 } from '@ant-design/icons';
 
 const { TabPane } = Tabs;
 
-const SingleProduct = ({ product }) => {
+const SingleProduct = ({ product, star, rateLoading, onStarChange, handleRateSubmit }) => {
     return (
         <Fragment>
             <Col xs={24} md={14}>
@@ -63,6 +66,15 @@ const SingleProduct = ({ product }) => {
             </Col>
             <Col xs={24} md={10}>
                 <StyledTitle level={4}>{product?.title}</StyledTitle>
+                <StyledRating>
+                    {/* <RatingModal>
+                        <Rate  
+                            name={product?._id}
+                            value={5} 
+                            onChange={(newRating) => console.log({newRating, name: product?._id})}
+                        />
+                    </RatingModal> */}
+                </StyledRating>
                 <ProductInfo>
                     <InfoItem>
                         <p>Price</p>
@@ -104,20 +116,31 @@ const SingleProduct = ({ product }) => {
                     </InfoItem>
                 </ProductInfo>
                 <ProductActions>
-                    <ActionItem>
+                    <CartAction>
                         <button>
                             <span><ShoppingCartOutlined /></span>
                             Add to Cart
                         </button>
-                    </ActionItem>
-                    <ActionItem>
-                        <Link to='/'><HeartOutlined /> Add to Wishlist</Link>
-                    </ActionItem>
+                    </CartAction>
+                    <WishListAction>
+                        <button>
+                            <Link to='/'>
+                                <span><HeartFilled /></span> 
+                                Add to Wishlist
+                            </Link>
+                        </button>
+                    </WishListAction>
+                    <RatingModal
+                        star={star}
+                        onStarChange={onStarChange}
+                        rateLoading={rateLoading}
+                        handleRateSubmit={handleRateSubmit}
+                    />
                 </ProductActions>
             </Col>
             <Col xs={24} md={12}>
                 <Tabs defaultActiveKey='1'>
-                    <TabPane key='1' tab={<span><HeartOutlined /> Description</span>}>
+                    <TabPane key='1' tab={<span><HeartFilled /> Description</span>}>
                         <StyledText>{product?.description}</StyledText>
                     </TabPane>
                     <TabPane key='2' tab={<span><MoreOutlined /> More</span>}>

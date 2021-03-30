@@ -77,7 +77,6 @@ export const AddToCart = styled.div`
 export const StyledTitle = styled(Title)`
     && {
         text-transform: uppercase;
-        margin-bottom: 1.5rem;
         color: ${primaryColor};
     }
 `;
@@ -115,23 +114,29 @@ export const ProductActions = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
     margin-top: ${marginTopBox};
 `;
 
-export const ActionItem = styled.div`
+export const CartAction = styled.div`
     button {
         ${buttonStyle};
     }
-    a {
-        background-color: rgba(0 0 0 / 5%);
-        color: ${primaryColor};
+    margin-bottom: .5rem;
+`;
+
+export const WishListAction = styled.div`
+    button {
+        border: none;
         padding: .65rem;
-        border-radius: .3rem;
-        span {
-            margin-right: .3rem;
+        a {
+            span {
+                margin-right: .3rem;
+            }
         }
     }
-`;
+    margin-bottom: .5rem;
+`
 
 export const CarouselItem = styled.div`
     div {
@@ -139,4 +144,8 @@ export const CarouselItem = styled.div`
             border: 1px solid rgba(0 0 0 / 15%);
         }
     }
+`;
+
+export const StyledRating = styled.div`
+    margin-bottom: 1.5rem;
 `;

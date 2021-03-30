@@ -1,15 +1,19 @@
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import useUserHook from './useUserHook';
 
 const useProtectRoute = () => {
     const history = useHistory();
-
-    const { user } = useSelector(state => ({ ...state }));
-    const { userInfo } = user;
+    const { userInfo } = useUserHook();
 
     useEffect(() => {
-        if (userInfo?.token) history.push('/');
+        let intended = history.location.state;
+
+        if (intended) {
+            return;
+        } else {
+            if (userInfo?.token) history.push('/');
+        }
     }, [userInfo, history]);
 }
 
