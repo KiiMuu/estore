@@ -150,7 +150,7 @@ const rateProduct = async (req, res) => {
         const product = await Product.findById(productId).exec();
         const user = await User.findOne({ email: currentUser }).exec();
 
-        const { numberOfStars } = req.body;
+        const { numberOfStars, rateText } = req.body;
 
         // * check if currently logged in user have already added rating to this product
         let existingRating = product.ratings
@@ -163,8 +163,9 @@ const rateProduct = async (req, res) => {
                 $push: {
                     ratings: {
                         numberOfStars,
+                        rateText,
                         ratedBy: user._id,
-                    }
+                    },
                 }
             }, {
                 new: true, // * to send newly and updated info to client
@@ -179,6 +180,7 @@ const rateProduct = async (req, res) => {
             }, {
                 $set: {
                     'ratings.$.numberOfStars': numberOfStars,
+                    'ratings.$.rateText': rateText,
                 }
             }, {
                 new: true,

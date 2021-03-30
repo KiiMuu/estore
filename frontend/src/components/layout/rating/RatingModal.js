@@ -1,11 +1,11 @@
 import { Fragment, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import useUserHook from '../../../hooks/useUserHook';
-import successAlert from '../message/successAlert';
 
 // * styles
 import {
     RateButton,
+    InputLabel,
 } from './styles';
 
 // * @antd
@@ -13,7 +13,14 @@ import Modal from 'antd/lib/modal';
 import Rate from 'antd/lib/rate';
 import { StarFilled } from '@ant-design/icons';
 
-const RatingModal = ({ star, rateLoading, onStarChange, handleRateSubmit }) => {
+const RatingModal = ({ 
+    star, 
+    rateText,
+    setRateText,
+    rateLoading, 
+    onStarChange, 
+    handleRateSubmit 
+}) => {
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const handleModalVisibility = () => setIsModalVisible(!isModalVisible);
@@ -60,6 +67,17 @@ const RatingModal = ({ star, rateLoading, onStarChange, handleRateSubmit }) => {
                     allowClear
                 />
                 {star ? <span className='ant-rate-text'>{rateDescription[star - 1]}</span> : ''}
+                <InputLabel>
+                    <label htmlFor='rateText'>Description</label>
+                    <input 
+                        type='text' 
+                        inputMode='text'
+                        id='rateText'
+                        placeholder='Optional rating description'
+                        value={rateText}
+                        onChange={e => setRateText(e.target.value)}
+                    />
+                </InputLabel>
             </Modal>
         </Fragment>
     )

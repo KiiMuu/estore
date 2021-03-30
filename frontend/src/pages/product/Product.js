@@ -23,6 +23,7 @@ const { Title } = Typography;
 
 const Product = ({ match }) => {
     const [star, setStar] = useState(0);
+    const [rateText, setRateText] = useState('');
 
     const dispatch = useDispatch();
 
@@ -46,7 +47,7 @@ const Product = ({ match }) => {
     const onStarChange = newRate => setStar(newRate);
 
     const handleRateSubmit = () => {
-        dispatch(rateProduct(product?._id, star, userInfo?.token));
+        dispatch(rateProduct(product?._id, star, rateText, userInfo?.token));
     }
 
     useEffect(() => {
@@ -56,6 +57,7 @@ const Product = ({ match }) => {
             .find(ele => ele.ratedBy.toString() === userInfo._id.toString());
 
             existingRating && setStar(existingRating.numberOfStars);
+            existingRating && setRateText(existingRating.rateText);
         }
     }, [userInfo, product?.ratings]);
 
@@ -84,6 +86,8 @@ const Product = ({ match }) => {
                             <SingleProduct 
                                 product={product} 
                                 star={star}
+                                rateText={rateText}
+                                setRateText={setRateText}
                                 onStarChange={onStarChange} 
                                 rateLoading={rateLoading}
                                 handleRateSubmit={handleRateSubmit}

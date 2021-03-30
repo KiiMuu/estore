@@ -162,7 +162,7 @@ export const getTotalProducts = async () => {
     }
 }
 
-export const rateProduct = (id, numberOfStars, authtoken) => async dispatch => {
+export const rateProduct = (id, numberOfStars, rateText, authtoken) => async dispatch => {
     try {
         dispatch({
             type: PRODUCT_RATING_REQUEST,
@@ -174,7 +174,10 @@ export const rateProduct = (id, numberOfStars, authtoken) => async dispatch => {
             }
         }
     
-        await axios.put(`/api/product/rate/${id}`, { numberOfStars }, config);
+        await axios.put(`/api/product/rate/${id}`, { 
+            numberOfStars,
+            rateText, 
+        }, config);
     
         dispatch({
             type: PRODUCT_RATING_SUCCESS,

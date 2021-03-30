@@ -30,7 +30,15 @@ import {
 
 const { TabPane } = Tabs;
 
-const SingleProduct = ({ product, star, rateLoading, onStarChange, handleRateSubmit }) => {
+const SingleProduct = ({ 
+    product, 
+    star, 
+    rateText,
+    setRateText,
+    rateLoading, 
+    onStarChange, 
+    handleRateSubmit 
+}) => {
     return (
         <Fragment>
             <Col xs={24} md={14}>
@@ -132,6 +140,8 @@ const SingleProduct = ({ product, star, rateLoading, onStarChange, handleRateSub
                     </WishListAction>
                     <RatingModal
                         star={star}
+                        rateText={rateText}
+                        setRateText={setRateText}
                         onStarChange={onStarChange}
                         rateLoading={rateLoading}
                         handleRateSubmit={handleRateSubmit}
