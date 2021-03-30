@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { AverageRating } from '../layout/rating/AverageRating';
 
 // * styles
 import {
@@ -10,6 +11,7 @@ import {
     CardActions,
     ViewProduct,
     AddToCart,
+    NoRate,
 } from './styles';
 
 // * @antd
@@ -66,7 +68,9 @@ const ProductCard = ({ product }) => {
                         <span>${price}</span>
                     </CardHeading>
                     <CardRate>
-                        <p>rate</p>
+                        {product?.ratings?.length > 0 ? AverageRating(product) : (
+                            <NoRate>Not rated yet</NoRate>
+                        )}
                     </CardRate>
                     <CardDesc>
                         <p>{formatDescription(description)}</p>

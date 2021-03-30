@@ -27,7 +27,6 @@ export const CardHeading = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
     h2 {
         color: ${darkColor};
         word-break: break-all;
@@ -42,7 +41,16 @@ export const CardHeading = styled.div`
     }
 `;
 
-export const CardRate = styled.div``;
+export const CardRate = styled.div`
+    margin-bottom: 1rem;
+`;
+
+export const NoRate = styled.span`
+    display: inline-block;
+    margin-top: 1rem;
+    text-decoration: underline;
+    color: ${darkColor};
+`;
 
 export const CardDesc = styled.div`
     color: #555;
@@ -78,6 +86,7 @@ export const StyledTitle = styled(Title)`
     && {
         text-transform: uppercase;
         color: ${primaryColor};
+        margin: 0;
     }
 `;
 
@@ -148,4 +157,5 @@ export const CarouselItem = styled.div`
 
 export const StyledRating = styled.div`
     margin-bottom: 1.5rem;
+    text-align: center;
 `;

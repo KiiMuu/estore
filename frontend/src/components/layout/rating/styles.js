@@ -3,6 +3,9 @@ import { primaryColor } from '../../../themes/colors';
 import { inputLabel } from '../../../themes/mixins';
 import { marginTopBox } from '../../../themes/spaces';
 
+// * @antd
+import Tag from 'antd/lib/tag';
+
 export const RateButton = styled.button`
     background-color: rgba(0 0 0 / 5%);
     padding: .65rem;
@@ -20,4 +23,8 @@ export const RateButton = styled.button`
 export const InputLabel = styled.div`
     ${inputLabel};
     margin-top: ${marginTopBox};
+`;
+
+export const StyledTag = styled(Tag)`
+    margin: 0 0 0 1rem;
 `;

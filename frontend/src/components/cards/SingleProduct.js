@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import RatingModal from '../layout/rating/RatingModal';
+import { AverageRating } from '../layout/rating/AverageRating';
 
 // * styles
 import { 
@@ -13,6 +14,7 @@ import {
     StyledRating,
     CartAction,
     WishListAction,
+    NoRate,
 } from './styles';
 
 // * @antd
@@ -75,13 +77,9 @@ const SingleProduct = ({
             <Col xs={24} md={10}>
                 <StyledTitle level={4}>{product?.title}</StyledTitle>
                 <StyledRating>
-                    {/* <RatingModal>
-                        <Rate  
-                            name={product?._id}
-                            value={5} 
-                            onChange={(newRating) => console.log({newRating, name: product?._id})}
-                        />
-                    </RatingModal> */}
+                    {product?.ratings?.length > 0 ? AverageRating(product) : (
+                        <NoRate>Not rated yet</NoRate>
+                    )}
                 </StyledRating>
                 <ProductInfo>
                     <InfoItem>

@@ -64,7 +64,6 @@ const RatingModal = ({
                     onChange={onStarChange}
                     tooltips={rateDescription}
                     allowHalf
-                    allowClear
                 />
                 {star ? <span className='ant-rate-text'>{rateDescription[star - 1]}</span> : ''}
                 <InputLabel>
