@@ -26,7 +26,7 @@ const ProductSkeleton = ({ count }) => {
             <Row gutter={[20, 20]}>
                 {cards()}
             </Row>
-            <Row gutter={[20, 20]}>
+            <Row gutter={[20, 20]} style={{ marginTop: '2rem' }}>
                 <Col xs={24} md={12}>
                     <Card>
                         <Skeleton active></Skeleton>

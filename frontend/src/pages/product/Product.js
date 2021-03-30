@@ -1,25 +1,25 @@
 import { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProduct, rateProduct } from '../../state/actions/product';
+import { getProduct, rateProduct, getRelatedProducts } from '../../state/actions/product';
 import SingleProduct from '../../components/cards/SingleProduct';
 import ProductSkeleton from '../../components/layout/skeletons/ProductSkeleton';
+import CardSkeleton from '../../components/layout/skeletons/CardSkeleton';
+import ProductCard from '../../components/cards/ProductCard';
+import useUserHook from '../../hooks/useUserHook';
+import errorAlert from '../../components/layout/message/errorAlert';
+import successAlert from '../../components/layout/message/successAlert';
 
 // * styles
 import {
     RelatedProducts,
+    StyledHeading,
     StyledProduct,
     Loader,
 } from './styles';
 
 // * @antd
 import Row from 'antd/lib/row';
-import Typography from 'antd/lib/typography';
 import Alert from 'antd/lib/alert';
-import useUserHook from '../../hooks/useUserHook';
-import errorAlert from '../../components/layout/message/errorAlert';
-import successAlert from '../../components/layout/message/successAlert';
-
-const { Title } = Typography;
 
 const Product = ({ match }) => {
     const [star, setStar] = useState(0);
@@ -28,10 +28,6 @@ const Product = ({ match }) => {
     const dispatch = useDispatch();
 
     const { userInfo } = useUserHook();
-
-    useEffect(() => {
-        dispatch(getProduct(match.params.slug));
-    }, [dispatch, match.params.slug]);
 
     // * product state
     const prod = useSelector(state => state.productSingle);
@@ -44,11 +40,26 @@ const Product = ({ match }) => {
         success: rateSuccess,
     } = prodRate;
 
+    const relatedProds = useSelector(state => state.productsRelated);
+    const { 
+        loading: relatedLoading, 
+        error: relatedError, 
+        products: relatedProducts
+    } = relatedProds;
+
     const onStarChange = newRate => setStar(newRate);
 
     const handleRateSubmit = () => {
         dispatch(rateProduct(product?._id, star, rateText, userInfo?.token));
     }
+
+    useEffect(() => {
+        dispatch(getProduct(match.params.slug));
+    }, [dispatch, match.params.slug]);
+
+    useEffect(() => {
+        dispatch(getRelatedProducts(product?._id));
+    }, [dispatch, product?._id]);
 
     useEffect(() => {
         // * get current user's rating stars
@@ -94,10 +105,22 @@ const Product = ({ match }) => {
                             />
                         </Row>
                     </StyledProduct>
-                    <RelatedProducts>
-                        <Title level={4}>Related Products</Title>
-                        <div>Related Cards</div>
-                    </RelatedProducts>
+                    {relatedProducts?.length > 0 && (
+                        <RelatedProducts>
+                            <StyledHeading>You might also like</StyledHeading>
+                            {relatedLoading ? (
+                                <CardSkeleton count={relatedProducts?.length} />
+                            ) : relatedError ? (
+                                <Alert message={relatedError} type='error' showIcon />
+                            ) : (
+                                <Row gutter={[20, 20]}>
+                                    {relatedProducts?.map(rp => (
+                                        <ProductCard key={rp._id} product={rp} />
+                                    ))}
+                                </Row>
+                            )}
+                        </RelatedProducts>
+                    )}
                 </Fragment>
             )}
         </div>

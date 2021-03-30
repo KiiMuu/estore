@@ -18,6 +18,9 @@ import {
     PRODUCT_RATING_REQUEST,
     PRODUCT_RATING_SUCCESS,
     PRODUCT_RATING_FAIL,
+    PRODUCT_RELATED_REQUEST,
+    PRODUCT_RELATED_SUCCESS,
+    PRODUCT_RELATED_FAIL,
 } from '../constants/product';
 
 export const createProduct = (product, authtoken) => async dispatch => {
@@ -185,6 +188,26 @@ export const rateProduct = (id, numberOfStars, rateText, authtoken) => async dis
     } catch (err) {
         dispatch({
             type: PRODUCT_RATING_FAIL,
+            payload: err.response?.data.message ? err.response.data.message : err.message,
+        });
+    }
+}
+
+export const getRelatedProducts = id => async dispatch => {
+    try {
+        dispatch({
+            type: PRODUCT_RELATED_REQUEST,
+        });
+
+        const { data } = await axios.get(`/api/product/related/${id}`);
+
+        dispatch({
+            type: PRODUCT_RELATED_SUCCESS,
+            payload: data,
+        });
+    } catch (err) {
+        dispatch({
+            type: PRODUCT_RELATED_FAIL,
             payload: err.response?.data.message ? err.response.data.message : err.message,
         });
     }

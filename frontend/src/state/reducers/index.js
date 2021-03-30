@@ -26,6 +26,7 @@ import {
     productRatingReducer,
     productSingleReducer,
     productUpdateReducer,
+    productsRelatedReducer,
 } from './product';
 import {
     uploadImgsReducer,
@@ -55,6 +56,7 @@ const rootReducer = combineReducers({
     productUpdate: productUpdateReducer,
     productDelete: productDeleteReducer,
     productRating: productRatingReducer,
+    productsRelated: productsRelatedReducer,
     // * cloudinary
     uploadImgs: uploadImgsReducer,
     removeImg: removeImgReducer,
