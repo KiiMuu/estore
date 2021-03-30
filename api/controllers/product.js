@@ -190,7 +190,31 @@ const rateProduct = async (req, res) => {
         }
     } catch (err) {
         res.status(BAD_REQUEST).json({
-            message: 'Products retrieving failed'
+            message: 'Rating adding failed'
+        });
+    }
+}
+
+const relatedProducts = async (req, res) => {
+    try {
+        const productId = req.params.id;
+
+        const product = await Product.findById(productId).exec();
+
+        const relatedProds = await Product.find({
+            _id: { $ne: product._id },
+            category: product.category,
+        })
+        .limit(3)
+        .populate('category')
+        .populate('subCategories')
+        .populate('ratedBy')
+        .exec();
+
+        res.status(OK).json(relatedProds);
+    } catch (err) {
+        res.status(BAD_REQUEST).json({
+            message: 'Related products retrieving failed'
         });
     }
 }
@@ -204,4 +228,5 @@ export {
     getProducts,
     productsCount,
     rateProduct,
+    relatedProducts,
 }
