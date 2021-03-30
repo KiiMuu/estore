@@ -24,7 +24,7 @@ export const AverageRating = product => {
         return (
             <>
                 <Rate disabled value={result} allowHalf /> 
-                <StyledTag color='#87d068'>{product?.ratings.length}</StyledTag>
+                <StyledTag color='#059669'>{product?.ratings.length}</StyledTag>
             </>
         )
     }

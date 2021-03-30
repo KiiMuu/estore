@@ -7,6 +7,7 @@ import { Switch, Route } from 'react-router-dom';
 import Home from './pages/home/Home';
 import Header from './components/nav/Header';
 import Product from './pages/product/Product';
+import CategoryHome from './pages/category/CategoryHome';
 // * auth
 import Register from './pages/auth/Register';
 import RegisterComplete from './pages/auth/RegisterComplete';
@@ -45,6 +46,7 @@ const App = () => {
                 {/* public */}
                 <Route exact path='/' component={Home} />
                 <Route exact path='/product/:slug' component={Product} />
+                <Route exact path='/category/:slug' component={CategoryHome} />
                 {/* auth */}
                 <Route exact path='/register' component={Register} />
                 <Route exact path='/register/complete' component={RegisterComplete} />
