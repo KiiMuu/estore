@@ -21,6 +21,7 @@ export const StyledSider = styled(Sider)`
         height: 100vh;
         left: 0;
         z-index: 98;
+        overflow: auto;
     }
 `;
 
@@ -32,6 +33,13 @@ export const FilterHeading = styled.h3`
 
 export const ListItem = styled.li`
     padding: 0 1.5rem;
+`;
+
+export const CheckBoxItem = styled.div`
+    padding: .5rem 0;
+    span {
+        color: ${darkColor};
+    }
 `;
 
 // * ShopLayout.js

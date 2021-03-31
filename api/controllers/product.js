@@ -1,6 +1,11 @@
 import Product from '../models/product';
 import User from '../models/user';
 import slugify from 'slugify';
+import { 
+    handleCategory,
+    handlePrice, 
+    handleQuery,
+} from './productFilters';
 import { BAD_REQUEST, CREATED, OK } from '../utils/contsants';
 
 const createProduct = async (req, res) => {
@@ -220,42 +225,9 @@ const relatedProducts = async (req, res) => {
 }
 
 // * search / filters
-const handleQuery = async (req, res, query) => {
-    const products = await Product.find({ 
-        $text: {
-            $search: query,
-        } 
-    })
-    .populate('category', '_id name')
-    .populate('subCategories', '_id name')
-    .populate('ratedBy', '_id name')
-    .exec();
-
-    res.status(OK).json(products);
-}
-
-const handlePrice = async (req, res, price) => {
-    try {
-        const products = await Product.find({
-            price: {
-                $gte: price[0],
-                $lte: price[1],
-            }
-        })
-        .populate('category', '_id name')
-        .populate('subCategories', '_id name')
-        .populate('ratedBy', '_id name')
-        .exec();
-
-        res.status(OK).json(products);
-    } catch (err) {
-        console.log({ err });
-    }
-}
-
 const searchFilters = async (req, res) => {
     try {
-        const { query, price } = req.body;
+        const { query, price, category } = req.body;
 
         if (query) {
             await handleQuery(req, res, query);
@@ -263,6 +235,10 @@ const searchFilters = async (req, res) => {
         
         if (price !== undefined) {
             await handlePrice(req, res, price);
+        }
+
+        if (category) {
+            await handleCategory(req, res, category);
         }
     } catch (err) {
         res.status(BAD_REQUEST).json({
