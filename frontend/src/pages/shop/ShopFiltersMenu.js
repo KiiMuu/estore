@@ -1,89 +1,82 @@
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { SEARCH_QUERY } from '../../state/constants/product';
+import { searchProducts } from '../../state/actions/product';
+
 // * styled
 import {
+    ListItem,
     StyledSider,
+    FilterHeading,
 } from './styles';
 
 // * @antd
-// import { 
-//     DashboardOutlined,
-//     OrderedListOutlined,
-//     AppstoreOutlined,
-//     BlockOutlined,
-//     KeyOutlined,
-//     FireOutlined,
-// } from '@ant-design/icons';
+import Slider from 'antd/lib/slider';
+import Menu from 'antd/lib/menu';
+import { 
+    DollarOutlined,
+} from '@ant-design/icons';
 
-const ShopFiltersMenu = () => {
+const { SubMenu } = Menu;
+
+const ShopFiltersMenu = ({ shopProds, setShopProds }) => {
+    const [price, setPrice] = useState([0, 0]);
+    const [ok, setOk] = useState(false);
+
+    const dispatch = useDispatch();
+
+    const fecthFilteredProds = arg => {
+        searchProducts(arg).then(res => {
+            setShopProds(res.data);
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+
+    // * price filtering
+    useEffect(() => {
+        fecthFilteredProds({ price });
+        // execute when ok is true
+        // eslint-disable-next-line
+    }, [ok]);
+
+    const handleSliderChange = val => {
+        dispatch({
+            type: SEARCH_QUERY,
+            payload: {
+                text: '',
+            }
+        });
+
+        setPrice(val);
+
+        setTimeout(() => {
+            setOk(!ok);
+        }, 300);
+    }
+
     return (
         <StyledSider
             breakpoint='md'
             collapsedWidth='0'
         >
-            <ul>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-                <li>Test</li>
-            </ul>
-            {/* <List>
-                <StyledNavLink 
-                    to='/admin/dashboard' 
-                    activeClassName='isActive'
-                >
+            <FilterHeading>Filter Products</FilterHeading>
+            <Menu
+                mode='inline'
+                defaultOpenKeys={['1', '2']}
+            >
+                <SubMenu icon={<DollarOutlined />} title='Price' key='1'>
                     <ListItem>
-                        <span><DashboardOutlined /></span>
-                        Dashboard
+                        <Slider 
+                            tipFormatter={v => `$${v}`} 
+                            range 
+                            value={price} 
+                            onChange={handleSliderChange}
+                            max='5000'
+                        />
                     </ListItem>
-                </StyledNavLink>
-                <StyledNavLink 
-                    to='/admin/product' 
-                    activeClassName='isActive'
-                >
-                    <ListItem>
-                        <span><OrderedListOutlined /></span>
-                        Product
-                    </ListItem>
-                </StyledNavLink>
-                <StyledNavLink 
-                    to='/admin/category' 
-                    activeClassName='isActive'
-                >
-                    <ListItem>
-                        <span><AppstoreOutlined /></span>
-                        Category
-                    </ListItem>
-                </StyledNavLink>
-                <StyledNavLink 
-                    to='/admin/sub' 
-                    activeClassName='isActive'
-                >
-                    <ListItem>
-                        <span><BlockOutlined /></span>
-                        Sub Category
-                    </ListItem>
-                </StyledNavLink>
-                <StyledNavLink 
-                    to='/admin/coupon' 
-                    activeClassName='isActive'
-                >
-                    <ListItem>
-                        <span><FireOutlined /></span>
-                        Coupon
-                    </ListItem>
-                </StyledNavLink>
-                <StyledNavLink 
-                    to='/user/password' 
-                    activeClassName='isActive'
-                >
-                    <ListItem>
-                        <span><KeyOutlined /></span>
-                        Password
-                    </ListItem>
-                </StyledNavLink>
-            </List> */}
+                </SubMenu>
+            </Menu>
         </StyledSider>
     )
 }

@@ -234,15 +234,37 @@ const handleQuery = async (req, res, query) => {
     res.status(OK).json(products);
 }
 
+const handlePrice = async (req, res, price) => {
+    try {
+        const products = await Product.find({
+            price: {
+                $gte: price[0],
+                $lte: price[1],
+            }
+        })
+        .populate('category', '_id name')
+        .populate('subCategories', '_id name')
+        .populate('ratedBy', '_id name')
+        .exec();
+
+        res.status(OK).json(products);
+    } catch (err) {
+        console.log({ err });
+    }
+}
+
 const searchFilters = async (req, res) => {
     try {
-        const { query } = req.body;
+        const { query, price } = req.body;
 
         if (query) {
             await handleQuery(req, res, query);
         }
+        
+        if (price !== undefined) {
+            await handlePrice(req, res, price);
+        }
     } catch (err) {
-        console.log({err});
         res.status(BAD_REQUEST).json({
             message: 'Search products failed'
         });

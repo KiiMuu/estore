@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { headerHeight, boxPadding, marginBottomBox, topSpace } from '../../themes/spaces';
-import { darkColor } from '../../themes/colors';
+import { darkColor, lightColor, primaryDarkColor } from '../../themes/colors';
 import { layoutQuery } from '../../themes/breakpoints';
 
 // * @antd
@@ -14,7 +14,7 @@ const { Content, Sider } = Layout;
 export const StyledSider = styled(Sider)`
     && {
         padding-top: ${headerHeight};
-        background: #fff;
+        background: linear-gradient(to bottom, ${primaryDarkColor}, rgba(6, 95, 70, .51));
         border-right: .1rem solid #eee;
         box-shadow: 0 0 0.3rem 0.2rem rgb(0 0 0 / 3%);
         position: fixed;
@@ -22,6 +22,16 @@ export const StyledSider = styled(Sider)`
         left: 0;
         z-index: 98;
     }
+`;
+
+export const FilterHeading = styled.h3`
+    padding: 1rem 1.5rem;
+    margin: 0;
+    color: ${lightColor};
+`;
+
+export const ListItem = styled.li`
+    padding: 0 1.5rem;
 `;
 
 // * ShopLayout.js
