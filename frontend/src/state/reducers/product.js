@@ -22,6 +22,7 @@ import {
     PRODUCT_RELATED_FAIL,
     PRODUCT_RELATED_SUCCESS,
     PRODUCT_RELATED_REQUEST,
+    SEARCH_QUERY,
 } from '../constants/product';
 
 const initialProductCreate = {}
@@ -195,6 +196,22 @@ export const productsRelatedReducer = (state = initialRelatedProducts, action) =
             return {
                 error: action.payload,
                 loading: false,
+            }
+        default:
+            return state;
+    }
+}
+
+const initialSearchQuery = {
+    text: '',
+}
+
+export const searchQueryReducer = (state = initialSearchQuery, action) => {
+    switch (action.type) {
+        case SEARCH_QUERY:
+            return {
+                ...state,
+                ...action.payload,
             }
         default:
             return state;

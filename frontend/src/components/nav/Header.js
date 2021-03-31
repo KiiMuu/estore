@@ -1,6 +1,12 @@
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import useUserHook from '../../hooks/useUserHook';
+import Search from '../forms/Search';
+import useToggle from '../../hooks/useToggle';
+import { auth } from '../../firebase';
+import { LOGOUT } from '../../state/constants/user';
+
+// * styles
 import {
     HeaderWrapper,
     Nav,
@@ -21,11 +27,8 @@ import {
     StyledSubMenu,
     StyledItem,
 } from './styles';
-import useToggle from '../../hooks/useToggle';
-import { auth } from '../../firebase';
-import { LOGOUT } from '../../state/constants/user';
 
-// @antd
+// * @antd
 import Menu from 'antd/lib/menu';
 import Dropdown from 'antd/lib/dropdown';
 import { 
@@ -37,6 +40,8 @@ import {
     MenuOutlined,
     CloseOutlined,
     LogoutOutlined,
+    ShopOutlined,
+    SearchOutlined,
 } from '@ant-design/icons';
 
 const { Item, Divider } = Menu;
@@ -91,9 +96,30 @@ const Header = () => {
                     <div className='hide-md'>
                         <NavItems>
                             <ListItem>
+                                <Dropdown 
+                                    overlay={<Search />}
+                                    trigger={['click']}
+                                >
+                                    <NavItemLink
+                                        className='ant-dropdown-link' 
+                                        to='#'
+                                        onClick={e => e.preventDefault()}
+                                    >
+                                        <span><SearchOutlined /></span> 
+                                        Search
+                                    </NavItemLink>
+                                </Dropdown>
+                            </ListItem>
+                            <ListItem>
                                 <NavItemLink to='/'>
                                     <span><HomeOutlined /></span>
                                     Home
+                                </NavItemLink>
+                            </ListItem>
+                            <ListItem>
+                                <NavItemLink to='/shop'>
+                                    <span><ShopOutlined /></span>
+                                    Shop
                                 </NavItemLink>
                             </ListItem>
                             {!userInfo && (
@@ -152,6 +178,12 @@ const Header = () => {
                                         <MobNavItemLink to='/'>
                                             <span><HomeOutlined /></span>
                                             Home
+                                        </MobNavItemLink>
+                                    </MobListItem>
+                                    <MobListItem>
+                                        <MobNavItemLink to='/shop'>
+                                            <span><ShopOutlined /></span>
+                                            Shop
                                         </MobNavItemLink>
                                     </MobListItem>
                                     {!userInfo && (

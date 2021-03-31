@@ -219,6 +219,36 @@ const relatedProducts = async (req, res) => {
     }
 }
 
+// * search / filters
+const handleQuery = async (req, res, query) => {
+    const products = await Product.find({ 
+        $text: {
+            $search: query,
+        } 
+    })
+    .populate('category', '_id name')
+    .populate('subCategories', '_id name')
+    .populate('ratedBy', '_id name')
+    .exec();
+
+    res.status(OK).json(products);
+}
+
+const searchFilters = async (req, res) => {
+    try {
+        const { query } = req.body;
+
+        if (query) {
+            await handleQuery(req, res, query);
+        }
+    } catch (err) {
+        console.log({err});
+        res.status(BAD_REQUEST).json({
+            message: 'Search products failed'
+        });
+    }
+}
+
 export {
     createProduct,
     getProduct,
@@ -229,4 +259,5 @@ export {
     productsCount,
     rateProduct,
     relatedProducts,
+    searchFilters,
 }

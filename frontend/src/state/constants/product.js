@@ -27,3 +27,5 @@ export const PRODUCT_RATING_FAIL = Symbol('PRODUCT_RATING_FAIL').description;
 export const PRODUCT_RELATED_REQUEST = Symbol('PRODUCT_RELATED_REQUEST').description;
 export const PRODUCT_RELATED_SUCCESS = Symbol('PRODUCT_RELATED_SUCCESS').description;
 export const PRODUCT_RELATED_FAIL = Symbol('PRODUCT_RELATED_FAIL').description;
+
+export const SEARCH_QUERY = Symbol('SEARCH_QUERY').description;

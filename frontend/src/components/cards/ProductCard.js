@@ -33,7 +33,7 @@ const ProductCard = ({ product }) => {
     } = product;
 
     const formatDescription = str => {
-        return str.length > 40 ? `${str.substring(0, 40)}...` : str;
+        return str.length > 30 ? `${str.substring(0, 30)}...` : str;
     }
 
     return (
@@ -59,7 +59,7 @@ const ProductCard = ({ product }) => {
                         width='100%'
                         height='30rem'
                         src='error'
-                        fallback='https://via.placeholder.com/300/?text=no+preview+image'
+                        fallback='https://dummyimage.com/3000x2500/0bb55a/000000.jpg&text=No+image+provided'
                     />
                 )}
                 <CardInfo>

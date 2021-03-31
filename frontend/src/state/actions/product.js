@@ -212,3 +212,11 @@ export const getRelatedProducts = id => async dispatch => {
         });
     }
 }
+
+export const searchProducts = async arg => {
+    try {
+        return await axios.post('/api/products/search/filters', arg);
+    } catch (err) {
+        return err.response?.data.message ? err.response.data.message : err.message;
+    }
+}

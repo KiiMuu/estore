@@ -12,6 +12,7 @@ import {
     productsCount,
     rateProduct,
     relatedProducts,
+    searchFilters,
  } from '../controllers/product';
 
 // * middlewares
@@ -87,5 +88,10 @@ router.put('/product/rate/:id', authCheck, rateProduct);
 // * @access  Public
 // * put -> as we're going to update the product
 router.get('/product/related/:id', relatedProducts);
+
+// * @desc    Search in products
+// * @route   POST /api/product/search/filters
+// * @access  Public
+router.post('/products/search/filters', searchFilters);
 
 export default router;
