@@ -33,6 +33,9 @@ import {
     uploadImgsReducer,
     removeImgReducer,
 } from './cloudinary';
+import {
+    cartListReducer,
+} from './cart';
 
 const rootReducer = combineReducers({
     // * user
@@ -62,6 +65,8 @@ const rootReducer = combineReducers({
     // * cloudinary
     uploadImgs: uploadImgsReducer,
     removeImg: removeImgReducer,
+    // * cart
+    cartList: cartListReducer,
 });
 
 export default rootReducer;

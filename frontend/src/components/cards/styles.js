@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { darkColor, primaryColor } from '../../themes/colors';
-import { buttonStyle } from '../../themes/mixins';
 
 // * @antd
 import Typography from 'antd/lib/typography';
@@ -55,24 +54,6 @@ export const CardActions = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-`;
-
-export const ViewProduct = styled.div`
-    a {
-        border: none;
-        cursor: pointer;
-        outline: none;
-        z-index: 1;
-        span {
-            margin-right: .3rem;
-        }
-    }
-`;
-
-export const AddToCart = styled.div`
-    button {
-        ${buttonStyle};
-    }
 `;
 
 // * SingleProduct.js

@@ -5,6 +5,7 @@ import {
     lightColor, 
     primaryColor,
     darkColor,
+    primaryDarkColor,
 } from '../../themes/colors';
 import { linkHover } from '../../themes/mixins';
 import { defaultFontSize } from '../../themes/fonts';
@@ -57,6 +58,20 @@ export const ListItem = styled.li`
         margin-left: .5rem;
     }
     list-style: none;
+    position: relative;
+`;
+
+export const CartCount = styled.span`
+    position: absolute;
+    color: ${lightColor};
+    background-color: ${primaryDarkColor};
+    top: 0;
+    min-width: 2rem;
+    min-height: 2rem;
+    text-align: center;
+    line-height: 2rem;
+    font-size: 1.2rem;
+    border-radius: 50%;
 `;
 
 export const NavItemLink = styled(Link)`

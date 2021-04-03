@@ -1,5 +1,8 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { AverageRating } from '../layout/rating/AverageRating';
+import { handleAddToCart } from '../../helpers/handleAddToCart';
 
 // * styles
 import {
@@ -9,22 +12,24 @@ import {
     CardRate,
     CardDesc,
     CardActions,
-    ViewProduct,
-    AddToCart,
 } from './styles';
 
 // * @antd
 import Col from 'antd/lib/col';
 import Image from 'antd/lib/image';
 import Divider from 'antd/lib/divider';
+import Tag from 'antd/lib/tag';
+import Button from 'antd/lib/button';
+import Tooltip from 'antd/lib/tooltip';
 
 import { 
     EyeOutlined,
     ShoppingCartOutlined,
 } from '@ant-design/icons';
-import Tag from 'antd/lib/tag';
 
 const ProductCard = ({ product }) => {
+    const [tooltip, setTooltip] = useState('Add');
+
     const {
         slug,
         title,
@@ -34,13 +39,10 @@ const ProductCard = ({ product }) => {
         category,
     } = product;
 
-    const formatTitle = str => {
-        return str.length > 20 ? `${str.substring(0, 20)}...` : str;
-    }
+    const dispatch = useDispatch();
 
-    const formatDescription = str => {
-        return str.length > 30 ? `${str.substring(0, 30)}...` : str;
-    }
+    const formatTitle = str => str.length > 20 ? `${str.substring(0, 20)}...` : str;
+    const formatDescription = str => str.length > 30 ? `${str.substring(0, 30)}...` : str;
 
     return (
         <Col xs={24} md={12} lg={8}>
@@ -84,18 +86,18 @@ const ProductCard = ({ product }) => {
                         <p title={description}>{formatDescription(description)}</p>
                     </CardDesc>
                     <CardActions>
-                        <ViewProduct>
-                            <Link to={`/product/${slug}`}>
-                                <span><EyeOutlined /></span>
-                                View
-                            </Link>
-                        </ViewProduct>
-                        <AddToCart>
-                            <button>
-                                <span><ShoppingCartOutlined /></span>
+                        <Link to={`/product/${slug}`}>
+                            <span style={{ marginRight: '.5rem' }}><EyeOutlined /></span>
+                            View
+                        </Link>
+                        <Tooltip title={tooltip} color='#059669'>
+                            <Button 
+                                onClick={() => dispatch(handleAddToCart(product, setTooltip))}
+                                type='primary' 
+                                icon={<ShoppingCartOutlined />}>
                                 Add to Cart
-                            </button>
-                        </AddToCart>
+                            </Button>
+                        </Tooltip>
                     </CardActions>
                 </CardInfo>
             </Card>

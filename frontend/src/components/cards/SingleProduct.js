@@ -1,7 +1,9 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import RatingModal from '../layout/rating/RatingModal';
 import { AverageRating } from '../layout/rating/AverageRating';
+import { handleAddToCart } from '../../helpers/handleAddToCart';
 
 // * styles
 import { 
@@ -37,6 +39,7 @@ import {
     DollarCircleOutlined,
     HeartOutlined,
 } from '@ant-design/icons';
+import Tooltip from 'antd/lib/tooltip';
 
 const { TabPane } = Tabs;
 
@@ -49,6 +52,10 @@ const SingleProduct = ({
     onStarChange, 
     handleRateSubmit 
 }) => {
+    const [tooltip, setTooltip] = useState('Add');
+
+    const dispatch = useDispatch();
+
     return (
         <Fragment>
             <Col xs={24} md={14}>
@@ -141,11 +148,14 @@ const SingleProduct = ({
                         </Tag>
                     </InfoItem>
                     <ProductActions>
-                        <Button 
-                            type='primary' 
-                            icon={<ShoppingCartOutlined />}>
-                            Add to Cart
-                        </Button>
+                        <Tooltip title={tooltip} color='#059669'>
+                            <Button 
+                                onClick={() => dispatch(handleAddToCart(product, setTooltip))}
+                                type='primary' 
+                                icon={<ShoppingCartOutlined />}>
+                                Add to Cart
+                            </Button>
+                        </Tooltip>
                         <Link to='/'>
                             <Button 
                                 type='default' 

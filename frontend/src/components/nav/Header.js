@@ -1,5 +1,5 @@
 import { Link, useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import useUserHook from '../../hooks/useUserHook';
 import Search from '../forms/Search';
 import useToggle from '../../hooks/useToggle';
@@ -26,11 +26,13 @@ import {
     StyledMenu,
     StyledSubMenu,
     StyledItem,
+    CartCount,
 } from './styles';
 
 // * @antd
 import Menu from 'antd/lib/menu';
 import Dropdown from 'antd/lib/dropdown';
+import Badge from 'antd/lib/badge';
 import { 
     HomeOutlined,
     UserAddOutlined,
@@ -40,8 +42,9 @@ import {
     MenuOutlined,
     CloseOutlined,
     LogoutOutlined,
-    ShopOutlined,
     SearchOutlined,
+    ShoppingOutlined,
+    ShoppingCartOutlined,
 } from '@ant-design/icons';
 
 const { Item, Divider } = Menu;
@@ -54,6 +57,9 @@ const Header = () => {
     const history = useHistory();
 
     const { userInfo } = useUserHook();
+
+    // * cart state
+    const { cart } = useSelector(state => state.cartList);
 
     const logout = () => {
         auth.signOut();
@@ -118,8 +124,14 @@ const Header = () => {
                             </ListItem>
                             <ListItem>
                                 <NavItemLink to='/shop'>
-                                    <span><ShopOutlined /></span>
+                                    <span><ShoppingOutlined /></span>
                                     Shop
+                                </NavItemLink>
+                            </ListItem>
+                            <ListItem>
+                                <NavItemLink to='/cart'>
+                                    <span><ShoppingCartOutlined /></span>
+                                    Cart <CartCount>{cart?.length}</CartCount>
                                 </NavItemLink>
                             </ListItem>
                             {!userInfo && (
@@ -197,7 +209,7 @@ const Header = () => {
                                     </MobListItem>
                                     <MobListItem>
                                         <MobNavItemLink to='/shop'>
-                                            <span><ShopOutlined /></span>
+                                            <span><ShoppingOutlined /></span>
                                             Shop
                                         </MobNavItemLink>
                                     </MobListItem>
