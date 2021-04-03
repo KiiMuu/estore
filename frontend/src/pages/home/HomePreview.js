@@ -18,6 +18,7 @@ const HomePreview = () => {
                 <PreviewText>
                     <Jumborton text={strings} />
                     <p><span>eStore</span> for buying and selling all kinds of products.</p>
+                    
                 </PreviewText>
             </div>
         </Preview>

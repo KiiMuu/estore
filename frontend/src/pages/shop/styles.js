@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { headerHeight, boxPadding, marginBottomBox, topSpace } from '../../themes/spaces';
-import { darkColor, lightColor, primaryDarkColor } from '../../themes/colors';
+import { darkColor, primaryColor } from '../../themes/colors';
 import { layoutQuery } from '../../themes/breakpoints';
 
 // * @antd
@@ -14,25 +14,41 @@ const { Content, Sider } = Layout;
 export const StyledSider = styled(Sider)`
     && {
         padding-top: ${headerHeight};
-        background: linear-gradient(to bottom, ${primaryDarkColor}, rgba(6, 95, 70, .51));
-        border-right: .1rem solid #eee;
+        background: #eee;
+        border-right: .2rem solid #eee;
         box-shadow: 0 0 0.3rem 0.2rem rgb(0 0 0 / 3%);
         position: fixed;
         height: 100vh;
+        max-width: 25rem !important;
+        min-width: 25rem !important;
+        width: 25rem !important;
         left: 0;
         z-index: 98;
         overflow: auto;
+        ::-webkit-scrollbar {
+            width: .8rem;
+            border-radius: .8rem;
+            background-color: #ddd;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #666;
+            border-radius: .8rem;
+        }
     }
 `;
 
 export const FilterHeading = styled.h3`
-    padding: 1rem 1.5rem;
+    padding: 2rem 1.5rem;
     margin: 0;
-    color: ${lightColor};
+    color: ${primaryColor};
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: 1.4rem;
+    background-color: #fff;
 `;
 
 export const ListItem = styled.li`
-    padding: 0 1.5rem;
+    padding: 1rem 1.5rem;
 `;
 
 export const CheckBoxItem = styled.div`
@@ -41,6 +57,14 @@ export const CheckBoxItem = styled.div`
         color: ${darkColor};
     }
 `;
+
+export const ResetFilter = styled.div`
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+`; 
 
 // * ShopLayout.js
 export const StyledContent = styled(Content)`

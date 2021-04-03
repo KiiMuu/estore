@@ -76,3 +76,8 @@ export const StyledPagination = styled.div`
     margin-top: ${marginTopBox};
     text-align: center;
 `;
+
+// * TopRated.js
+export const TopRatedProds = styled.div`
+    padding: 0 0 ${topSpace} 0;
+`;

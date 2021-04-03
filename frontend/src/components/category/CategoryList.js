@@ -12,7 +12,7 @@ import { StyledText, StyledTitle } from '../../pages/home/styles';
 // * @antd
 import Space from 'antd/lib/space';
 import Alert from 'antd/lib/alert';
-import Tag from 'antd/lib/tag';
+import Button from 'antd/lib/button';
 import { LoadingOutlined } from '@ant-design/icons';
 
 const CategoryList = () => {
@@ -40,7 +40,7 @@ const CategoryList = () => {
                 />
             ) : categories?.map(category => (
                 <Link key={category._id} to={`/category/${category.slug}`}>
-                    <Tag color='#059669'>{category.name}</Tag>
+                    <Button type='primary'>{category.name}</Button>
                 </Link>
             ))}
         </Space>

@@ -11,17 +11,18 @@ import {
     CardActions,
     ViewProduct,
     AddToCart,
-    NoRate,
 } from './styles';
 
 // * @antd
 import Col from 'antd/lib/col';
 import Image from 'antd/lib/image';
+import Divider from 'antd/lib/divider';
 
 import { 
     EyeOutlined,
     ShoppingCartOutlined,
 } from '@ant-design/icons';
+import Tag from 'antd/lib/tag';
 
 const ProductCard = ({ product }) => {
     const {
@@ -30,7 +31,12 @@ const ProductCard = ({ product }) => {
         description,
         images,
         price,
+        category,
     } = product;
+
+    const formatTitle = str => {
+        return str.length > 20 ? `${str.substring(0, 20)}...` : str;
+    }
 
     const formatDescription = str => {
         return str.length > 30 ? `${str.substring(0, 30)}...` : str;
@@ -64,16 +70,18 @@ const ProductCard = ({ product }) => {
                 )}
                 <CardInfo>
                     <CardHeading>
-                        <h2>{title}</h2>
+                        <h2 title={title}>{formatTitle(title)}</h2>
                         <span>${price}</span>
                     </CardHeading>
                     <CardRate>
                         {product?.ratings?.length > 0 ? AverageRating(product) : (
-                            <NoRate>Not rated yet</NoRate>
-                        )}
+                            <Tag style={{ marginTop: '1rem', marginRight: '0' }} color='warning'>Not rated yet</Tag>
+                        )} 
+                        <Divider type='vertical' style={{ background: '#999' }} />
+                        <Tag color='blue'>{category?.name}</Tag>
                     </CardRate>
                     <CardDesc>
-                        <p>{formatDescription(description)}</p>
+                        <p title={description}>{formatDescription(description)}</p>
                     </CardDesc>
                     <CardActions>
                         <ViewProduct>
@@ -85,7 +93,7 @@ const ProductCard = ({ product }) => {
                         <AddToCart>
                             <button>
                                 <span><ShoppingCartOutlined /></span>
-                                add to cart
+                                Add to Cart
                             </button>
                         </AddToCart>
                     </CardActions>

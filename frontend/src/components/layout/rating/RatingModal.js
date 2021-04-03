@@ -4,14 +4,14 @@ import useUserHook from '../../../hooks/useUserHook';
 
 // * styles
 import {
-    RateButton,
     InputLabel,
 } from './styles';
 
 // * @antd
 import Modal from 'antd/lib/modal';
 import Rate from 'antd/lib/rate';
-import { StarFilled } from '@ant-design/icons';
+import { StarOutlined } from '@ant-design/icons';
+import Button from 'antd/lib/button';
 
 const RatingModal = ({ 
     star, 
@@ -46,10 +46,12 @@ const RatingModal = ({
 
     return (
         <Fragment>
-            <RateButton onClick={handleModal}>
-                <span><StarFilled /></span> 
+            <Button 
+                type='default' 
+                icon={<StarOutlined style={{ color: 'green' }} />} 
+                onClick={handleModal}>
                 {userInfo ? 'Leave rating' : 'Login to rate'}
-            </RateButton>
+            </Button>
             <Modal
                 title='Leave your rating'
                 centered

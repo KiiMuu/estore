@@ -106,7 +106,7 @@ const Header = () => {
                                         onClick={e => e.preventDefault()}
                                     >
                                         <span><SearchOutlined /></span> 
-                                        Search
+                                        Find Products
                                     </NavItemLink>
                                 </Dropdown>
                             </ListItem>
@@ -174,6 +174,21 @@ const Header = () => {
                             </MenuHeader>
                             <MobNav>
                                 <MobNavItems>
+                                    <MobListItem>
+                                        <Dropdown 
+                                            overlay={<Search />}
+                                            trigger={['click']}
+                                        >
+                                            <MobNavItemLink
+                                                className='ant-dropdown-link' 
+                                                to='#'
+                                                onClick={e => e.preventDefault()}
+                                            >
+                                                <span><SearchOutlined /></span> 
+                                                Find Products
+                                            </MobNavItemLink>
+                                        </Dropdown>
+                                    </MobListItem>
                                     <MobListItem>
                                         <MobNavItemLink to='/'>
                                             <span><HomeOutlined /></span>

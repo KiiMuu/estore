@@ -1,8 +1,6 @@
-// * styles
-import { StyledTag } from './styles';
-
 // * @antd
 import Rate from 'antd/lib/rate';
+import Tag from 'antd/lib/tag';
 
 export const AverageRating = product => {
     if (product?.ratings) {
@@ -20,7 +18,10 @@ export const AverageRating = product => {
         return (
             <>
                 <Rate disabled value={result} allowHalf /> 
-                <StyledTag color='#059669'>{product?.ratings.length}</StyledTag>
+                <Tag 
+                    style={{ margin: '0 0 0 1rem' }} 
+                    color='yellow'
+                >{product?.ratings.length}</Tag>
             </>
         )
     }

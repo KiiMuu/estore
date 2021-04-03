@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { getTotalProducts, listAllProducts } from '../../state/actions/product';
+import { listAllProducts, getTotalProducts } from '../../state/actions/product';
 import ProductCard from '../../components/cards/ProductCard';
 import CardSkeleton from '../../components/layout/skeletons/CardSkeleton';
 
 // * styles
 import { 
-    TopSellers, 
+    TopRatedProds, 
     StyledTitle,
     StyledText,
     StyledPagination,
@@ -16,17 +16,17 @@ import Row from 'antd/lib/row';
 import Alert from 'antd/lib/alert';
 import Pagination from 'antd/lib/pagination';
 
-const BestSellers = () => {
+const TopRated = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [productsCount, setProductsCount] = useState(0);
     const [page, setPage] = useState(1);
 
-    const loadBestSellers = () => {
+    const loadTopRated = () => {
         setLoading(true);
 
-        listAllProducts('sold', 'desc', page).then(res => {
+        listAllProducts('ratings.numberOfStars', 'desc', page).then(res => {
             setProducts(res);
             setLoading(false);
         }).catch(err => {
@@ -40,7 +40,7 @@ const BestSellers = () => {
     }
 
     useEffect(() => {
-        loadBestSellers();
+        loadTopRated();
 
         // eslint-disable-next-line
     }, [page]);
@@ -49,7 +49,7 @@ const BestSellers = () => {
         loadProductsCount();
     }, []);
 
-    const showBestSellers = () => (
+    const showTopRated = () => (
         <Row gutter={[20, 20]}>
             {products?.map(product => (
                 <ProductCard product={product} key={product._id} />
@@ -58,27 +58,27 @@ const BestSellers = () => {
     )
 
     return (
-        <TopSellers>
-            <StyledTitle level={4}>Best Sellers</StyledTitle>
+        <TopRatedProds>
+            <StyledTitle level={4}>Top Rated</StyledTitle>
             <StyledText type='secondary'>
-                See our most sold products
+                See our top rated products
             </StyledText>
             {loading ? (
                 <CardSkeleton count={3} />
             ) : error ? (
                 <Alert message={error} type='error' showIcon />
             ) : (
-                showBestSellers()
+                showTopRated()
             )}
             <StyledPagination>
-                <Pagination
-                    total={(productsCount / 3) * 10}
+                <Pagination 
+                    total={(productsCount / 3) * 10} 
                     current={page} 
                     onChange={val => setPage(val)}
                 />
             </StyledPagination>
-        </TopSellers>
+        </TopRatedProds>
     )
 }
 
-export default BestSellers;
+export default TopRated;

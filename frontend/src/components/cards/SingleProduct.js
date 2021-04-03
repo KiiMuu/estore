@@ -12,9 +12,7 @@ import {
     ProductActions,
     CarouselItem,
     StyledRating,
-    CartAction,
-    WishListAction,
-    NoRate,
+    PeopleRates,
 } from './styles';
 
 // * @antd
@@ -23,11 +21,21 @@ import Carousel from 'antd/lib/carousel';
 import Image from 'antd/lib/image';
 import Tag from 'antd/lib/tag';
 import Tabs from 'antd/lib/tabs';
+import Button from 'antd/lib/button';
+import Rate from 'antd/lib/rate';
+import Comment from 'antd/lib/comment';
 
 import {
     ShoppingCartOutlined,
     MoreOutlined,
     HeartFilled,
+    BgColorsOutlined,
+    GiftOutlined,
+    TransactionOutlined,
+    NumberOutlined,
+    PayCircleOutlined,
+    DollarCircleOutlined,
+    HeartOutlined,
 } from '@ant-design/icons';
 
 const { TabPane } = Tabs;
@@ -53,7 +61,7 @@ const SingleProduct = ({
                                     alt={product?.title} 
                                     style={{ 
                                         objectFit: 'cover',
-                                        borderRadius: '.3rem'
+                                        borderRadius: '.3rem',
                                     }}
                                     width='100%'
                                     height='40rem'
@@ -75,76 +83,86 @@ const SingleProduct = ({
                 </Carousel>
             </Col>
             <Col xs={24} md={10}>
-                <StyledTitle level={4}>{product?.title}</StyledTitle>
-                <StyledRating>
-                    {product?.ratings?.length > 0 ? AverageRating(product) : (
-                        <NoRate>Not rated yet</NoRate>
-                    )}
-                </StyledRating>
                 <ProductInfo>
+                    <StyledTitle level={4}>{product?.title}</StyledTitle>
+                    <StyledRating>
+                        {product?.ratings?.length > 0 ? AverageRating(product) : (
+                            <Tag color='warning'>Not rated yet</Tag>
+                        )}
+                    </StyledRating>
                     <InfoItem>
                         <p>Price</p>
-                        <span>${product?.price}</span>
+                        <Tag color='green' icon={<DollarCircleOutlined />}>
+                            ${product?.price}
+                        </Tag>
                     </InfoItem>
                     <InfoItem>
                         <p>Category</p>
                         <Link to={`/category/${product?.category.slug}`}>
-                            <Tag color='#059669' style={{ color: '#fff' }}>{product?.category.name}</Tag>
+                            <Tag color='#059669'>{product?.category.name}</Tag>
                         </Link>
                     </InfoItem>
                     <InfoItem>
                         <p>Sub Categories</p>
                         {product?.subCategories.map(sub => (
                             <Link to={`/sub/${sub.slug}`} key={sub._id}>
-                                <Tag color='#059669' style={{ color: '#fff' }}>{sub.name}</Tag>
+                                <Tag color='#059669'>{sub.name}</Tag>
                             </Link>
                         ))}
                     </InfoItem>
                     <InfoItem>
                         <p>Shipping</p>
-                        <span>{product?.shipping}</span>
+                        <Tag color='green' icon={<TransactionOutlined />}>
+                            {product?.shipping}
+                        </Tag>
                     </InfoItem>
                     <InfoItem>
                         <p>Color</p>
-                        <span>{product?.color}</span>
+                        <Tag color='green' icon={<BgColorsOutlined />}>
+                            {product?.color}
+                        </Tag>
                     </InfoItem>
                     <InfoItem>
                         <p>Brand</p>
-                        <span>{product?.brand}</span>
+                        <Tag color='green' icon={<GiftOutlined />}>
+                            {product?.brand}
+                        </Tag>
                     </InfoItem>
                     <InfoItem>
                         <p>Available</p>
-                        <span>{product?.quantity}</span>
+                        <Tag color='green' icon={<NumberOutlined />}>
+                            {product?.quantity}
+                        </Tag>
                     </InfoItem>
                     <InfoItem>
                         <p>Sold</p>
-                        <span>{product?.sold}</span>
+                        <Tag color='green' icon={<PayCircleOutlined />}>
+                            {product?.sold}
+                        </Tag>
                     </InfoItem>
-                </ProductInfo>
-                <ProductActions>
-                    <CartAction>
-                        <button>
-                            <span><ShoppingCartOutlined /></span>
+                    <ProductActions>
+                        <Button 
+                            type='primary' 
+                            icon={<ShoppingCartOutlined />}>
                             Add to Cart
-                        </button>
-                    </CartAction>
-                    <WishListAction>
-                        <button>
-                            <Link to='/'>
-                                <span><HeartFilled /></span> 
+                        </Button>
+                        <Link to='/'>
+                            <Button 
+                                type='default' 
+                                icon={<HeartOutlined style={{ color: 'orangered' }} />}>
                                 Add to Wishlist
-                            </Link>
-                        </button>
-                    </WishListAction>
-                    <RatingModal
-                        star={star}
-                        rateText={rateText}
-                        setRateText={setRateText}
-                        onStarChange={onStarChange}
-                        rateLoading={rateLoading}
-                        handleRateSubmit={handleRateSubmit}
-                    />
-                </ProductActions>
+                            </Button>
+                        </Link>
+                        <RatingModal
+                            star={star}
+                            rateText={rateText}
+                            setRateText={setRateText}
+                            onStarChange={onStarChange}
+                            rateLoading={rateLoading}
+                            handleRateSubmit={handleRateSubmit}
+                        />
+                    </ProductActions>
+                </ProductInfo>
             </Col>
             <Col xs={24} md={12}>
                 <Tabs defaultActiveKey='1'>
@@ -158,6 +176,20 @@ const SingleProduct = ({
                     </TabPane>
                 </Tabs>
             </Col>
+            {product?.ratings.length > 0 && (
+                <Col xs={24} md={12}>
+                    <PeopleRates>
+                        {product?.ratings.map(rate => (
+                            <Comment key={rate._id} author={rate.ratedBy.name} content={
+                                <>
+                                    <Rate disabled value={rate.numberOfStars} />
+                                    <p>{rate.rateText}</p>
+                                </>
+                            } datetime={new Date(rate.ratedBy.createdAt).toLocaleString()} />
+                        ))}
+                    </PeopleRates>
+                </Col>
+            )}
         </Fragment>
     )
 }

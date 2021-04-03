@@ -5,6 +5,7 @@ import { buttonStyle } from '../../themes/mixins';
 // * @antd
 import Typography from 'antd/lib/typography';
 import { marginBottomBox, marginTopBox } from '../../themes/spaces';
+import { productActionsQuery } from '../../themes/breakpoints';
 
 const { Title } = Typography;
 
@@ -43,13 +44,6 @@ export const CardHeading = styled.div`
 
 export const CardRate = styled.div`
     margin-bottom: 1rem;
-`;
-
-export const NoRate = styled.span`
-    display: inline-block;
-    margin-top: 1rem;
-    text-decoration: underline;
-    color: ${darkColor};
 `;
 
 export const CardDesc = styled.div`
@@ -100,9 +94,12 @@ export const StyledText = styled.p`
 `;
 
 export const ProductInfo = styled.div`
-    border: 1px solid rgba(0 0 0 / 15%);
-    padding: 1rem;
+    background-color: #fff;
+    box-shadow: 0 0 .5rem .3rem rgba(0 0 0 / 5%);
+    padding: 2rem 2.5rem;
+    min-height: 40rem;
 `;
+
 export const InfoItem = styled.div`
     display: flex;
     align-items: center;
@@ -114,9 +111,6 @@ export const InfoItem = styled.div`
         color: ${primaryColor};
         margin: 0;
     }
-    span {
-        color: ${darkColor};
-    }
 `;
 
 export const ProductActions = styled.div`
@@ -125,32 +119,15 @@ export const ProductActions = styled.div`
     justify-content: space-between;
     flex-wrap: wrap;
     margin-top: ${marginTopBox};
-`;
-
-export const CartAction = styled.div`
     button {
-        ${buttonStyle};
+        ${productActionsQuery};
     }
-    margin-bottom: .5rem;
 `;
-
-export const WishListAction = styled.div`
-    button {
-        border: none;
-        padding: .65rem;
-        a {
-            span {
-                margin-right: .3rem;
-            }
-        }
-    }
-    margin-bottom: .5rem;
-`
 
 export const CarouselItem = styled.div`
     div {
         img {
-            border: 1px solid rgba(0 0 0 / 15%);
+            border: 1px solid rgba(0 0 0 / 10%);
         }
     }
 `;
@@ -158,4 +135,22 @@ export const CarouselItem = styled.div`
 export const StyledRating = styled.div`
     margin-bottom: 1.5rem;
     text-align: center;
+`;
+
+export const PeopleRates = styled.div`
+    background-color: #fff;
+    box-shadow: 0 0 .5rem .3rem rgba(0 0 0 / 5%);
+    padding: 0 2rem;
+    border-radius: .3rem;
+    height: 25rem;
+    overflow: auto;
+    ::-webkit-scrollbar {
+        width: .8rem;
+        border-radius: .8rem;
+        background-color: #ddd;
+    }
+    ::-webkit-scrollbar-thumb {
+        background-color: #666;
+        border-radius: .8rem;
+    }
 `;

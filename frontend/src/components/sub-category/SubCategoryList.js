@@ -12,9 +12,9 @@ import { StyledText, StyledTitle } from '../../pages/home/styles';
 // * @antd
 import Space from 'antd/lib/space';
 import Alert from 'antd/lib/alert';
-import Tag from 'antd/lib/tag';
-import { LoadingOutlined } from '@ant-design/icons';
 import Tooltip from 'antd/lib/tooltip';
+import Button from 'antd/lib/button';
+import { LoadingOutlined } from '@ant-design/icons';
 
 const SubCategoryList = () => {
     const dispatch = useDispatch();
@@ -46,7 +46,7 @@ const SubCategoryList = () => {
                     key={sub._id}
                 >
                     <Link to={`/sub/${sub.slug}`}>
-                        <Tag color='#059669'>{sub.name}</Tag>
+                        <Button type='primary'>{sub.name}</Button>
                     </Link>
               </Tooltip>
             ))}

@@ -2,9 +2,14 @@ import Product from '../models/product';
 import User from '../models/user';
 import slugify from 'slugify';
 import { 
+    handleBrand,
     handleCategory,
+    handleColor,
     handlePrice, 
     handleQuery,
+    handleShipping,
+    handleStars,
+    handleSubCategories,
 } from './productFilters';
 import { BAD_REQUEST, CREATED, OK } from '../utils/contsants';
 
@@ -51,6 +56,7 @@ const getProduct = async (req, res) => {
     .findOne({ slug })
     .populate('category')
     .populate('subCategories')
+    .populate('ratings.ratedBy', '_id name createdAt')
     .exec();
 
     if (product) {
@@ -213,7 +219,6 @@ const relatedProducts = async (req, res) => {
         .limit(3)
         .populate('category')
         .populate('subCategories')
-        .populate('ratedBy')
         .exec();
 
         res.status(OK).json(relatedProds);
@@ -227,7 +232,9 @@ const relatedProducts = async (req, res) => {
 // * search / filters
 const searchFilters = async (req, res) => {
     try {
-        const { query, price, category } = req.body;
+        const { 
+            query, price, category, stars, sub, color, brand, shipping,
+        } = req.body;
 
         if (query) {
             await handleQuery(req, res, query);
@@ -239,6 +246,26 @@ const searchFilters = async (req, res) => {
 
         if (category) {
             await handleCategory(req, res, category);
+        }
+
+        if (stars) {
+            handleStars(req, res, stars);
+        }
+
+        if (sub) {
+            await handleSubCategories(req, res, sub);
+        }
+
+        if (color) {
+            await handleColor(req, res, color);
+        }
+
+        if (brand) {
+            await handleBrand(req, res, brand);
+        }
+
+        if (shipping) {
+            await handleShipping(req, res, shipping);
         }
     } catch (err) {
         res.status(BAD_REQUEST).json({

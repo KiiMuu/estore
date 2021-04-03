@@ -19,7 +19,18 @@ export const addButtonQuery = () => {
 export const layoutQuery = () => {
     return `
         @media screen and (min-width: 768px) {
-            margin-left: 20rem;
+            margin-left: 25rem;
+        }
+    `;
+}
+
+export const productActionsQuery = () => {
+    return `
+        @media screen and (max-width: 1200px) {
+            &:not(:first-child) {
+                margin-bottom: 0;
+            }
+            margin-bottom: .5rem;
         }
     `;
 }
