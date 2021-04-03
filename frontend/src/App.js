@@ -10,6 +10,7 @@ import Product from './pages/product/Product';
 import CategoryHome from './pages/category/CategoryHome';
 import SubCategoryHome from './pages/sub-category/SubCategoryHome';
 import ShopLayout from './pages/shop/ShopLayout';
+import Cart from './pages/cart/Cart';
 // * auth
 import Register from './pages/auth/Register';
 import RegisterComplete from './pages/auth/RegisterComplete';
@@ -51,6 +52,7 @@ const App = () => {
                 <Route exact path='/category/:slug' component={CategoryHome} />
                 <Route exact path='/sub/:slug' component={SubCategoryHome} />
                 <Route exact path='/shop' component={ShopLayout} />
+                <Route exact path='/cart' component={Cart} />
                 {/* auth */}
                 <Route exact path='/register' component={Register} />
                 <Route exact path='/register/complete' component={RegisterComplete} />

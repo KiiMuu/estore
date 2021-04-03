@@ -43,8 +43,6 @@ const Login = ({ history }) => {
 
     const dispatch = useDispatch();
 
-    useProtectRoute();
-
     const handleSubmit = e => {
         e.preventDefault();
 
@@ -52,6 +50,8 @@ const Login = ({ history }) => {
             dispatch(login(email, password, history));
         }
     }
+    
+    useProtectRoute();
 
     const googelLoginAuth = () => dispatch(googleLogin(history));
 

@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { marginBottomBox, topSpace } from '../../themes/spaces';
+import { darkColor } from '../../themes/colors';
 
 // * @antd
 import Typography from 'antd/lib/typography';
-import { darkColor, primaryColor } from '../../themes/colors';
 
 const { Title, Text } = Typography;
 
@@ -15,10 +15,6 @@ export const StyledTitle = styled(Title)`
     && {
         text-transform: uppercase;
         color: ${darkColor};
-        span {
-            color: ${primaryColor};
-            text-decoration: underline;
-        }
     }
 `;
 

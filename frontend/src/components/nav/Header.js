@@ -32,7 +32,6 @@ import {
 // * @antd
 import Menu from 'antd/lib/menu';
 import Dropdown from 'antd/lib/dropdown';
-import Badge from 'antd/lib/badge';
 import { 
     HomeOutlined,
     UserAddOutlined,
@@ -131,7 +130,7 @@ const Header = () => {
                             <ListItem>
                                 <NavItemLink to='/cart'>
                                     <span><ShoppingCartOutlined /></span>
-                                    Cart <CartCount>{cart?.length}</CartCount>
+                                    Cart {cart?.length && (<CartCount>{cart?.length}</CartCount>)}
                                 </NavItemLink>
                             </ListItem>
                             {!userInfo && (
@@ -211,6 +210,12 @@ const Header = () => {
                                         <MobNavItemLink to='/shop'>
                                             <span><ShoppingOutlined /></span>
                                             Shop
+                                        </MobNavItemLink>
+                                    </MobListItem>
+                                    <MobListItem>
+                                        <MobNavItemLink to='/cart'>
+                                            <span><ShoppingCartOutlined /></span>
+                                            Cart {cart?.length && (<CartCount>{cart?.length}</CartCount>)}
                                         </MobNavItemLink>
                                     </MobListItem>
                                     {!userInfo && (
