@@ -61,15 +61,16 @@ export const TableHeadings = styled.tr`
         font-weight: normal;
         color: #000;
         background: ${lightColor};
+        min-width: 10rem;
     }
 `;
 
-export const TableRows = styled.tr`
+export const TableRows = styled.tbody`
     td {
         &:first-child {
             padding-left: 1rem;
         }
         background-color: rgba(0 0 0 / 2%);
-        padding: 1rem 5rem 0 0;
+        padding: 1rem 2rem 1rem 0;
     }
 `;

@@ -2,6 +2,7 @@ import { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import useUserHook from '../../hooks/useUserHook';
+import CartItem from './CartItem';
 
 // * styles
 import { 
@@ -23,7 +24,6 @@ import Tag from 'antd/lib/tag';
 import Space from 'antd/lib/space';
 import Divider from 'antd/lib/divider';
 import { CheckSquareOutlined } from '@ant-design/icons';
-import CartItem from './CartItem';
 
 const Cart = () => {
     const { userInfo } = useUserHook();
