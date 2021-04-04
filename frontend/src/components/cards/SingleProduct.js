@@ -84,7 +84,7 @@ const SingleProduct = ({
                             width='100%'
                             height='40rem'
                             src='error'
-                            fallback='https://via.placeholder.com/300/?text=no+preview+image'
+                            fallback='https://dummyimage.com/600x400/059669/000000&text=No+image'
                         />
                     )}
                 </Carousel>

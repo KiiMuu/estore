@@ -6,6 +6,7 @@ import { Switch, Route } from 'react-router-dom';
 // * public
 import Home from './pages/home/Home';
 import Header from './components/nav/Header';
+import SideDrawer from './components/drawer/SideDrawer';
 import Product from './pages/product/Product';
 import CategoryHome from './pages/category/CategoryHome';
 import SubCategoryHome from './pages/sub-category/SubCategoryHome';
@@ -45,6 +46,7 @@ const App = () => {
     return (
         <Fragment>
             <Header />
+            <SideDrawer />
             <Switch>
                 {/* public */}
                 <Route exact path='/' component={Home} />

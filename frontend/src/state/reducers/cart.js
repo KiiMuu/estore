@@ -1,5 +1,6 @@
 import { 
     ADD_TO_CART,
+    ADD_TO_CART_DRAWER,
 } from '../constants/cart';
 
 let initialCartList = [];
@@ -18,6 +19,17 @@ export const cartListReducer = (state = initialCartList, action) => {
         case ADD_TO_CART:
             return {
                 cart: action.payload,
+            }
+        default:
+            return state;
+    }
+}
+
+export const cartListDrawerReducer = (state = false, action) => {
+    switch (action.type) {
+        case ADD_TO_CART_DRAWER:
+            return {
+                drawer: action.payload,
             }
         default:
             return state;

@@ -34,6 +34,7 @@ import {
     removeImgReducer,
 } from './cloudinary';
 import {
+    cartListDrawerReducer,
     cartListReducer,
 } from './cart';
 
@@ -67,6 +68,7 @@ const rootReducer = combineReducers({
     removeImg: removeImgReducer,
     // * cart
     cartList: cartListReducer,
+    cartListDrawer: cartListDrawerReducer,
 });
 
 export default rootReducer;

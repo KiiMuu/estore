@@ -67,7 +67,7 @@ const ProductCard = ({ product }) => {
                         width='100%'
                         height='30rem'
                         src='error'
-                        fallback='https://dummyimage.com/3000x2500/0bb55a/000000.jpg&text=No+image+provided'
+                        fallback='https://dummyimage.com/600x400/059669/000000&text=No+image'
                     />
                 )}
                 <CardInfo>

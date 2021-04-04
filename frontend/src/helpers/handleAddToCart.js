@@ -1,4 +1,4 @@
-import { ADD_TO_CART } from '../state/constants/cart';
+import { ADD_TO_CART, ADD_TO_CART_DRAWER } from '../state/constants/cart';
 
 export const handleAddToCart = (product, setTooltip) => dispatch => {
     let cart = [];
@@ -29,6 +29,11 @@ export const handleAddToCart = (product, setTooltip) => dispatch => {
         dispatch({
             type: ADD_TO_CART,
             payload: uniqueCarts,
+        });
+
+        dispatch({
+            type: ADD_TO_CART_DRAWER,
+            payload: true,
         });
     }
 }
