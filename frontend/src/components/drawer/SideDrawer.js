@@ -31,10 +31,10 @@ const SideDrawer = () => {
             onClose={handleClose}
             visible={drawer}
         >
-            {cart?.map(c => (
-                <Space direction='vertical' wrap>
-                    {c?.images?.length ? (
-                        <Fragment>
+            <Space direction='vertical' wrap>
+                {cart?.map(c => (
+                    c?.images?.length ? (
+                        <Fragment key={c._id}>
                             <Image
                                 src={c.images[0].url}
                                 style={{ 
@@ -67,9 +67,9 @@ const SideDrawer = () => {
                                 color='processing'
                             >{c.title} x {c.count}</Tag>
                         </Fragment>
-                    )}
-                </Space>
-            ))}
+                    )
+                ))}
+            </Space>
             <Button onClick={handleClose} type='primary' block style={{ marginTop: '2rem' }}>
                 <Link to='/cart'>Open Cart</Link>
             </Button>

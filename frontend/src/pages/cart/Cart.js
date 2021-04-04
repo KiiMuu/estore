@@ -1,8 +1,10 @@
-import { Fragment } from 'react';
-import { useSelector } from 'react-redux';
+import { Fragment, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { checkoutProceed } from '../../state/actions/cart';
 import useUserHook from '../../hooks/useUserHook';
 import CartItem from './CartItem';
+import errorAlert from '../../components/layout/message/errorAlert';
 
 // * styles
 import { 
@@ -13,6 +15,7 @@ import {
     Table,
     TableHeadings,
     TableWrapper,
+    TableRows,
 } from './styles';
 
 // * @antd
@@ -25,11 +28,20 @@ import Space from 'antd/lib/space';
 import Divider from 'antd/lib/divider';
 import { CheckSquareOutlined } from '@ant-design/icons';
 
-const Cart = () => {
+const Cart = ({ history }) => {
     const { userInfo } = useUserHook();
+    const dispatch = useDispatch();
 
     // * cart state
     const { cart } = useSelector(state => state.cartList);
+
+    // * checkout state
+    const { 
+        loading: checkoutLoading, 
+        error: checkoutError, 
+        success: checkoutSuccess, 
+        userCart
+    } = useSelector(state => state.proceedCheckout);
 
     const getTotal = () => {
         return cart?.reduce((curr, next) => {
@@ -37,7 +49,21 @@ const Cart = () => {
         }, 0);
     }
 
-    const saveOrderToDB = () => {}
+    const saveOrderToDB = () => {
+        dispatch(checkoutProceed(cart, userInfo?.token));
+
+        console.log({userCart});
+    }
+
+    useEffect(() => {
+        if (checkoutError) {
+            errorAlert(checkoutError, 3)
+        }
+
+        if (checkoutSuccess) {
+            history.push('/checkout');
+        }
+    }, [checkoutSuccess, checkoutError, history]);
 
     const showCartItems = () => (
         <TableWrapper>
@@ -53,9 +79,11 @@ const Cart = () => {
                     <th>Action</th>
                 </TableHeadings>
                 
-                {cart?.map(c => (
-                    <CartItem c={c} key={c._id} />
-                ))}
+                <TableRows>
+                    {cart?.map(c => (
+                        <CartItem c={c} key={c._id} />
+                    ))}
+                </TableRows>
             </Table>
         </TableWrapper>
     )
@@ -103,6 +131,7 @@ const Cart = () => {
                                     style={{ display: 'block' }}
                                     type='primary'
                                     icon={<CheckSquareOutlined />}
+                                    loading={checkoutLoading}
                                 >Proceed to Checkout</Button>
                             ) : (
                                 <Link to={{

@@ -1,6 +1,9 @@
 import { 
     ADD_TO_CART,
     ADD_TO_CART_DRAWER,
+    PROCEED_CHECKOUT_FAIL,
+    PROCEED_CHECKOUT_REQUEST,
+    PROCEED_CHECKOUT_SUCCESS,
 } from '../constants/cart';
 
 let initialCartList = [];
@@ -30,6 +33,30 @@ export const cartListDrawerReducer = (state = false, action) => {
         case ADD_TO_CART_DRAWER:
             return {
                 drawer: action.payload,
+            }
+        default:
+            return state;
+    }
+}
+
+const initialProceedCheckoutReducer = {};
+
+export const proceedCheckoutReducer = (state = initialProceedCheckoutReducer, action) => {
+    switch (action.type) {
+        case PROCEED_CHECKOUT_REQUEST:
+            return {
+                loading: true,
+            }
+        case PROCEED_CHECKOUT_SUCCESS:
+            return {
+                userCart: action.payload,
+                success: true,
+                loading: false,
+            }
+        case PROCEED_CHECKOUT_FAIL:
+            return {
+                error: action.payload,
+                loading: false,
             }
         default:
             return state;
