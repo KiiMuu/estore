@@ -18,7 +18,7 @@ export const handleAddToCart = (product, setTooltip) => dispatch => {
         });
 
         // * prevent duplicates
-        let IDs = cart.map(c => c._id)
+        let IDs = cart.map(c => c._id);
         let uniqueCarts = cart.filter(({ _id }, index) => !IDs.includes(_id, index + 1));
 
         // * save to LS

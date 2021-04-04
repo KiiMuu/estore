@@ -1,11 +1,19 @@
 import { Router } from 'express';
 const router = Router();
 
-// * @desc    get a user
-// * @route   POST /api/user
+// * controllers
+import {
+    proceedCheckout,
+} from '../controllers/user';
+
+// * middlewares
+import { 
+    authCheck,
+} from '../middlewares/auth';
+
+// * @desc    Create cart checkout
+// * @route   POST /api/user/cart
 // * @access  Private
-router.get('/user', (req, res) => {
-    res.json({ data: 'user endpoint' });
-});
+router.post('/user/cart', authCheck, proceedCheckout);
 
 export default router;

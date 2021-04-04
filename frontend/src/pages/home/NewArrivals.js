@@ -23,26 +23,19 @@ const NewArrivals = () => {
     const [productsCount, setProductsCount] = useState(0);
     const [page, setPage] = useState(1);
 
-    const loadNewArrivals = () => {
-        setLoading(true);
+    const loadProductsCount = () => {
+        getTotalProducts().then(res => setProductsCount(res));
+    }
 
+    useEffect(() => {
+        setLoading(true);
         listAllProducts('createdAt', 'desc', page).then(res => {
             setProducts(res);
             setLoading(false);
         }).catch(err => {
             setError(err);
             setLoading(false);
-        })
-    }
-
-    const loadProductsCount = () => {
-        getTotalProducts().then(res => setProductsCount(res));
-    }
-
-    useEffect(() => {
-        loadNewArrivals();
-
-        // eslint-disable-next-line
+        });
     }, [page]);
 
     useEffect(() => {

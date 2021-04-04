@@ -23,26 +23,19 @@ const BestSellers = () => {
     const [productsCount, setProductsCount] = useState(0);
     const [page, setPage] = useState(1);
 
-    const loadBestSellers = () => {
-        setLoading(true);
+    const loadProductsCount = () => {
+        getTotalProducts().then(res => setProductsCount(res));
+    }
 
+    useEffect(() => {
+        setLoading(true);
         listAllProducts('sold', 'desc', page).then(res => {
             setProducts(res);
             setLoading(false);
         }).catch(err => {
             setError(err);
             setLoading(false);
-        })
-    }
-
-    const loadProductsCount = () => {
-        getTotalProducts().then(res => setProductsCount(res));
-    }
-
-    useEffect(() => {
-        loadBestSellers();
-
-        // eslint-disable-next-line
+        });
     }, [page]);
 
     useEffect(() => {

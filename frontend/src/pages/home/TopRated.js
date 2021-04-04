@@ -23,26 +23,19 @@ const TopRated = () => {
     const [productsCount, setProductsCount] = useState(0);
     const [page, setPage] = useState(1);
 
-    const loadTopRated = () => {
-        setLoading(true);
+    const loadProductsCount = () => {
+        getTotalProducts().then(res => setProductsCount(res));
+    }
 
+    useEffect(() => {
+        setLoading(true);
         listAllProducts('ratings.numberOfStars', 'desc', page).then(res => {
             setProducts(res);
             setLoading(false);
         }).catch(err => {
             setError(err);
             setLoading(false);
-        })
-    }
-
-    const loadProductsCount = () => {
-        getTotalProducts().then(res => setProductsCount(res));
-    }
-
-    useEffect(() => {
-        loadTopRated();
-
-        // eslint-disable-next-line
+        });
     }, [page]);
 
     useEffect(() => {

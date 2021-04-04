@@ -50,7 +50,6 @@ export const proceedCheckoutReducer = (state = initialProceedCheckoutReducer, ac
         case PROCEED_CHECKOUT_SUCCESS:
             return {
                 userCart: action.payload,
-                success: true,
                 loading: false,
             }
         case PROCEED_CHECKOUT_FAIL:

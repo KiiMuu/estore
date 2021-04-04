@@ -33,41 +33,43 @@ const SideDrawer = () => {
         >
             <Space direction='vertical' wrap>
                 {cart?.map(c => (
-                    c?.images?.length ? (
-                        <Fragment key={c._id}>
-                            <Image
-                                src={c.images[0].url}
-                                style={{ 
-                                    objectFit: 'cover',
-                                    borderRadius: '3px'
-                                }}
-                                width='100%'
-                                height='auto'
-                                alt={c.title}
-                            />
-                            <Tag 
-                                style={{ marginBottom: '2rem' }} 
-                                color='processing'
-                            >{c.title} x {c.count}</Tag>
-                        </Fragment>
-                    ) : (
-                        <Fragment>
-                            <Image
-                                style={{ 
-                                    objectFit: 'cover',
-                                    borderRadius: '3px'
-                                }}
-                                width='100%'
-                                height='auto'
-                                src='error'
-                                fallback='https://dummyimage.com/600x400/059669/000000&text=No+image'
-                            />
-                            <Tag 
-                                style={{ marginBottom: '2rem' }} 
-                                color='processing'
-                            >{c.title} x {c.count}</Tag>
-                        </Fragment>
-                    )
+                    <div key={c._id}>
+                        {c?.images?.length ? (
+                            <Fragment>
+                                <Image
+                                    src={c.images[0].url}
+                                    style={{ 
+                                        objectFit: 'cover',
+                                        borderRadius: '3px'
+                                    }}
+                                    width='100%'
+                                    height='auto'
+                                    alt={c.title}
+                                />
+                                <Tag 
+                                    style={{ marginBottom: '2rem' }} 
+                                    color='processing'
+                                >{c.title} x {c.count}</Tag>
+                            </Fragment>
+                        ) : (
+                            <Fragment>
+                                <Image
+                                    style={{ 
+                                        objectFit: 'cover',
+                                        borderRadius: '3px'
+                                    }}
+                                    width='100%'
+                                    height='auto'
+                                    src='error'
+                                    fallback='https://dummyimage.com/600x400/059669/000000&text=No+image'
+                                />
+                                <Tag 
+                                    style={{ marginBottom: '2rem' }} 
+                                    color='processing'
+                                >{c.title} x {c.count}</Tag>
+                            </Fragment>
+                        )}
+                    </div>
                 ))}
             </Space>
             <Button onClick={handleClose} type='primary' block style={{ marginTop: '2rem' }}>

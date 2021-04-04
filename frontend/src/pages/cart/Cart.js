@@ -5,6 +5,7 @@ import { checkoutProceed } from '../../state/actions/cart';
 import useUserHook from '../../hooks/useUserHook';
 import CartItem from './CartItem';
 import errorAlert from '../../components/layout/message/errorAlert';
+import successAlert from '../../components/layout/message/successAlert';
 
 // * styles
 import { 
@@ -39,7 +40,6 @@ const Cart = ({ history }) => {
     const { 
         loading: checkoutLoading, 
         error: checkoutError, 
-        success: checkoutSuccess, 
         userCart
     } = useSelector(state => state.proceedCheckout);
 
@@ -51,8 +51,6 @@ const Cart = ({ history }) => {
 
     const saveOrderToDB = () => {
         dispatch(checkoutProceed(cart, userInfo?.token));
-
-        console.log({userCart});
     }
 
     useEffect(() => {
@@ -60,24 +58,28 @@ const Cart = ({ history }) => {
             errorAlert(checkoutError, 3)
         }
 
-        if (checkoutSuccess) {
+        if (userCart?.ok) {
             history.push('/checkout');
+
+            successAlert('Done, you have checked out!', 3);
         }
-    }, [checkoutSuccess, checkoutError, history]);
+    }, [userCart, checkoutError, history]);
 
     const showCartItems = () => (
         <TableWrapper>
             <Table>
-                <TableHeadings>
-                    <th>Image</th>
-                    <th>Title</th>
-                    <th>Price</th>
-                    <th>Brand</th>
-                    <th>Color</th>
-                    <th>Count</th>
-                    <th>Shipping</th>
-                    <th>Action</th>
-                </TableHeadings>
+                <thead>
+                    <TableHeadings>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th>Price</th>
+                        <th>Brand</th>
+                        <th>Color</th>
+                        <th>Count</th>
+                        <th>Shipping</th>
+                        <th>Action</th>
+                    </TableHeadings>
+                </thead>
                 
                 <TableRows>
                     {cart?.map(c => (
