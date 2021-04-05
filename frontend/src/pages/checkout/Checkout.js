@@ -1,6 +1,12 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserCart, removeUserCart } from '../../state/actions/cart';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import { 
+    getUserCart, 
+    removeUserCart, 
+    saveUserAddress 
+} from '../../state/actions/cart';
 import useUserHook from '../../hooks/useUserHook';
 import errorAlert from '../../components/layout/message/errorAlert';
 import successAlert from '../../components/layout/message/successAlert';
@@ -22,6 +28,9 @@ import Alert from 'antd/lib/alert';
 import { LoadingOutlined } from '@ant-design/icons';
 
 const Checkout = () => {
+    const [address, setAddress] = useState('');
+    const [addressSaved, setAddressSaved] = useState(false);
+
     const dispatch = useDispatch();
     const { userInfo } = useUserHook();
 
@@ -31,6 +40,13 @@ const Checkout = () => {
         error: removeError, 
         userCart: removeCart 
     } = useSelector(state => state.deleteUserCart);
+
+    // * user address state
+    const { 
+        loading: addressLoading,
+        error: addresError, 
+        deliveryAddress,
+    } = useSelector(state => state.addDeliveryAddress);
 
     useEffect(() => {
         dispatch(getUserCart(userInfo?.token));
@@ -62,16 +78,43 @@ const Checkout = () => {
         }
     }, [dispatch, removeError, removeCart]);
 
+    const saveAddressToDB = () => {
+        dispatch(saveUserAddress(address, userInfo?.token));
+    }
+
+    useEffect(() => {
+        if (addresError) {
+            errorAlert(addresError, 3);
+        }
+
+        if (deliveryAddress?.ok) {
+            setAddress('');
+            setAddressSaved(true);
+
+            successAlert('Your address has been posted!',3 );
+        }
+    }, [addresError, deliveryAddress]);
+
     return (
         <div className='container'>
             <CheckoutScreen>
                 <Row gutter={[20, 20]}>
                     <Col xs={24} md={12}>
-                        Delivery address
-                        <textarea />
-                        <Button type='secondary'>Save</Button>
-                        <h5>Got coupon?</h5>
-                        <p>coupon input and apply button</p>
+                        <SubHeading>Delivery Address</SubHeading>
+                        <Space direction='vertical'>
+                            <ReactQuill 
+                                theme='snow' 
+                                value={address} 
+                                onChange={setAddress}
+                            />
+                            <Button 
+                                type='primary' 
+                                onClick={saveAddressToDB}
+                                loading={addressLoading}
+                            >Save</Button>
+                            <h5>Got coupon?</h5>
+                            <p>coupon input and apply button</p>
+                        </Space>
                     </Col>
                     <Col xs={24} md={12}>
                         <SubHeading>Order Summary</SubHeading>
@@ -99,7 +142,10 @@ const Checkout = () => {
                         <Divider />
                         <Row gutter={[10, 10]} justify='space-between'>
                             <Col>
-                                <Button type='primary'>Place Order</Button>
+                                <Button 
+                                    disabled={!addressSaved || !userCart?.products.length}
+                                    type='primary'
+                                >Place Order</Button>
                             </Col>
                             <Col>
                                 <Button 

@@ -30,19 +30,23 @@ const ShopLayout = () => {
         dispatch(getProductsByCount(12));
     }, [dispatch]);
 
+    const fecthProducts = arg => {
+        searchProducts(arg).then(res => {
+            setShopProds(res.data);
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+
     useEffect(() => {
         const delayed = setTimeout(() => {
-            searchProducts({ query: text }).then(res => {
-                setShopProds(res.data);
-            }).catch(err => {
-                console.log(err);
-            });
+            fecthProducts({ query: text });
 
             setShopProds(products);
         }, 300);
         
         return () => clearTimeout(delayed);
-    }, [text, products]);
+    }, [dispatch, text, products]);
 
     return (
         <Layout>

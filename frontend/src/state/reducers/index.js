@@ -34,6 +34,7 @@ import {
     removeImgReducer,
 } from './cloudinary';
 import {
+    addDeliveryAddressReducer,
     cartListDrawerReducer,
     cartListReducer,
     deleteUserCartReducer,
@@ -75,6 +76,7 @@ const rootReducer = combineReducers({
     proceedCheckout: proceedCheckoutReducer,
     userCart: userCartReducer,
     deleteUserCart: deleteUserCartReducer,
+    addDeliveryAddress: addDeliveryAddressReducer,
 });
 
 export default rootReducer;

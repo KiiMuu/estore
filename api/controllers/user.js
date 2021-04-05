@@ -19,14 +19,14 @@ const proceedCheckout = async (req, res) => {
             let obj = {};
             
             // * get price to create total
-            let { price } = await Product.findById(cart[i]._id).select('price').exec();
+            let productFromDB = await Product.findById(cart[i]._id).select('price').exec();
 
             // * actual product in db
             // * adding product, count and color to obj
             obj.product = cart[i]._id;
             obj.count = cart[i].count;
             obj.color = cart[i].color;
-            obj.price = price;
+            obj.price = productFromDB.price;
 
             products.push(obj);
         }
@@ -87,8 +87,25 @@ const removeUserCart = async (req, res) => {
     }
 }
 
+const addAddress = async (req, res) => {
+    try {
+        await User.findOneAndUpdate(
+            { email: req.user.email },
+            { address: req.body.address },
+            { new: true, }
+        ).exec();
+
+        res.status(OK).json({ ok: true, });
+    } catch (err) {
+        res.status(BAD_REQUEST).json({
+            message: 'Delivery address adding failed'
+        });
+    }
+}
+
 export {
     proceedCheckout,
     getUserCart,
     removeUserCart,
+    addAddress,
 }

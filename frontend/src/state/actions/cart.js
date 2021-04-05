@@ -3,6 +3,9 @@ import {
     DELETE_USER_CART_FAIL,
     DELETE_USER_CART_REQUEST,
     DELETE_USER_CART_SUCCESS,
+    DELIVERY_ADDRESS_FAIL,
+    DELIVERY_ADDRESS_REQUEST,
+    DELIVERY_ADDRESS_SUCCESS,
     GET_USER_CART_FAIL,
     GET_USER_CART_REQUEST,
     GET_USER_CART_SUCCESS,
@@ -85,6 +88,32 @@ export const removeUserCart = authtoken => async dispatch => {
     } catch (err) {
         dispatch({
             type: DELETE_USER_CART_FAIL,
+            payload: err.response?.data.message ? err.response.data.message : err.message,
+        });
+    }
+}
+
+export const saveUserAddress = (address, authtoken) => async dispatch => {
+    try {
+        dispatch({
+            type: DELIVERY_ADDRESS_REQUEST,
+        });
+
+        const config = {
+            headers: {
+                authtoken,
+            }
+        }
+    
+        const { data } = await axios.post('/api/user/address', { address }, config);
+
+        dispatch({
+            type: DELIVERY_ADDRESS_SUCCESS,
+            payload: data,
+        });
+    } catch (err) {
+        dispatch({
+            type: DELIVERY_ADDRESS_FAIL,
             payload: err.response?.data.message ? err.response.data.message : err.message,
         });
     }

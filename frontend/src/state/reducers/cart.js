@@ -4,6 +4,9 @@ import {
     DELETE_USER_CART_FAIL,
     DELETE_USER_CART_REQUEST,
     DELETE_USER_CART_SUCCESS,
+    DELIVERY_ADDRESS_FAIL,
+    DELIVERY_ADDRESS_REQUEST,
+    DELIVERY_ADDRESS_SUCCESS,
     GET_USER_CART_FAIL,
     GET_USER_CART_REQUEST,
     GET_USER_CART_SUCCESS,
@@ -105,6 +108,29 @@ export const deleteUserCartReducer = (state = initialDeleteUserCartReducer, acti
                 loading: false,
             }
         case DELETE_USER_CART_FAIL:
+            return {
+                error: action.payload,
+                loading: false,
+            }
+        default:
+            return state;
+    }
+}
+
+const initialDeliveryAddressReducer = {};
+
+export const addDeliveryAddressReducer = (state = initialDeliveryAddressReducer, action) => {
+    switch (action.type) {
+        case DELIVERY_ADDRESS_REQUEST:
+            return {
+                loading: true,
+            }
+        case DELIVERY_ADDRESS_SUCCESS:
+            return {
+                deliveryAddress: action.payload,
+                loading: false,
+            }
+        case DELIVERY_ADDRESS_FAIL:
             return {
                 error: action.payload,
                 loading: false,

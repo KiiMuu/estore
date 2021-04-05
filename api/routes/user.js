@@ -6,6 +6,7 @@ import {
     proceedCheckout,
     getUserCart,
     removeUserCart,
+    addAddress,
 } from '../controllers/user';
 
 // * middlewares
@@ -27,5 +28,10 @@ router.get('/user/cart', authCheck, getUserCart);
 // * @route   PUT /api/user/cart
 // * @access  Private
 router.put('/user/cart', authCheck, removeUserCart);
+
+// * @desc    post delivery address in cart checkout
+// * @route   POST /api/user/address
+// * @access  Private
+router.post('/user/address', authCheck, addAddress);
 
 export default router;
