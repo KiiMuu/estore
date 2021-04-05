@@ -1,6 +1,9 @@
 import { 
     ADD_TO_CART,
     ADD_TO_CART_DRAWER,
+    GET_USER_CART_FAIL,
+    GET_USER_CART_REQUEST,
+    GET_USER_CART_SUCCESS,
     PROCEED_CHECKOUT_FAIL,
     PROCEED_CHECKOUT_REQUEST,
     PROCEED_CHECKOUT_SUCCESS,
@@ -53,6 +56,29 @@ export const proceedCheckoutReducer = (state = initialProceedCheckoutReducer, ac
                 loading: false,
             }
         case PROCEED_CHECKOUT_FAIL:
+            return {
+                error: action.payload,
+                loading: false,
+            }
+        default:
+            return state;
+    }
+}
+
+const initialUserCartReducer = {};
+
+export const userCartReducer = (state = initialUserCartReducer, action) => {
+    switch (action.type) {
+        case GET_USER_CART_REQUEST:
+            return {
+                loading: true,
+            }
+        case GET_USER_CART_SUCCESS:
+            return {
+                userCart: action.payload,
+                loading: false,
+            }
+        case GET_USER_CART_FAIL:
             return {
                 error: action.payload,
                 loading: false,

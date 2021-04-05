@@ -50,6 +50,30 @@ const proceedCheckout = async (req, res) => {
     }
 }
 
+const getUserCart = async (req, res) => {
+    try {
+        const user = await User.findOne({ email: req.user.email }).exec();
+
+        let cart = await Cart
+        .findOne({ orderedBy: user._id })
+        .populate('products.product', '_id title price totalAfterDiscount')
+        .exec();
+
+        const { products, cartTotal, totalAfterDiscount } = cart;
+
+        res.status(OK).json({
+            products, 
+            cartTotal, 
+            totalAfterDiscount,
+        });
+    } catch (err) {
+        res.status(BAD_REQUEST).json({
+            message: 'Cart retrieving failed'
+        });
+    }
+}
+
 export {
     proceedCheckout,
+    getUserCart,
 }

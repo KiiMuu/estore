@@ -74,3 +74,16 @@ export const TableRows = styled.tbody`
         padding: 1rem 2rem 1rem 0;
     }
 `;
+
+export const List = styled.ul`
+    padding: 0;
+`;
+
+export const ListItem = styled.li`
+    list-style: none;
+    padding: 1rem;
+    color: ${darkColor};
+    background-color: ${lightColor};
+    border: 1px solid rgba(0 0 0 / 5%);
+    border-radius: .3rem;
+`;

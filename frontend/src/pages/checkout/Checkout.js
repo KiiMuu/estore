@@ -1,14 +1,34 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserCart } from '../../state/actions/cart';
+import useUserHook from '../../hooks/useUserHook';
+
 // * styles
 import {
-    CheckoutScreen,
+    CheckoutScreen, List, ListItem, SubHeading,
 } from './styles';
 
 // * @antd
 import Row from 'antd/lib/row';
 import Col from 'antd/lib/col';
 import Button from 'antd/lib/button';
+import Tag from 'antd/lib/tag';
+import Space from 'antd/lib/space';
+import Divider from 'antd/lib/divider';
+import Alert from 'antd/lib/alert';
+import { LoadingOutlined } from '@ant-design/icons';
 
 const Checkout = () => {
+    const dispatch = useDispatch();
+    const { userInfo } = useUserHook();
+
+    // * user cart state
+    const { loading, error, userCart } = useSelector(state => state.userCart);
+
+    useEffect(() => {
+        dispatch(getUserCart(userInfo?.token));
+    }, [dispatch, userInfo]);
+
     const saveAddressToDB = () => {}
 
     return (
@@ -23,17 +43,30 @@ const Checkout = () => {
                         <p>coupon input and apply button</p>
                     </Col>
                     <Col xs={24} md={12}>
-                        <h4>Order summary</h4>
-                        <ul>
-                            <li>product x</li>
-                            <li>products list</li>
-                            <li>Cart total</li>
-                        </ul>
+                        <SubHeading>Order Summary</SubHeading>
+                        {loading ? (
+                            <LoadingOutlined spin />
+                        ) : error ? (
+                            <Alert message={error} type='error' showIcon />
+                        ) : (
+                            <List>
+                                <Space direction='vertical' wrap>
+                                    {userCart?.products.map(p => (
+                                        <ListItem key={p._id}>
+                                            {p.product.title} ({p.color}) x {p.count} = <Tag color='geekblue'>{p.product.price * p.count}</Tag>
+                                        </ListItem>
+                                        
+                                    ))}
+                                    <Tag color='#059669'>Total: ${userCart?.cartTotal}</Tag>
+                                </Space>
+                            </List>
+                        )}
+                        <Divider />
                         <Row gutter={[10, 10]} justify='space-between'>
-                            <Col xs={12}>
+                            <Col>
                                 <Button type='primary'>Place Order</Button>
                             </Col>
-                            <Col xs={12}>
+                            <Col>
                                 <Button type='secondary'>Empty Cart</Button>
                             </Col>
                         </Row>

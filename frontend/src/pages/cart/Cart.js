@@ -17,6 +17,8 @@ import {
     TableHeadings,
     TableWrapper,
     TableRows,
+    List,
+    ListItem,
 } from './styles';
 
 // * @antd
@@ -117,15 +119,16 @@ const Cart = ({ history }) => {
                     {cart?.length && (
                         <Col xs={24} lg={6}>
                             <SubHeading>Order Summary</SubHeading>
-                            <Space direction='vertical'>
-                                {cart?.map((c, i) => (
-                                    <Tag 
-                                        key={i} 
-                                        style={{ display: 'block' }}
-                                    >{c.title} x {c.count} = ${c.price * c.count}</Tag>
-                                ))}
-                                <Tag color='#059669'>Total: ${getTotal()}</Tag>
-                            </Space>
+                            <List>
+                                <Space direction='vertical' wrap>
+                                    {cart?.map((c, i) => (
+                                        <ListItem 
+                                            key={i} 
+                                        >{c.title} x {c.count} = ${c.price * c.count}</ListItem>
+                                    ))}
+                                    <Tag color='#059669'>Total: ${getTotal()}</Tag>
+                                </Space>
+                            </List>
                             <Divider />
                             {userInfo ? (
                                 <Button 
