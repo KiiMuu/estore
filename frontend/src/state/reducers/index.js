@@ -36,6 +36,7 @@ import {
 import {
     cartListDrawerReducer,
     cartListReducer,
+    deleteUserCartReducer,
     proceedCheckoutReducer,
     userCartReducer,
 } from './cart';
@@ -73,6 +74,7 @@ const rootReducer = combineReducers({
     cartListDrawer: cartListDrawerReducer,
     proceedCheckout: proceedCheckoutReducer,
     userCart: userCartReducer,
+    deleteUserCart: deleteUserCartReducer,
 });
 
 export default rootReducer;

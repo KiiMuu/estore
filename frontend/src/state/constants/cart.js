@@ -8,3 +8,7 @@ export const PROCEED_CHECKOUT_FAIL = Symbol('PROCEED_CHECKOUT_FAIL').description
 export const GET_USER_CART_REQUEST = Symbol('GET_USER_CART_REQUEST').description;
 export const GET_USER_CART_SUCCESS = Symbol('GET_USER_CART_SUCCESS').description;
 export const GET_USER_CART_FAIL = Symbol('GET_USER_CART_FAIL').description;
+
+export const DELETE_USER_CART_REQUEST = Symbol('DELETE_USER_CART_REQUEST').description;
+export const DELETE_USER_CART_SUCCESS = Symbol('DELETE_USER_CART_SUCCESS').description;
+export const DELETE_USER_CART_FAIL = Symbol('DELETE_USER_CART_FAIL').description;

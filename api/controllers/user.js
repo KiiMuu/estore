@@ -73,7 +73,22 @@ const getUserCart = async (req, res) => {
     }
 }
 
+const removeUserCart = async (req, res) => {
+    try {
+        const user = await User.findOne({ email: req.user.email }).exec();
+
+        await Cart.findOneAndRemove({ orderedBy: user._id }).exec();
+
+        res.status(OK).json({ ok: true, });
+    } catch (err) {
+        res.status(BAD_REQUEST).json({
+            message: 'Cart removing failed'
+        });
+    }
+}
+
 export {
     proceedCheckout,
     getUserCart,
+    removeUserCart,
 }

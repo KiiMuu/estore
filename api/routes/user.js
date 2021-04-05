@@ -5,6 +5,7 @@ const router = Router();
 import {
     proceedCheckout,
     getUserCart,
+    removeUserCart,
 } from '../controllers/user';
 
 // * middlewares
@@ -21,5 +22,10 @@ router.post('/user/cart', authCheck, proceedCheckout);
 // * @route   GET /api/user/cart
 // * @access  Private
 router.get('/user/cart', authCheck, getUserCart);
+
+// * @desc    remove cart checkout
+// * @route   PUT /api/user/cart
+// * @access  Private
+router.put('/user/cart', authCheck, removeUserCart);
 
 export default router;

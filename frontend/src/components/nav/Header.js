@@ -130,7 +130,7 @@ const Header = () => {
                             <ListItem>
                                 <NavItemLink to='/cart'>
                                     <span><ShoppingCartOutlined /></span>
-                                    Cart {cart?.length && (<CartCount>{cart?.length}</CartCount>)}
+                                    Cart {cart?.length ? (<CartCount>{cart?.length}</CartCount>) : ''}
                                 </NavItemLink>
                             </ListItem>
                             {!userInfo && (
@@ -215,7 +215,7 @@ const Header = () => {
                                     <MobListItem>
                                         <MobNavItemLink to='/cart'>
                                             <span><ShoppingCartOutlined /></span>
-                                            Cart {cart?.length && (<CartCount>{cart?.length}</CartCount>)}
+                                            Cart {cart?.length ? (<CartCount>{cart?.length}</CartCount>) : ''}
                                         </MobNavItemLink>
                                     </MobListItem>
                                     {!userInfo && (
