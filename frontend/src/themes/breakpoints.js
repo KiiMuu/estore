@@ -24,6 +24,14 @@ export const layoutQuery = () => {
     `;
 }
 
+export const adminSiderQuery = () => {
+    return `
+        @media screen and (min-width: 768px) {
+            margin-left: 20rem;
+        }
+    `;
+}
+
 export const productActionsQuery = () => {
     return `
         @media screen and (max-width: 1200px) {

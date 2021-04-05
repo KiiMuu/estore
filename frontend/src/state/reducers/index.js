@@ -41,6 +41,11 @@ import {
     proceedCheckoutReducer,
     userCartReducer,
 } from './cart';
+import { 
+    couponListReducer,
+    couponCreateReducer,
+    couponDeleteReducer,
+} from './coupon';
 
 const rootReducer = combineReducers({
     // * user
@@ -77,6 +82,10 @@ const rootReducer = combineReducers({
     userCart: userCartReducer,
     deleteUserCart: deleteUserCartReducer,
     addDeliveryAddress: addDeliveryAddressReducer,
+    // * coupon
+    couponList: couponListReducer,
+    couponCreate: couponCreateReducer,
+    couponDelete: couponDeleteReducer,
 });
 
 export default rootReducer;

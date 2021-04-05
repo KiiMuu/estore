@@ -1,5 +1,5 @@
 import Coupon from '../models/coupon';
-import { CREATED, BAD_REQUEST } from '../utils/contsants';
+import { OK, CREATED, BAD_REQUEST } from '../utils/contsants';
 
 const createCoupon = async (req, res) => {
     try {
@@ -35,7 +35,7 @@ const removeCoupon = async (req, res) => {
     try {
         const couponId = req.params.couponId;
 
-        const removedCoupon = await Coupon.findOneAndDelete({ couponId });
+        const removedCoupon = await Coupon.findOneAndDelete({ _id: couponId });
 
         res.status(OK).json(removedCoupon);
     } catch (err) {
