@@ -36,7 +36,7 @@ const Cart = ({ history }) => {
     const dispatch = useDispatch();
 
     // * cart state
-    const { cart } = useSelector(state => state.cartList);
+    const cartList = useSelector(state => state.cartList);
 
     // * checkout state
     const { 
@@ -46,18 +46,18 @@ const Cart = ({ history }) => {
     } = useSelector(state => state.proceedCheckout);
 
     const getTotal = () => {
-        return cart?.reduce((curr, next) => {
+        return cartList?.reduce((curr, next) => {
             return curr + next.count * next.price;
         }, 0);
     }
 
     const saveOrderToDB = () => {
-        dispatch(checkoutProceed(cart, userInfo?.token));
+        dispatch(checkoutProceed(cartList, userInfo?.token));
     }
 
     useEffect(() => {
         if (checkoutError) {
-            errorAlert(checkoutError, 3)
+            errorAlert(checkoutError, 3);
         }
 
         if (userCart?.ok) {
@@ -84,7 +84,7 @@ const Cart = ({ history }) => {
                 </thead>
                 
                 <TableRows>
-                    {cart?.map(c => (
+                    {cartList?.map(c => (
                         <CartItem c={c} key={c._id} />
                     ))}
                 </TableRows>
@@ -99,11 +99,11 @@ const Cart = ({ history }) => {
                     Cart
                 </StyledTitle>
                 <StyledText type='secondary'>
-                    You have {cart?.length} products in your cart
+                    You have {cartList?.length} products in your cart
                 </StyledText>
                 <Row gutter={[20, 20]}>
                     <Col xs={24} lg={18}>
-                        {!cart?.length ? (
+                        {!cartList?.length ? (
                             <Alert 
                                 message={<Fragment>
                                     You have not any products in your cart yet.<Link to='/shop'> Continue Shopping</Link>
@@ -116,12 +116,12 @@ const Cart = ({ history }) => {
                             showCartItems()
                         )}
                     </Col>
-                    {cart?.length && (
+                    {cartList?.length && (
                         <Col xs={24} lg={6}>
                             <SubHeading>Order Summary</SubHeading>
                             <List>
                                 <Space direction='vertical' wrap>
-                                    {cart?.map((c, i) => (
+                                    {cartList?.map((c, i) => (
                                         <ListItem 
                                             key={i} 
                                         >{c.title} x {c.count} = ${c.price * c.count}</ListItem>

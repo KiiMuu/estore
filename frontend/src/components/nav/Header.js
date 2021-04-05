@@ -57,8 +57,8 @@ const Header = () => {
 
     const { userInfo } = useUserHook();
 
-    // * cart state
-    const { cart } = useSelector(state => state.cartList);
+    // * cartList state
+    const cartList = useSelector(state => state.cartList);
 
     const logout = () => {
         auth.signOut();
@@ -128,9 +128,9 @@ const Header = () => {
                                 </NavItemLink>
                             </ListItem>
                             <ListItem>
-                                <NavItemLink to='/cart'>
+                                <NavItemLink to='/cartList'>
                                     <span><ShoppingCartOutlined /></span>
-                                    Cart {cart?.length ? (<CartCount>{cart?.length}</CartCount>) : ''}
+                                    Cart {cartList?.length ? (<CartCount>{cartList?.length}</CartCount>) : ''}
                                 </NavItemLink>
                             </ListItem>
                             {!userInfo && (
@@ -213,9 +213,9 @@ const Header = () => {
                                         </MobNavItemLink>
                                     </MobListItem>
                                     <MobListItem>
-                                        <MobNavItemLink to='/cart'>
+                                        <MobNavItemLink to='/cartList'>
                                             <span><ShoppingCartOutlined /></span>
-                                            Cart {cart?.length ? (<CartCount>{cart?.length}</CartCount>) : ''}
+                                            Cart {cartList?.length ? (<CartCount>{cartList?.length}</CartCount>) : ''}
                                         </MobNavItemLink>
                                     </MobListItem>
                                     {!userInfo && (
