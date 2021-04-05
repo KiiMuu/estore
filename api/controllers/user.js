@@ -1,7 +1,8 @@
 import User from '../models/user';
 import Product from '../models/product';
 import Cart from '../models/cart';
-import { OK, BAD_REQUEST } from '../utils/contsants';
+import Coupon from '../models/coupon';
+import { OK, BAD_REQUEST, UNPROCESSABLE_ENTITY } from '../utils/contsants';
 
 const proceedCheckout = async (req, res) => {
     try {
@@ -103,9 +104,46 @@ const addAddress = async (req, res) => {
     }
 }
 
+const applyCoupon = async (req, res) => {
+    try {
+        const { coupon } = req.body;
+
+        const validCoupon = await Coupon.findOne({ name: coupon }).exec();
+
+        if (validCoupon === null) {
+            return res.status(UNPROCESSABLE_ENTITY).json({
+                message: 'Invalid coupon!'
+            });
+        }
+
+        const user = await User.findOne({ email: req.user.email }).exec();
+
+        let { cartTotal } = await Cart
+        .findOne({ orderedBy: user._id })
+        .populate('products.product', '_id title price')
+        .exec();
+
+        // * compute total after discount
+        let totalAfterDiscount = (cartTotal - (cartTotal * validCoupon.discount) / 100).toFixed(2);
+
+        Cart.findOneAndUpdate(
+            { orderedBy: user._id, },
+            { totalAfterDiscount, },
+            { new: true, },
+        );
+
+        res.status(OK).json(totalAfterDiscount);
+    } catch (err) {
+        res.status(BAD_REQUEST).json({
+            message: 'Applying coupon failed'
+        });
+    }
+}
+
 export {
     proceedCheckout,
     getUserCart,
     removeUserCart,
     addAddress,
+    applyCoupon,
 }

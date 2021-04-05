@@ -13,7 +13,7 @@ import Tag from 'antd/lib/tag';
 const SideDrawer = () => {
     const dispatch = useDispatch();
 
-    const { cart } = useSelector(state => state.cartList);
+    const cartList = useSelector(state => state.cartList);
     const { drawer } = useSelector(state => state.cartListDrawer);
 
     const handleClose = () => {
@@ -25,14 +25,14 @@ const SideDrawer = () => {
 
     return (
         <Drawer
-            title={`Cart Items - ${cart?.length}`}
+            title={`Cart Items - ${cartList?.length}`}
             placement='right'
             closable={false}
             onClose={handleClose}
             visible={drawer}
         >
             <Space direction='vertical' wrap>
-                {cart?.map(c => (
+                {cartList?.map(c => (
                     <div key={c._id}>
                         {c?.images?.length ? (
                             <Fragment>

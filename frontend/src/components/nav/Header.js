@@ -128,7 +128,7 @@ const Header = () => {
                                 </NavItemLink>
                             </ListItem>
                             <ListItem>
-                                <NavItemLink to='/cartList'>
+                                <NavItemLink to='/cart'>
                                     <span><ShoppingCartOutlined /></span>
                                     Cart {cartList?.length ? (<CartCount>{cartList?.length}</CartCount>) : ''}
                                 </NavItemLink>
@@ -213,7 +213,7 @@ const Header = () => {
                                         </MobNavItemLink>
                                     </MobListItem>
                                     <MobListItem>
-                                        <MobNavItemLink to='/cartList'>
+                                        <MobNavItemLink to='/cart'>
                                             <span><ShoppingCartOutlined /></span>
                                             Cart {cartList?.length ? (<CartCount>{cartList?.length}</CartCount>) : ''}
                                         </MobNavItemLink>

@@ -1,5 +1,8 @@
 import axios from 'axios';
 import { 
+    APPLY_COUPON_FAIL,
+    APPLY_COUPON_REQUEST,
+    APPLY_COUPON_SUCCESS,
     COUPON_CREATE_FAIL,
     COUPON_CREATE_REQUEST,
     COUPON_CREATE_SUCCESS,
@@ -78,6 +81,32 @@ export const deleteCoupon = (couponId, authtoken) => async dispatch => {
     } catch (err) {
         dispatch({
             type: COUPON_DELETE_FAIL,
+            payload: err.response?.data.message ? err.response.data.message : err.message,
+        });
+    }
+}
+
+export const createDiscount = (coupon, authtoken) => async dispatch => {
+    try {
+        dispatch({
+            type: APPLY_COUPON_REQUEST,
+        });
+
+        const config = {
+            headers: {
+                authtoken,
+            }
+        }
+    
+        const { data } = await axios.post('/api/user/apply-coupon', { coupon }, config);
+    
+        dispatch({
+            type: APPLY_COUPON_SUCCESS,
+            payload: data,
+        });
+    } catch (err) {
+        dispatch({
+            type: APPLY_COUPON_FAIL,
             payload: err.response?.data.message ? err.response.data.message : err.message,
         });
     }

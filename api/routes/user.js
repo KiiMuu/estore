@@ -7,6 +7,7 @@ import {
     getUserCart,
     removeUserCart,
     addAddress,
+    applyCoupon,
 } from '../controllers/user';
 
 // * middlewares
@@ -33,5 +34,14 @@ router.put('/user/cart', authCheck, removeUserCart);
 // * @route   POST /api/user/address
 // * @access  Private
 router.post('/user/address', authCheck, addAddress);
+
+// * @desc    Apply coupon in cart checkout
+// * @route   POST /api/user/apply-coupon
+// * @access  Private
+router.post(
+    '/user/apply-coupon', 
+    authCheck,
+    applyCoupon,
+);
 
 export default router;

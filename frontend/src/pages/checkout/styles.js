@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { topSpace } from '../../themes/spaces';
 import { darkColor, lightColor } from '../../themes/colors';
+import { inputLabel } from '../../themes/mixins';
 
 export const CheckoutScreen = styled.div`
     padding: ${topSpace} 0;
@@ -24,4 +25,12 @@ export const ListItem = styled.li`
     background-color: ${lightColor};
     border: 1px solid rgba(0 0 0 / 5%);
     border-radius: .3rem;
+`;
+
+export const CouponSection = styled.div`
+    margin-top: 2rem;
+`;
+
+export const InputControl = styled.div`
+    ${inputLabel};
 `;

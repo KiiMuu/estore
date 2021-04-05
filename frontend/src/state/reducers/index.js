@@ -45,6 +45,7 @@ import {
     couponListReducer,
     couponCreateReducer,
     couponDeleteReducer,
+    couponApplyReducer,
 } from './coupon';
 
 const rootReducer = combineReducers({
@@ -86,6 +87,7 @@ const rootReducer = combineReducers({
     couponList: couponListReducer,
     couponCreate: couponCreateReducer,
     couponDelete: couponDeleteReducer,
+    couponApply: couponApplyReducer,
 });
 
 export default rootReducer;

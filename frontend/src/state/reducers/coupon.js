@@ -1,4 +1,7 @@
 import { 
+    APPLY_COUPON_FAIL,
+    APPLY_COUPON_REQUEST,
+    APPLY_COUPON_SUCCESS,
     COUPON_CREATE_FAIL,
     COUPON_CREATE_REQUEST,
     COUPON_CREATE_RESET,
@@ -78,6 +81,32 @@ export const couponDeleteReducer = (state = initialCouponDelete, action) => {
                 loading: false,
             }
         case COUPON_DELETE_FAIL:
+            return {
+                error: action.payload,
+                loading: false,
+            }
+        default:
+            return state;
+    }
+}
+
+const initialCouponApply = {
+    priceAfterDiscount: 0,
+}
+
+export const couponApplyReducer = (state = initialCouponApply, action) => {
+    switch (action.type) {
+        case APPLY_COUPON_REQUEST:
+            return {
+                loading: true,
+            }
+        case APPLY_COUPON_SUCCESS:
+            return {
+                priceAfterDiscount: action.payload,
+                success: true,
+                loading: false,
+            }
+        case APPLY_COUPON_FAIL:
             return {
                 error: action.payload,
                 loading: false,
