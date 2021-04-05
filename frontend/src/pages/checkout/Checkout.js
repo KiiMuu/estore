@@ -21,6 +21,8 @@ import {
     SubHeading,
     CouponSection,
     InputControl,
+    QuillSection,
+    OrderSummary,
 } from './styles';
 
 // * @antd
@@ -33,8 +35,9 @@ import Divider from 'antd/lib/divider';
 import Alert from 'antd/lib/alert';
 import Tooltip from 'antd/lib/tooltip'
 import { LoadingOutlined } from '@ant-design/icons';
+import { IS_COUPON_APPLIED } from '../../state/constants/coupon';
 
-const Checkout = () => {
+const Checkout = ({ history }) => {
     const [address, setAddress] = useState('');
     const [addressSaved, setAddressSaved] = useState(false);
     const [coupon, setCoupon] = useState('');
@@ -118,15 +121,25 @@ const Checkout = () => {
 
     useEffect(() => {
         if (couponDiscountError) {
+            dispatch({
+                type: IS_COUPON_APPLIED,
+                payload: false,
+            });
+
             errorAlert(couponDiscountError, 3);
         }
 
         if (couponDiscountSuccess) {
             setCoupon('');
 
+            dispatch({
+                type: IS_COUPON_APPLIED,
+                payload: true,
+            });
+
             successAlert('Congrats!, you have applied to this offer');
         }
-    }, [couponDiscountError, couponDiscountSuccess]);
+    }, [dispatch, couponDiscountError, couponDiscountSuccess]);
 
     const couponSection = () => (
         <CouponSection>
@@ -155,73 +168,78 @@ const Checkout = () => {
             <CheckoutScreen>
                 <Row gutter={[20, 20]}>
                     <Col xs={24} md={12}>
-                        <SubHeading>Delivery Address</SubHeading>
-                        <Space 
-                            style={{ width: '100%' }}
-                            direction='vertical'>
-                            <ReactQuill 
-                                theme='snow' 
-                                value={address} 
-                                onChange={setAddress}
-                            />
-                            <Button 
-                                type='primary' 
-                                onClick={saveAddressToDB}
-                                loading={addressLoading}
-                            >Save</Button>
-                            {couponSection()}
-                        </Space>
+                        <QuillSection>
+                            <SubHeading>Delivery Address</SubHeading>
+                            <Space 
+                                style={{ width: '100%' }}
+                                direction='vertical'>
+                                    <ReactQuill 
+                                        theme='snow' 
+                                        value={address} 
+                                        onChange={setAddress}
+                                    />
+                                    <Button 
+                                        type='primary' 
+                                        onClick={saveAddressToDB}
+                                        loading={addressLoading}
+                                    >Save</Button>
+                            </Space>
+                        </QuillSection>
+                        {couponSection()}
                     </Col>
                     <Col xs={24} md={12}>
-                        <SubHeading>Order Summary</SubHeading>
-                        {!userCart?.products.length ? (
-                            <Alert message='Cart has been Emptied' type='success' showIcon />
-                        ) : loading ? (
-                                <LoadingOutlined spin />
-                            ) : error ? (
-                                <Alert message={error} type='error' showIcon />
-                            ) : (
-                                <List>
-                                    <Space 
-                                        direction='vertical' 
-                                        wrap 
-                                        style={{ width: '100%' }}>
-                                        {userCart?.products.map(p => (
-                                            <ListItem key={p._id}>
-                                                {p.product.title} ({p.color}) x {p.count} = <Tag color='geekblue'>{p.product.price * p.count}</Tag>
-                                            </ListItem>
-                                            
-                                        ))}
-                                        <Tag color='#059669'>Total: ${userCart?.cartTotal}</Tag>
-                                        {priceAfterDiscount > 0 && (
-                                            <Tag color='success'>Total after discount: ${priceAfterDiscount}</Tag>
-                                        )}
-                                    </Space>
-                                </List>
-                            )
-                        }
-                        <Divider />
-                        <Row gutter={[10, 10]} justify='space-between'>
-                            <Col>
-                                <Tooltip 
-                                    color='#059669'
-                                    title={
-                                        (!addressSaved) ? 'Please enter your delivery address to continue!' : ''
-                                    }>
+                        <OrderSummary>
+                            <SubHeading>Order Summary</SubHeading>
+                            {!userCart?.products.length ? (
+                                <Alert message='Cart has been Emptied' type='success' showIcon />
+                            ) : loading ? (
+                                    <LoadingOutlined spin />
+                                ) : error ? (
+                                    <Alert message={error} type='error' showIcon />
+                                ) : (
+                                    <List>
+                                        <Space 
+                                            direction='vertical' 
+                                            wrap 
+                                            style={{ width: '100%' }}>
+                                            {userCart?.products.map(p => (
+                                                <ListItem key={p._id}>
+                                                    {p.product.title} ({p.color}) x {p.count} = <Tag color='geekblue'>{p.product.price * p.count}</Tag>
+                                                </ListItem>
+                                                
+                                            ))}
+                                            <Tag color='#059669'>Total: ${userCart?.cartTotal}</Tag>
+                                            {priceAfterDiscount > 0 && (
+                                                <Tag color='success'>Total after discount: ${priceAfterDiscount}</Tag>
+                                            )}
+                                        </Space>
+                                    </List>
+                                )
+                            }
+                            <Divider />
+                            <Row gutter={[10, 10]} justify='space-between'>
+                                <Col>
+                                    <Tooltip 
+                                        color='#059669'
+                                        title={
+                                            (!addressSaved) ? 'Please enter your delivery address to continue!' : ''
+                                        }>
+                                        <Button 
+                                            disabled={!addressSaved || !userCart?.products.length}
+                                            type='primary'
+                                            onClick={() => history.push('/payment')}
+                                        >Place Order</Button>
+                                    </Tooltip>
+                                </Col>
+                                <Col>
                                     <Button 
-                                        disabled={!addressSaved || !userCart?.products.length}
-                                        type='primary'
-                                    >Place Order</Button>
-                                </Tooltip>
-                            </Col>
-                            <Col>
-                                <Button 
-                                    disabled={!userCart?.products.length}
-                                    type='secondary' 
-                                    onClick={handleEmptyCart}
-                                >Empty Cart</Button>
-                            </Col>
-                        </Row>
+                                        disabled={!userCart?.products.length}
+                                        type='secondary' 
+                                        onClick={handleEmptyCart}
+                                    >Empty Cart</Button>
+                                </Col>
+                            </Row>
+                        </OrderSummary>
                     </Col>
                 </Row>
             </CheckoutScreen>

@@ -14,3 +14,5 @@ export const COUPON_DELETE_FAIL = Symbol('COUPON_DELETE_FAIL').description;
 export const APPLY_COUPON_REQUEST = Symbol('APPLY_COUPON_REQUEST').description;
 export const APPLY_COUPON_SUCCESS = Symbol('APPLY_COUPON_SUCCESS').description;
 export const APPLY_COUPON_FAIL = Symbol('APPLY_COUPON_FAIL').description;
+
+export const IS_COUPON_APPLIED = Symbol('IS_COUPON_APPLIED').description;

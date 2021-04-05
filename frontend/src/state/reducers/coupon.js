@@ -12,6 +12,7 @@ import {
     COUPON_LIST_FAIL,
     COUPON_LIST_REQUEST, 
     COUPON_LIST_SUCCESS,
+    IS_COUPON_APPLIED,
 } from '../constants/coupon';
 
 const initialCouponsList = {
@@ -111,6 +112,15 @@ export const couponApplyReducer = (state = initialCouponApply, action) => {
                 error: action.payload,
                 loading: false,
             }
+        default:
+            return state;
+    }
+}
+
+export const isCouponAppliedReducer = (state = false, action) => {
+    switch (action.type) {
+        case IS_COUPON_APPLIED:
+            return action.payload;
         default:
             return state;
     }

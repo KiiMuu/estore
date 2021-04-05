@@ -27,7 +27,15 @@ export const ListItem = styled.li`
     border-radius: .3rem;
 `;
 
-export const CouponSection = styled.div`
+export const QuillSection = styled.div`
+    box-shadow: 0 0 .5rem .5rem rgba(0 0 0 / 5%);
+    padding: 2.5rem 2rem;
+    border-radius: .3rem;
+`;
+
+export const OrderSummary = styled(QuillSection)``;
+
+export const CouponSection = styled(QuillSection)`
     margin-top: 2rem;
 `;
 
