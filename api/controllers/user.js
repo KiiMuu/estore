@@ -130,7 +130,7 @@ const applyCoupon = async (req, res) => {
             { orderedBy: user._id, },
             { totalAfterDiscount, },
             { new: true, },
-        );
+        ).exec();
 
         res.status(OK).json(totalAfterDiscount);
     } catch (err) {
