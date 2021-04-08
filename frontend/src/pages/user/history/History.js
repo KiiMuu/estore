@@ -1,9 +1,13 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import {
+    PDFDownloadLink,
+} from '@react-pdf/renderer';
 import UserLayout from '../UserLayout';
 import { getUserOrders } from '../../../state/actions/order';
 import useUserHook from '../../../hooks/useUserHook';
 import PaymentInfo from './PaymentInfo';
+import Invoice from './Invoice';
 
 // * styles
 import {
@@ -24,7 +28,12 @@ import Tag from 'antd/lib/tag';
 import Button from 'antd/lib/button';
 import Divider from 'antd/lib/divider';
 import Alert from 'antd/lib/alert';
-import { CheckCircleOutlined, CloseCircleOutlined, LoadingOutlined } from '@ant-design/icons';
+import { 
+    CheckCircleOutlined, 
+    CloseCircleOutlined, 
+    DownloadOutlined, 
+    LoadingOutlined 
+} from '@ant-design/icons';
 
 const History = () => {
     const dispatch = useDispatch();
@@ -37,6 +46,19 @@ const History = () => {
         dispatch(getUserOrders(userInfo?.token));
     }, [dispatch, userInfo]);
 
+    const showDownloadLink = order => (
+        <PDFDownloadLink document={
+            <Invoice order={order} />
+        } fileName={`${order.paymentIntent.id}.pdf`}>
+            <Button 
+                style={{ marginTop: '1rem' }} 
+                type='primary'
+                icon={<DownloadOutlined />}>
+                Download PDF
+            </Button>
+        </PDFDownloadLink>
+    )
+
     const showOrders = () => (
         userOrders?.map(order => (
             <div key={order._id}>
@@ -44,7 +66,7 @@ const History = () => {
                 <PaymentInfo order={order} />
                 <SubHeading>Products</SubHeading>
                 {showOrdersInTable(order)}
-                <Button style={{ marginTop: '1rem' }} type='primary'>PDF Download</Button>
+                {showDownloadLink(order)}
                 <Divider />
             </div>
         ))

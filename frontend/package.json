@@ -5,6 +5,8 @@
   "dependencies": {
     "@ant-design/icons": "^4.4.0",
     "@craco/craco": "^6.0.0",
+    "@david.kucsai/react-pdf-table": "^0.3.0",
+    "@react-pdf/renderer": "^2.0.1",
     "@stripe/react-stripe-js": "^1.4.0",
     "@stripe/stripe-js": "^1.13.2",
     "@testing-library/jest-dom": "^5.11.9",
