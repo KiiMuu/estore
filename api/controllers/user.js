@@ -2,6 +2,7 @@ import User from '../models/user';
 import Product from '../models/product';
 import Cart from '../models/cart';
 import Coupon from '../models/coupon';
+import Order from '../models/order';
 import { OK, BAD_REQUEST, UNPROCESSABLE_ENTITY } from '../utils/contsants';
 
 const proceedCheckout = async (req, res) => {
@@ -140,10 +141,32 @@ const applyCoupon = async (req, res) => {
     }
 }
 
+const createOrder = async (req, res) => {
+    try {
+        const { paymentIntent } = req.body.stripeResponse; // * sent from frontend
+
+        const user = await User.findOne({ email: req.user.email }).exec();
+        const { products } = await Cart.findOne({ orderedBy: user._id }).exec();
+
+        await new Order({
+            products,
+            paymentIntent,
+            orderedBy: user._id,
+        }).save();
+
+        res.status(OK).json({ ok: true, });
+    } catch (err) {
+        res.status(BAD_REQUEST).json({
+            message: 'Order creation failed'
+        });
+    }
+}
+
 export {
     proceedCheckout,
     getUserCart,
     removeUserCart,
     addAddress,
     applyCoupon,
+    createOrder,
 }

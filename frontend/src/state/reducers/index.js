@@ -51,6 +51,9 @@ import {
 import {
     stripePaymentIntentReducer,
 } from './stripe';
+import {
+    orderCreateReducer,
+} from './order';
 
 const rootReducer = combineReducers({
     // * user
@@ -95,6 +98,8 @@ const rootReducer = combineReducers({
     isCouponApplied: isCouponAppliedReducer,
     // * stripe
     stripePaymentIntent: stripePaymentIntentReducer,
+    // * order
+    orderCreate: orderCreateReducer,
 });
 
 export default rootReducer;

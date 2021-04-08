@@ -6,9 +6,12 @@ import {
     useElements,
 } from '@stripe/react-stripe-js';
 import { payWithStripe } from '../../state/actions/stripe';
+import { createOrder } from '../../state/actions/order';
+import { removeUserCart } from '../../state/actions/cart';
 import useUserHook from '../../hooks/useUserHook';
 import errorAlert from '../../components/layout/message/errorAlert';
 import successAlert from '../../components/layout/message/successAlert';
+import { ADD_TO_CART } from '../../state/constants/cart';
 
 // * styles
 import { StripeForm } from './styles';
@@ -47,6 +50,12 @@ const StripeCheckout = ({ history }) => {
     // * coupon state
     const isCouponApplied = useSelector(state => state.isCouponApplied);
 
+    // * order state
+    const {
+        error: orderError,
+        order,
+    } = useSelector(state => state.orderCreate);
+
     const stripe = useStripe();
     const elements = useElements();
 
@@ -76,7 +85,7 @@ const StripeCheckout = ({ history }) => {
             setError(`Payment Failed: ${payload.error.message}`);
             setProcessing(false);
         } else {
-            console.log(JSON.stringify(payload));
+            dispatch(createOrder(payload, userInfo?.token));
             setError(null);
             setProcessing(false);
             setSucceeded(true);
@@ -92,6 +101,28 @@ const StripeCheckout = ({ history }) => {
             errorAlert(error);
         }
     }, [succeeded, error]);
+
+    useEffect(() => {
+        if (order?.ok) { // * if order created, empty user cart
+            if (typeof window !== 'undefined') localStorage.removeItem('userCart');
+
+            dispatch({
+                type: ADD_TO_CART,
+                payload: [],
+            });
+
+            dispatch({
+                type: isCouponApplied,
+                payload: false,
+            });
+
+            dispatch(removeUserCart(userInfo?.token));
+        }
+
+        if (orderError) {
+            errorAlert(orderError);
+        }
+    }, [dispatch, order, orderError, isCouponApplied, userInfo]);
 
     const cardStyle = {
         style: {
