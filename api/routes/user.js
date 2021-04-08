@@ -9,6 +9,7 @@ import {
     addAddress,
     applyCoupon,
     createOrder,
+    getUserOrders,
 } from '../controllers/user';
 
 // * middlewares
@@ -49,5 +50,10 @@ router.post(
 // * @route   POST /api/user/order
 // * @access  Private
 router.post('/user/order', authCheck, createOrder);
+
+// * @desc    Get user orders
+// * @route   GET /api/user/orders
+// * @access  Private
+router.get('/user/orders', authCheck, getUserOrders);
 
 export default router;

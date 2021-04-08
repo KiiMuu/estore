@@ -116,7 +116,7 @@ const Cart = ({ history }) => {
                             showCartItems()
                         )}
                     </Col>
-                    {cartList?.length && (
+                    {cartList?.length > 0 && (
                         <Col xs={24} lg={6}>
                             <SubHeading>Order Summary</SubHeading>
                             <List>

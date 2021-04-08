@@ -122,7 +122,7 @@ const CartItem = ({ c }) => {
                     />
                 )}
             </td>
-            <td>{c.title}</td>
+            <td><i><Tag color='purple'>{c.title}</Tag></i></td>
             <td><Tag color='processing'>${c.price}</Tag></td>
             <td><Tag color='processing'>{c.brand}</Tag></td>
             <td>
@@ -141,7 +141,11 @@ const CartItem = ({ c }) => {
                 <InputNumber min={1} max={c.quantity} defaultValue={c.count} onChange={handleCountChange} />
             </td>
             <td>
-                {c.shipping === 'Yes' ? <CheckCircleOutlined /> : <CloseOutlined />}
+                {c.shipping === 'Yes' ? (
+                    <Tag color='green'><CheckCircleOutlined /></Tag>
+                ) : (
+                    <Tag color='error'><CloseOutlined /></Tag>
+                )}
             </td>
             <td>
                 <Button 

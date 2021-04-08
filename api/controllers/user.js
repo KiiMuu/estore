@@ -181,6 +181,23 @@ const createOrder = async (req, res) => {
     }
 }
 
+const getUserOrders = async (req, res) => {
+    try {
+        const user = await User.findOne({ email: req.user.email }).exec();
+
+        const userOrders = await Order
+        .find({ orderedBy: user._id })
+        .populate('products.product')
+        .exec();
+
+        res.status(OK).json(userOrders);
+    } catch (err) {
+        res.status(BAD_REQUEST).json({
+            message: 'Orders retrieving failed'
+        });
+    }
+}
+
 export {
     proceedCheckout,
     getUserCart,
@@ -188,4 +205,5 @@ export {
     addAddress,
     applyCoupon,
     createOrder,
+    getUserOrders,
 }

@@ -148,12 +148,13 @@ const SingleProduct = ({
                         </Tag>
                     </InfoItem>
                     <ProductActions>
-                        <Tooltip title={tooltip} color='#059669'>
+                        <Tooltip title={product.quantity < 1 ? '' : tooltip} color='#059669'>
                             <Button 
+                                disabled={product.quantity < 1}
                                 onClick={() => dispatch(handleAddToCart(product, setTooltip))}
                                 type='primary' 
                                 icon={<ShoppingCartOutlined />}>
-                                Add to Cart
+                                {product.quantity < 1 ? 'Out of Stock' : 'Add to Cart'}
                             </Button>
                         </Tooltip>
                         <Link to='/'>

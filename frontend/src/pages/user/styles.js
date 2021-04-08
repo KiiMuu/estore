@@ -6,6 +6,7 @@ import { headingStyle, inputIcon } from '../../themes/mixins';
 import Layout from 'antd/lib/layout';
 import Typography from 'antd/lib/typography';
 import Button from 'antd/lib/button';
+import { adminSiderQuery } from '../../themes/breakpoints';
 
 const {
     Title,
@@ -25,6 +26,7 @@ export const StyledContent = styled(Content)`
     && {
         margin-top: ${headerHeight};
         background-color: #fff;
+        ${adminSiderQuery};
     }
 `;
 
