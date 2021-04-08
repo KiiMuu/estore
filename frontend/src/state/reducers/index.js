@@ -52,8 +52,13 @@ import {
     stripePaymentIntentReducer,
 } from './stripe';
 import {
-    orderCreateReducer, userOrdersListReducer,
+    orderCreateReducer, 
+    userOrdersListReducer,
 } from './order';
+import { 
+    orderListReducer, 
+    orderUpdateReducer, 
+} from './admin';
 
 const rootReducer = combineReducers({
     // * user
@@ -101,6 +106,9 @@ const rootReducer = combineReducers({
     // * order
     orderCreate: orderCreateReducer,
     userOrdersList: userOrdersListReducer,
+    // * admin
+    orderList: orderListReducer,
+    orderUpdate: orderUpdateReducer,
 });
 
 export default rootReducer;

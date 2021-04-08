@@ -9,7 +9,7 @@ import {
 // * @antd
 import Tag from 'antd/lib/tag';
 
-const PaymentInfo = ({ order }) => {
+const PaymentInfo = ({ order, showStatus = true, }) => {
     return (
         <TableWrapper>
             <Table>
@@ -21,7 +21,9 @@ const PaymentInfo = ({ order }) => {
                         <th>Method</th>
                         <th>Payment</th>
                         <th>Ordered On</th>
-                        <th>STATUS</th>
+                        {showStatus && (
+                            <th>STATUS</th>
+                        )}
                     </TableHeadings>
                 </thead>
 
@@ -60,11 +62,13 @@ const PaymentInfo = ({ order }) => {
                                 {new Date(order.paymentIntent.created * 1000).toLocaleString()}
                             </Tag>
                         </td>
-                        <td>
-                            <Tag color='processing'>
-                                {order.orderStatus}
-                            </Tag>
-                        </td>
+                        {showStatus && (
+                            <td>
+                                <Tag color='processing'>
+                                    {order.orderStatus}
+                                </Tag>
+                            </td>
+                        )}
                     </tr>
                 </TableRows>
             </Table>
