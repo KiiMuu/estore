@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import { primaryColor } from './themes/colors';
 
 const GloblaStyle = createGlobalStyle`
@@ -34,6 +34,18 @@ const GloblaStyle = createGlobalStyle`
     ::selection {
         background-color: ${primaryColor};
         color: #f3f3f3;
+    }
+`;
+
+export const Fallback = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    span {
+        margin-right: 1rem;
+        font-weight: 900;
+        color: #059669;
     }
 `;
 

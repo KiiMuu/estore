@@ -1,12 +1,11 @@
 import { EFooter } from './styles';
-import { HeartFilled } from '@ant-design/icons';
 
 const Footer = () => {
     return (
         <EFooter>
             <div className='container'>
                 <p>
-                    {new Date().getFullYear()} Copywright &copy;. Made with <HeartFilled style={{ color: 'darkgreen' }} /> by KiMMuu.
+                    {new Date().getFullYear()} Copywright &copy;. Made by <a href='https://github.com/KiiMuu' target='_blank' rel='noreferrer'>KiMMuu</a>.
                 </p>
             </div>
         </EFooter>

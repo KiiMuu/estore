@@ -5,7 +5,8 @@ import {
     topSpace,
     marginTopBox,
 } from '../../themes/spaces';
-import { darkColor, primaryLightColor } from '../../themes/colors';
+import { darkColor, lightColor, primaryColor, primaryLightColor } from '../../themes/colors';
+import { linkHover } from '../../themes/mixins';
 
 // * @antd
 import Typography from 'antd/lib/typography';
@@ -63,6 +64,24 @@ export const PreviewText = styled.div`
         span {
             font-weight: 900;
             color: ${primaryLightColor};
+        }
+    }
+    a {
+        padding: 1rem 3rem;
+        margin-top: 1rem;
+        display: inline-block;
+        border: none;
+        cursor: pointer;
+        outline: none;
+        z-index: 1;
+        ${linkHover};
+        background-color: ${primaryColor};
+        color: ${lightColor};
+        &::before {
+            background-color: ${lightColor} !important;
+        }
+        &:hover {
+            color: ${darkColor};
         }
     }
 `;
