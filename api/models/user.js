@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
-// const { ObjectId } = Schema.Types;
+const { ObjectId } = Schema.Types;
 
 const userSchema = new Schema({
     name: {
@@ -22,10 +22,10 @@ const userSchema = new Schema({
         default: [],
     },
     address: String,
-    // wishlist: [{
-    //     type: ObjectId,
-    //     ref: 'Product',
-    // }]
+    wishlist: [{
+        type: ObjectId,
+        ref: 'Product',
+    }]
 }, {
     timestamps: true,
 });

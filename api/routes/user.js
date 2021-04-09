@@ -10,6 +10,9 @@ import {
     applyCoupon,
     createOrder,
     getUserOrders,
+    getWishlist,
+    addToWishlist,
+    removeFromWishlist,
 } from '../controllers/user';
 
 // * middlewares
@@ -55,5 +58,20 @@ router.post('/user/order', authCheck, createOrder);
 // * @route   GET /api/user/orders
 // * @access  Private
 router.get('/user/orders', authCheck, getUserOrders);
+
+// * @desc    Add to wishlist
+// * @route   POST /api/user/wishlist
+// * @access  Private
+router.post('/user/wishlist', authCheck, addToWishlist);
+
+// * @desc    Get wishlist
+// * @route   GET /api/user/wishlist
+// * @access  Private
+router.get('/user/wishlist', authCheck, getWishlist);
+
+// * @desc    Remove from wishlist
+// * @route   PUT /api/user/wishlist
+// * @access  Private
+router.put('/user/wishlist/:productId', authCheck, removeFromWishlist);
 
 export default router;

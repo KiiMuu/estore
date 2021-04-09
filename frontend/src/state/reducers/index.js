@@ -59,6 +59,11 @@ import {
     orderListReducer, 
     orderUpdateReducer, 
 } from './admin';
+import { 
+    wishListReducer,
+    addToWishListReducer,
+    deleteFromWishlistReducer,
+} from './wishlist';
 
 const rootReducer = combineReducers({
     // * user
@@ -109,6 +114,10 @@ const rootReducer = combineReducers({
     // * admin
     orderList: orderListReducer,
     orderUpdate: orderUpdateReducer,
+    // * wishlist
+    wishList: wishListReducer,
+    addToWishList: addToWishListReducer,
+    deleteFromWishlist: deleteFromWishlistReducer,
 });
 
 export default rootReducer;

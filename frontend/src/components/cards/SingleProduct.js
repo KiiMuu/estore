@@ -1,9 +1,13 @@
-import { Fragment, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { Fragment, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import RatingModal from '../layout/rating/RatingModal';
 import { AverageRating } from '../layout/rating/AverageRating';
 import { handleAddToCart } from '../../helpers/handleAddToCart';
+import { addItemToWishlist } from '../../state/actions/wishlist';
+import useUserHook from '../../hooks/useUserHook';
+import errorAlert from '../../components/layout/message/errorAlert';
+import successAlert from '../../components/layout/message/successAlert';
 
 // * styles
 import { 
@@ -38,6 +42,7 @@ import {
     PayCircleOutlined,
     DollarCircleOutlined,
     HeartOutlined,
+    LoadingOutlined,
 } from '@ant-design/icons';
 import Tooltip from 'antd/lib/tooltip';
 
@@ -50,15 +55,39 @@ const SingleProduct = ({
     setRateText,
     rateLoading, 
     onStarChange, 
-    handleRateSubmit 
+    handleRateSubmit,
 }) => {
     const [tooltip, setTooltip] = useState('Add');
 
     const dispatch = useDispatch();
+    const { userInfo } = useUserHook();
+
+    // * wishlist state
+    const { 
+        loading, 
+        error, 
+        wishItem 
+    } = useSelector(state => state.addToWishList);
+
+    const handleAddToWishlist = e => {
+        e.preventDefault();
+
+        dispatch(addItemToWishlist(product._id, userInfo?.token));
+    }
+
+    useEffect(() => {
+        if (wishItem?.ok) {
+            successAlert('Added to wishlist', 3);
+        }
+
+        if (error) {
+            errorAlert(error, 3);
+        }
+    }, [wishItem, error]);
 
     return (
         <Fragment>
-            <Col xs={24} md={14}>
+            <Col xs={24} lg={14}>
                 <Carousel effect='fade' autoplay>
                     {product?.images?.length ? (
                         product?.images?.map(img => (
@@ -89,7 +118,7 @@ const SingleProduct = ({
                     )}
                 </Carousel>
             </Col>
-            <Col xs={24} md={10}>
+            <Col xs={24} lg={10}>
                 <ProductInfo>
                     <StyledTitle level={4}>{product?.title}</StyledTitle>
                     <StyledRating>
@@ -148,22 +177,21 @@ const SingleProduct = ({
                         </Tag>
                     </InfoItem>
                     <ProductActions>
-                        <Tooltip title={product.quantity < 1 ? '' : tooltip} color='#059669'>
+                        <Tooltip title={product?.quantity < 1 ? '' : tooltip} color='#059669'>
                             <Button 
-                                disabled={product.quantity < 1}
+                                disabled={product?.quantity < 1}
                                 onClick={() => dispatch(handleAddToCart(product, setTooltip))}
                                 type='primary' 
                                 icon={<ShoppingCartOutlined />}>
-                                {product.quantity < 1 ? 'Out of Stock' : 'Add to Cart'}
+                                {product?.quantity < 1 ? 'Out of Stock' : 'Add to Cart'}
                             </Button>
                         </Tooltip>
-                        <Link to='/'>
-                            <Button 
-                                type='default' 
-                                icon={<HeartOutlined style={{ color: 'orangered' }} />}>
-                                Add to Wishlist
-                            </Button>
-                        </Link>
+                        <Button 
+                            onClick={handleAddToWishlist}
+                            type='default' 
+                            icon={<HeartOutlined style={{ color: 'orangered' }} />}>
+                            {loading ? <LoadingOutlined /> : 'Add to Wishlist'}
+                        </Button>
                         <RatingModal
                             star={star}
                             rateText={rateText}
@@ -175,7 +203,7 @@ const SingleProduct = ({
                     </ProductActions>
                 </ProductInfo>
             </Col>
-            <Col xs={24} md={12}>
+            <Col xs={24} lg={12}>
                 <Tabs defaultActiveKey='1'>
                     <TabPane key='1' tab={<span><HeartFilled /> Description</span>}>
                         <StyledText>{product?.description}</StyledText>
@@ -188,7 +216,7 @@ const SingleProduct = ({
                 </Tabs>
             </Col>
             {product?.ratings.length > 0 && (
-                <Col xs={24} md={12}>
+                <Col xs={24} lg={12}>
                     <PeopleRates>
                         {product?.ratings.map(rate => (
                             <Comment key={rate._id} author={rate.ratedBy.name} content={

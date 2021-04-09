@@ -198,6 +198,57 @@ const getUserOrders = async (req, res) => {
     }
 }
 
+const addToWishlist = async (req, res) => {
+    try {
+        const { productId } = req.body;
+
+        // * $addToSet -> prevent duplicates
+        await User.findOneAndUpdate(
+            { email: req.user.email },
+            { $addToSet: { wishlist: productId } },
+        ).exec();
+
+        res.status(OK).json({ ok: true, });
+    } catch (err) {
+        res.status(BAD_REQUEST).json({
+            message: 'Wishlist adding failed'
+        });
+    }
+}
+
+const getWishlist = async (req, res) => {
+    try {
+        const wishlist = await User
+        .findOne({ email: req.user.email })
+        .select('wishlist')
+        .populate('wishlist')
+        .exec();
+
+        res.status(OK).json(wishlist);
+    } catch (err) {
+        res.status(BAD_REQUEST).json({
+            message: 'Wishlist retrieving failed'
+        });
+    }
+}
+
+const removeFromWishlist = async (req, res) => {
+    try {
+        const productId = req.params.productId;
+
+        await User.findOneAndUpdate(
+            { email: req.user.email },
+            { $pull: { wishlist: productId } },
+        ).exec();
+
+        res.status(OK).json({ ok: true, });
+    } catch (err) {
+        res.status(BAD_REQUEST).json({
+            message: 'Wishlist removing failed'
+        });
+    }
+}
+
 export {
     proceedCheckout,
     getUserCart,
@@ -206,4 +257,7 @@ export {
     applyCoupon,
     createOrder,
     getUserOrders,
+    addToWishlist,
+    getWishlist,
+    removeFromWishlist,
 }
