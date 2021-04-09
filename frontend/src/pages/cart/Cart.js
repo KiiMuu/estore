@@ -5,7 +5,6 @@ import { checkoutProceed } from '../../state/actions/cart';
 import useUserHook from '../../hooks/useUserHook';
 import CartItem from './CartItem';
 import errorAlert from '../../components/layout/message/errorAlert';
-import successAlert from '../../components/layout/message/successAlert';
 
 // * styles
 import { 
@@ -29,7 +28,7 @@ import Button from 'antd/lib/button';
 import Tag from 'antd/lib/tag';
 import Space from 'antd/lib/space';
 import Divider from 'antd/lib/divider';
-import { CheckSquareOutlined } from '@ant-design/icons';
+import { CheckSquareOutlined, DollarOutlined } from '@ant-design/icons';
 
 const Cart = ({ history }) => {
     const { userInfo } = useUserHook();
@@ -40,7 +39,6 @@ const Cart = ({ history }) => {
 
     // * checkout state
     const { 
-        loading: checkoutLoading, 
         error: checkoutError, 
         userCart
     } = useSelector(state => state.proceedCheckout);
@@ -55,6 +53,15 @@ const Cart = ({ history }) => {
         dispatch(checkoutProceed(cartList, userInfo?.token));
     }
 
+    const saveCashOrderToDB = () => {
+        dispatch({
+            type: 'IS_CASH_ON_DELIVERY',
+            payload: true,
+        });
+        
+        dispatch(checkoutProceed(cartList, userInfo?.token));
+    }
+
     useEffect(() => {
         if (checkoutError) {
             errorAlert(checkoutError, 3);
@@ -62,8 +69,6 @@ const Cart = ({ history }) => {
 
         if (userCart?.ok) {
             history.push('/checkout');
-
-            successAlert('Done, you have checked out!', 3);
         }
     }, [userCart, checkoutError, history]);
 
@@ -131,13 +136,22 @@ const Cart = ({ history }) => {
                             </List>
                             <Divider />
                             {userInfo ? (
-                                <Button 
-                                    onClick={saveOrderToDB}
-                                    style={{ display: 'block' }}
-                                    type='primary'
-                                    icon={<CheckSquareOutlined />}
-                                    loading={checkoutLoading}
-                                >Proceed to Checkout</Button>
+                                <Fragment>
+                                    <Space size={[8, 10]} wrap>
+                                        <Button 
+                                            onClick={saveOrderToDB}
+                                            style={{ display: 'block' }}
+                                            type='primary'
+                                            icon={<CheckSquareOutlined />}
+                                        >Proceed to Checkout</Button>
+                                        <Button 
+                                            onClick={saveCashOrderToDB}
+                                            style={{ display: 'block' }}
+                                            type='default'
+                                            icon={<DollarOutlined />}
+                                        >Pay Cash on Delivery</Button>
+                                    </Space>
+                                </Fragment>
                             ) : (
                                 <Link to={{
                                     pathname: '/login',

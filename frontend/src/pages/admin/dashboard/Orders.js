@@ -78,6 +78,9 @@ const Orders = ({ orders, handleOrderStatus }) => {
                         <Select.Option value='Completed'>
                             Completed
                         </Select.Option>
+                        <Select.Option value='Cash On Delivery'>
+                            Cash On Delivery
+                        </Select.Option>
                     </Select>
                 </div>
 

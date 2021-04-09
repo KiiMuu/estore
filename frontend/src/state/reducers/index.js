@@ -52,6 +52,7 @@ import {
     stripePaymentIntentReducer,
 } from './stripe';
 import {
+    cashOrderCreateReducer,
     orderCreateReducer, 
     userOrdersListReducer,
 } from './order';
@@ -64,6 +65,7 @@ import {
     addToWishListReducer,
     deleteFromWishlistReducer,
 } from './wishlist';
+import { isCashOnDeliveryReducer } from './COD';
 
 const rootReducer = combineReducers({
     // * user
@@ -111,6 +113,7 @@ const rootReducer = combineReducers({
     // * order
     orderCreate: orderCreateReducer,
     userOrdersList: userOrdersListReducer,
+    cashOrderCreate: cashOrderCreateReducer,
     // * admin
     orderList: orderListReducer,
     orderUpdate: orderUpdateReducer,
@@ -118,6 +121,8 @@ const rootReducer = combineReducers({
     wishList: wishListReducer,
     addToWishList: addToWishListReducer,
     deleteFromWishlist: deleteFromWishlistReducer,
+    // * COD
+    isCashOnDelivery: isCashOnDeliveryReducer,
 });
 
 export default rootReducer;

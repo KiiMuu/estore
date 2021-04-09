@@ -3,6 +3,7 @@ import Product from '../models/product';
 import Cart from '../models/cart';
 import Coupon from '../models/coupon';
 import Order from '../models/order';
+import uniqid from 'uniqid';
 import { OK, BAD_REQUEST, UNPROCESSABLE_ENTITY } from '../utils/contsants';
 
 const proceedCheckout = async (req, res) => {
@@ -181,6 +182,66 @@ const createOrder = async (req, res) => {
     }
 }
 
+const createCashOrder = async (req, res) => {
+    try {
+        const { isCashOnDelivery, isCouponApplied } = req.body; // * sent from frontend
+
+        if (!isCashOnDelivery) return res.status(BAD_REQUEST).json({
+            message: 'Cash order creation failed'
+        });
+
+        const user = await User.findOne({ email: req.user.email }).exec();
+        const userCart = await Cart.findOne({ orderedBy: user._id }).exec();
+
+        let finalAmount = 0;
+
+        if (isCouponApplied && userCart.totalAfterDiscount) {
+            finalAmount = userCart.totalAfterDiscount * 100; // * convert $ to cent
+        } else {
+            finalAmount = userCart.cartTotal * 100;
+        }
+
+        await new Order({
+            products: userCart.products,
+            paymentIntent: {
+                id: uniqid(),
+                amount: finalAmount,
+                currency: 'USD',
+                status: 'Cash On Delivery',
+                created: Date.now(),
+                payment_method_types: ['cash']
+            },
+            orderedBy: user._id,
+            orderStatus: 'Cash On Delivery',
+        }).save();
+
+        // * decrement quantity of products, increment sold
+        const bulkOption = userCart.products.map(item => {
+            return {
+                updateOne: {
+                    filter: {
+                        _id: item.product._id,
+                    },
+                    update: {
+                        $inc: {
+                            quantity: -item.count,
+                            sold: +item.count,
+                        },
+                    },
+                },
+            }
+        });
+
+        await Product.bulkWrite(bulkOption, {});
+
+        res.status(OK).json({ ok: true, });
+    } catch (err) {
+        res.status(BAD_REQUEST).json({
+            message: 'Cash order creation failed'
+        });
+    }
+}
+
 const getUserOrders = async (req, res) => {
     try {
         const user = await User.findOne({ email: req.user.email }).exec();
@@ -256,6 +317,7 @@ export {
     addAddress,
     applyCoupon,
     createOrder,
+    createCashOrder,
     getUserOrders,
     addToWishlist,
     getWishlist,

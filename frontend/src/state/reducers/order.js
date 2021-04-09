@@ -1,4 +1,7 @@
 import { 
+    COD_ORDER_CREATE_FAIL,
+    COD_ORDER_CREATE_REQUEST,
+    COD_ORDER_CREATE_SUCCESS,
     ORDER_CREATE_FAIL, 
     ORDER_CREATE_REQUEST, 
     ORDER_CREATE_SUCCESS, 
@@ -47,6 +50,29 @@ export const userOrdersListReducer = (state = initialUserOrders, action) => {
                 success: true,
             }
         case USER_ORDERS_LIST_FAIL:
+            return {
+                error: action.payload,
+                loading: false,
+            }
+        default:
+            return state;
+    }
+}
+
+const initialCashOrderCreate = {}
+
+export const cashOrderCreateReducer = (state = initialCashOrderCreate, action) => {
+    switch (action.type) {
+        case COD_ORDER_CREATE_REQUEST:
+            return {
+                loading: true,
+            }
+        case COD_ORDER_CREATE_SUCCESS:
+            return {
+                cashOrder: action.payload,
+                loading: false,
+            }
+        case COD_ORDER_CREATE_FAIL:
             return {
                 error: action.payload,
                 loading: false,

@@ -25,6 +25,7 @@ export const StyledSider = styled(Sider)`
         height: 100vh;
         left: 0;
         z-index: 98;
+        overflow: auto,
     }
 `;
 

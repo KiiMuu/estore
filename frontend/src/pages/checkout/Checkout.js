@@ -8,6 +8,7 @@ import {
     saveUserAddress 
 } from '../../state/actions/cart';
 import { createDiscount } from '../../state/actions/coupon';
+import { createCashOnDeliveryOrder } from '../../state/actions/order';
 import useUserHook from '../../hooks/useUserHook';
 import errorAlert from '../../components/layout/message/errorAlert';
 import successAlert from '../../components/layout/message/successAlert';
@@ -49,7 +50,6 @@ const Checkout = ({ history }) => {
     let { loading, error, userCart } = useSelector(state => state.userCart);
     const { 
         error: removeError, 
-        userCart: removeCart 
     } = useSelector(state => state.deleteUserCart);
 
     // * user address state
@@ -66,6 +66,19 @@ const Checkout = ({ history }) => {
         success: couponDiscountSuccess,
         priceAfterDiscount,
     } = useSelector(state => state.couponApply);
+
+    const isCouponApplied = useSelector(state => state.isCouponApplied);
+
+    // * COD state
+    const isCashOnDelivery = useSelector(state => state.isCashOnDelivery);
+
+    // * cash order state
+    const { 
+        loading: cashOrderLoading,
+        error: cashOrderError, 
+        cashOrder,
+    } = useSelector(state => state.cashOrderCreate);
+
 
     useEffect(() => {
         dispatch(getUserCart(userInfo?.token));
@@ -92,11 +105,7 @@ const Checkout = ({ history }) => {
         if (removeError) {
             errorAlert(removeError, 3);
         }
-
-        if (removeCart?.ok) {
-            successAlert('Your cart has been deleted!',3 );
-        }
-    }, [dispatch, removeError, removeCart]);
+    }, [dispatch, removeError]);
 
     const saveAddressToDB = () => {
         dispatch(saveUserAddress(address, userInfo?.token));
@@ -140,6 +149,43 @@ const Checkout = ({ history }) => {
             successAlert('Congrats!, you have applied to this offer');
         }
     }, [dispatch, couponDiscountError, couponDiscountSuccess]);
+
+    const createCashOrder = () => {
+        dispatch(createCashOnDeliveryOrder(userInfo?.token, isCashOnDelivery, isCouponApplied));
+    }
+
+    useEffect(() => {
+        if (cashOrderError) {
+            errorAlert(cashOrderError, 3);
+        }
+
+        if (cashOrder?.ok) {
+            if (typeof window !== 'undefined') {
+                localStorage.removeItem('userCart');
+            }
+    
+            dispatch({
+                type: ADD_TO_CART,
+                payload: [],
+            });
+
+            dispatch({
+                type: IS_COUPON_APPLIED,
+                payload: false,
+            });
+
+            dispatch({
+                type: 'IS_CASH_ON_DELIVERY',
+                payload: false,
+            });
+    
+            dispatch(removeUserCart(userInfo?.token));
+
+            setTimeout(() => {
+                history.push('/user/history');
+            }, 1000);
+        }
+    }, [dispatch, cashOrderError, cashOrder, userInfo, history]);
 
     const couponSection = () => (
         <CouponSection>
@@ -224,11 +270,20 @@ const Checkout = ({ history }) => {
                                         title={
                                             (!addressSaved) ? 'Please enter your delivery address to continue!' : ''
                                         }>
-                                        <Button 
-                                            disabled={!addressSaved || !userCart?.products.length}
-                                            type='primary'
-                                            onClick={() => history.push('/payment')}
-                                        >Place Order</Button>
+                                        {isCashOnDelivery ? (
+                                            <Button 
+                                                disabled={!addressSaved || !userCart?.products.length}
+                                                type='primary'
+                                                onClick={createCashOrder}
+                                                loading={cashOrderLoading}
+                                            >Place Order</Button>
+                                        ) : (
+                                             <Button 
+                                                disabled={!addressSaved || !userCart?.products.length}
+                                                type='primary'
+                                                onClick={() => history.push('/payment')}
+                                            >Place Order</Button>
+                                        )}
                                     </Tooltip>
                                 </Col>
                                 <Col>

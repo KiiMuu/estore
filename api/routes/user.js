@@ -9,6 +9,7 @@ import {
     addAddress,
     applyCoupon,
     createOrder,
+    createCashOrder,
     getUserOrders,
     getWishlist,
     addToWishlist,
@@ -53,6 +54,11 @@ router.post(
 // * @route   POST /api/user/order
 // * @access  Private
 router.post('/user/order', authCheck, createOrder);
+
+// * @desc    Create new cash order
+// * @route   POST /api/user/cash-order
+// * @access  Private
+router.post('/user/cash-order', authCheck, createCashOrder);
 
 // * @desc    Get user orders
 // * @route   GET /api/user/orders

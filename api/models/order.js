@@ -18,7 +18,14 @@ const orderSchema = new Schema({
     orderStatus: {
         type: String,
         default: 'Not Processed',
-        enum: ['Not Processed', 'Processing', 'Dispatched', 'Cancelled', 'Completed'],
+        enum: [
+            'Not Processed', 
+            'Processing', 
+            'Dispatched', 
+            'Cancelled', 
+            'Completed',
+            'Cash On Delivery',
+        ],
     },
     orderedBy: {
         type: ObjectId,

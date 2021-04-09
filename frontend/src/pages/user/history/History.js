@@ -60,7 +60,7 @@ const History = () => {
     )
 
     const showOrders = () => (
-        userOrders?.map(order => (
+        userOrders?.reverse().map(order => (
             <div key={order._id}>
                 <SubHeading>Payment Info</SubHeading>
                 <PaymentInfo order={order} />

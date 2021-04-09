@@ -1,5 +1,8 @@
 import axios from 'axios';
 import { 
+    COD_ORDER_CREATE_FAIL,
+    COD_ORDER_CREATE_REQUEST,
+    COD_ORDER_CREATE_SUCCESS,
     ORDER_CREATE_FAIL, 
     ORDER_CREATE_REQUEST, 
     ORDER_CREATE_SUCCESS, 
@@ -55,6 +58,32 @@ export const getUserOrders = authtoken => async dispatch => {
     } catch (err) {
         dispatch({
             type: USER_ORDERS_LIST_FAIL,
+            payload: err.response?.data.message ? err.response.data.message : err.message,
+        });
+    }
+}
+
+export const createCashOnDeliveryOrder = (authtoken, isCashOnDelivery, isCouponApplied) => async dispatch => {
+    try {
+        dispatch({
+            type: COD_ORDER_CREATE_REQUEST,
+        });
+
+        const config = {
+            headers: {
+                authtoken,
+            }
+        }
+    
+        const { data } = await axios.post('/api/user/cash-order', { isCashOnDelivery, isCouponApplied }, config);
+    
+        dispatch({
+            type: COD_ORDER_CREATE_SUCCESS,
+            payload: data,
+        });
+    } catch (err) {
+        dispatch({
+            type: COD_ORDER_CREATE_FAIL,
             payload: err.response?.data.message ? err.response.data.message : err.message,
         });
     }
