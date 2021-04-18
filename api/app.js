@@ -6,6 +6,7 @@ config();
 import colors from 'colors';
 import { readdirSync } from 'fs';
 import path from 'path';
+const __dirname = path.resolve();
 
 import dbConnection from './config/dbConnection';
 import { 
@@ -26,14 +27,13 @@ app.use(morgan('dev'));
 app.use(cors());
 
 // * use routes
-readdirSync('./routes').map(route => {
+readdirSync('api/routes').map(route => {
     import(`./routes/${route}`).then(r => {
-        app.use('/api', r.default)
+        app.use('/api', r.default);
     });
 });
 
 // * production
-const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, 'build')));
 
 app.get('*', (req, res) => {
