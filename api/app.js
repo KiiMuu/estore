@@ -5,6 +5,7 @@ import { config } from 'dotenv';
 config();
 import colors from 'colors';
 import { readdirSync } from 'fs';
+import path from 'path';
 
 import dbConnection from './config/dbConnection';
 import { 
@@ -29,6 +30,14 @@ readdirSync('./routes').map(route => {
     import(`./routes/${route}`).then(r => {
         app.use('/api', r.default)
     });
+});
+
+// * production
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
 });
 
 // * app listening

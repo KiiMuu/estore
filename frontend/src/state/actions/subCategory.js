@@ -22,7 +22,7 @@ export const getSubCategories = () => async dispatch => {
         dispatch({
             type: SUB_CATEGORY_LIST_REQUEST,
         });
-
+        
         const { data } = await axios.get('/api/sub-categories');
 
         dispatch({
