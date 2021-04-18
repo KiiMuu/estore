@@ -51,26 +51,28 @@ const NewArrivals = () => {
     )
 
     return (
-        <LatestArrivals>
-            <StyledTitle level={4}>New Arrivals</StyledTitle>
-            <StyledText type='secondary'>
-                See our latest arrivals products
-            </StyledText>
-            {loading ? (
-                <CardSkeleton count={3} />
-            ) : error ? (
-                <Alert message={error} type='error' showIcon />
-            ) : (
-                showNewArrivals()
-            )}
-            <StyledPagination>
-                <Pagination 
-                    total={(productsCount / 3) * 10} 
-                    current={page} 
-                    onChange={val => setPage(val)}
-                />
-            </StyledPagination>
-        </LatestArrivals>
+        products?.length > 0 && (
+            <LatestArrivals>
+                <StyledTitle level={4}>New Arrivals</StyledTitle>
+                <StyledText type='secondary'>
+                    See our latest arrivals products
+                </StyledText>
+                {loading ? (
+                    <CardSkeleton count={3} />
+                ) : error ? (
+                    <Alert message={error} type='error' showIcon />
+                ) : (
+                    showNewArrivals()
+                )}
+                <StyledPagination>
+                    <Pagination 
+                        total={(productsCount / 3) * 10} 
+                        current={page} 
+                        onChange={val => setPage(val)}
+                    />
+                </StyledPagination>
+            </LatestArrivals>
+        )
     )
 }
 

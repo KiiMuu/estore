@@ -67,6 +67,7 @@ const CreateCategory = lazy(() => import('./pages/admin/category/CreateCategory'
 const CreateSubCategory = lazy(() => import('./pages/admin/sub-category/CreateSubCategory'));
 const CreateProduct = lazy(() => import('./pages/admin/product/CreateProduct'));
 const CreateCoupon = lazy(() => import('./pages/admin/coupon/CreateCoupon'));
+const AdminPassword = lazy(() => import('./pages/admin/password/AdminPassword'));
 
 const App = () => {
     const dispatch = useDispatch();
@@ -111,6 +112,7 @@ const App = () => {
                 <AdminRoute exact path='/admin/sub' component={CreateSubCategory} />
                 <AdminRoute exact path='/admin/product' component={CreateProduct} />
                 <AdminRoute exact path='/admin/coupon' component={CreateCoupon} />
+                <AdminRoute exact path='/admin/password' component={AdminPassword} />
             </Switch>
             {location.pathname === '/' && <Footer />}
         </Suspense>

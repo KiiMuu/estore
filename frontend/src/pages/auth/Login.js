@@ -74,7 +74,7 @@ const Login = ({ history }) => {
                         </Text>
                         <StyledForm onSubmit={handleSubmit}>
                             <Popover
-                                content='Try Admin User: sayedmuhamad9@gmail.com'
+                                content='Try Admin User: karimmuhamadfci@gmail.com'
                                 trigger='focus'>
                                 <InputControl>
                                     <span><UserAddOutlined /></span>

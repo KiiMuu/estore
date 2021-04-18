@@ -69,7 +69,7 @@ const AdminNav = () => {
                     </ListItem>
                 </StyledNavLink>
                 <StyledNavLink 
-                    to='/user/password' 
+                    to='/admin/password'
                     activeClassName='isActive'
                 >
                     <ListItem>

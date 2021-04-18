@@ -51,26 +51,28 @@ const BestSellers = () => {
     )
 
     return (
-        <TopSellers>
-            <StyledTitle level={4}>Best Sellers</StyledTitle>
-            <StyledText type='secondary'>
-                See our most sold products
-            </StyledText>
-            {loading ? (
-                <CardSkeleton count={3} />
-            ) : error ? (
-                <Alert message={error} type='error' showIcon />
-            ) : (
-                showBestSellers()
-            )}
-            <StyledPagination>
-                <Pagination
-                    total={(productsCount / 3) * 10}
-                    current={page} 
-                    onChange={val => setPage(val)}
-                />
-            </StyledPagination>
-        </TopSellers>
+        products?.length > 0 && (
+            <TopSellers>
+                <StyledTitle level={4}>Best Sellers</StyledTitle>
+                <StyledText type='secondary'>
+                    See our most sold products
+                </StyledText>
+                {loading ? (
+                    <CardSkeleton count={3} />
+                ) : error ? (
+                    <Alert message={error} type='error' showIcon />
+                ) : (
+                    showBestSellers()
+                )}
+                <StyledPagination>
+                    <Pagination
+                        total={(productsCount / 3) * 10}
+                        current={page} 
+                        onChange={val => setPage(val)}
+                    />
+                </StyledPagination>
+            </TopSellers>
+        )
     )
 }
 

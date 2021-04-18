@@ -51,26 +51,28 @@ const TopRated = () => {
     )
 
     return (
-        <TopRatedProds>
-            <StyledTitle level={4}>Top Rated</StyledTitle>
-            <StyledText type='secondary'>
-                See our top rated products
-            </StyledText>
-            {loading ? (
-                <CardSkeleton count={3} />
-            ) : error ? (
-                <Alert message={error} type='error' showIcon />
-            ) : (
-                showTopRated()
-            )}
-            <StyledPagination>
-                <Pagination 
-                    total={(productsCount / 3) * 10} 
-                    current={page} 
-                    onChange={val => setPage(val)}
-                />
-            </StyledPagination>
-        </TopRatedProds>
+        products?.length > 0 && (
+            <TopRatedProds>
+                <StyledTitle level={4}>Top Rated</StyledTitle>
+                <StyledText type='secondary'>
+                    See our top rated products
+                </StyledText>
+                {loading ? (
+                    <CardSkeleton count={3} />
+                ) : error ? (
+                    <Alert message={error} type='error' showIcon />
+                ) : (
+                    showTopRated()
+                )}
+                <StyledPagination>
+                    <Pagination 
+                        total={(productsCount / 3) * 10} 
+                        current={page} 
+                        onChange={val => setPage(val)}
+                    />
+                </StyledPagination>
+            </TopRatedProds>
+        )
     )
 }
 

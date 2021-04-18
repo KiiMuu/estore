@@ -7,10 +7,10 @@ import {
 } from '../../themes/spaces';
 import { darkColor, lightColor, primaryColor, primaryLightColor } from '../../themes/colors';
 import { linkHover } from '../../themes/mixins';
+import { HomePreviewQuery } from '../../themes/breakpoints';
 
 // * @antd
 import Typography from 'antd/lib/typography';
-import { HomePreviewQuery } from '../../themes/breakpoints';
 
 const { Title, Text } = Typography;
 
@@ -57,7 +57,7 @@ export const PreviewText = styled.div`
         font-size: 5rem;
         font-weight: 900;
         color: ${primaryLightColor};
-        ${HomePreviewQuery};
+        ${HomePreviewQuery}
     }
     p {
         color: #444;
