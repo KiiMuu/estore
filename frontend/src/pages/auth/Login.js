@@ -25,6 +25,7 @@ import Col from 'antd/lib/col';
 import Typography from 'antd/lib/typography';
 import Divider from 'antd/lib/divider';
 import Button from 'antd/lib/button';
+import Popover from 'antd/lib/popover';
 
 import {
     UserAddOutlined,
@@ -72,26 +73,34 @@ const Login = ({ history }) => {
                             Welcome back, login
                         </Text>
                         <StyledForm onSubmit={handleSubmit}>
-                            <InputControl>
-                                <span><UserAddOutlined /></span>
-                                <StyledInput
-                                    type='email'
-                                    inputMode='email'
-                                    value={email}
-                                    placeholder='Type your email'
-                                    onChange={e => setEmail(e.target.value)}  
-                                />
-                            </InputControl>
-                            <InputControl>
-                                <span><KeyOutlined /></span>
-                                <StyledInput
-                                    type='password'
-                                    inputMode='password'
-                                    value={password}
-                                    placeholder='Type your password'
-                                    onChange={e => setPassword(e.target.value)}  
-                                />
-                            </InputControl>
+                            <Popover
+                                content='Try Admin User: sayedmuhamad9@gmail.com'
+                                trigger='focus'>
+                                <InputControl>
+                                    <span><UserAddOutlined /></span>
+                                    <StyledInput
+                                        type='email'
+                                        inputMode='email'
+                                        value={email}
+                                        placeholder='Type your email'
+                                        onChange={e => setEmail(e.target.value)}  
+                                    />
+                                </InputControl>
+                            </Popover>
+                            <Popover
+                                content='Admin Password: 000000'
+                                trigger='focus'>
+                                <InputControl>
+                                    <span><KeyOutlined /></span>
+                                    <StyledInput
+                                        type='password'
+                                        inputMode='password'
+                                        value={password}
+                                        placeholder='Type your password'
+                                        onChange={e => setPassword(e.target.value)}  
+                                    />
+                                </InputControl>
+                            </Popover>
                             <StyledActions>
                                 <StyledButton type='submit'>
                                     Login

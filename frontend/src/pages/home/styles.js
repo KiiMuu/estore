@@ -10,6 +10,7 @@ import { linkHover } from '../../themes/mixins';
 
 // * @antd
 import Typography from 'antd/lib/typography';
+import { HomePreviewQuery } from '../../themes/breakpoints';
 
 const { Title, Text } = Typography;
 
@@ -56,6 +57,7 @@ export const PreviewText = styled.div`
         font-size: 5rem;
         font-weight: 900;
         color: ${primaryLightColor};
+        ${HomePreviewQuery};
     }
     p {
         color: #444;

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { formSearchQuery } from '../../themes/breakpoints';
 import { primaryColor, primaryDarkColor } from '../../themes/colors';
 
 export const StyledUploadLabel = styled.label`
@@ -11,7 +12,7 @@ export const StyledUploadLabel = styled.label`
 `;
 
 export const Form = styled.form`
-    margin-top: 1.3rem;
+    ${formSearchQuery};
 `;
 
 export const SearchInput = styled.input`

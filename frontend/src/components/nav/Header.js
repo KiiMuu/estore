@@ -27,6 +27,7 @@ import {
     StyledSubMenu,
     StyledItem,
     CartCount,
+    Cart,
 } from './styles';
 
 // * @antd
@@ -186,21 +187,6 @@ const Header = () => {
                             <MobNav>
                                 <MobNavItems>
                                     <MobListItem>
-                                        <Dropdown 
-                                            overlay={<Search />}
-                                            trigger={['click']}
-                                        >
-                                            <MobNavItemLink
-                                                className='ant-dropdown-link' 
-                                                to='#'
-                                                onClick={e => e.preventDefault()}
-                                            >
-                                                <span><SearchOutlined /></span> 
-                                                Find Products
-                                            </MobNavItemLink>
-                                        </Dropdown>
-                                    </MobListItem>
-                                    <MobListItem>
                                         <MobNavItemLink to='/'>
                                             <span><HomeOutlined /></span>
                                             Home
@@ -214,8 +200,10 @@ const Header = () => {
                                     </MobListItem>
                                     <MobListItem>
                                         <MobNavItemLink to='/cart'>
-                                            <span><ShoppingCartOutlined /></span>
-                                            Cart {cartList?.length ? (<CartCount>{cartList?.length}</CartCount>) : ''}
+                                            <Cart>
+                                                <span><ShoppingCartOutlined /></span>
+                                                Cart {cartList?.length ? (<CartCount>{cartList?.length}</CartCount>) : ''}
+                                            </Cart>
                                         </MobNavItemLink>
                                     </MobListItem>
                                     {!userInfo && (
@@ -259,6 +247,9 @@ const Header = () => {
                                             </StyledMenu>
                                         </MobListItem>
                                     )}
+                                    <MobListItem>
+                                        <Search />
+                                    </MobListItem>
                                 </MobNavItems>
                             </MobNav>
                         </NavMenuContent>

@@ -42,3 +42,19 @@ export const productActionsQuery = () => {
         }
     `;
 }
+
+export const formSearchQuery = () => {
+    return `
+        @media screen and (min-width: 768px) {
+            margin-top: 1.3rem;
+        }
+    `;
+}
+
+export const HomePreviewQuery = () => {
+    return `
+        @media screen and (max-width: 768px) {
+            font-size: 2rem;
+        }
+    `;
+}

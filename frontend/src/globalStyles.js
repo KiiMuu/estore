@@ -20,12 +20,12 @@ const GloblaStyle = createGlobalStyle`
     }
     
     // * global media query classes
-    @media screen and (max-width: 640px) {
+    @media screen and (max-width: 768px) {
         .hide-md {
             display: none !important;
         }
     }
-    @media screen and (max-width: 640px) {
+    @media screen and (max-width: 768px) {
         .show-md {
             display: block !important;
         }

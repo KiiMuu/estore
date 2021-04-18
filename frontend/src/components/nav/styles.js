@@ -136,7 +136,7 @@ export const MenuCloser = styled.div`
 `;
 
 export const MobNav = styled.nav`
-    background-color: ${lightColor};
+    background-color: #f9f9f9;
     border-radius: 3px;
 `;
 
@@ -158,6 +158,10 @@ export const MobNavItemLink = styled(Link)`
     span {
         margin-right: .3rem;
     }
+`;
+
+export const Cart = styled.div`
+    position: relative;
 `;
 
 // @antd override

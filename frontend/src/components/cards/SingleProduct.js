@@ -218,7 +218,7 @@ const SingleProduct = ({
             {product?.ratings.length > 0 && (
                 <Col xs={24} lg={12}>
                     <PeopleRates>
-                        {product?.ratings.map(rate => (
+                        {product?.ratings?.map(rate => (
                             <Comment key={rate._id} author={rate.ratedBy.name} content={
                                 <>
                                     <Rate disabled value={rate.numberOfStars} />
