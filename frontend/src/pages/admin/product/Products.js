@@ -72,11 +72,17 @@ const Products = ({ searched, searchTerm }) => {
 
     const prodsItems = () => (
         <Row gutter={[10, 8]}>
-            {products?.length === 0 ? (
+            {/* {products?.length === 0 ? (
                 <StyledPageHeader
                     subTitle='No products added yet, once you add products they will be listed here'
                 />
             ) : products?.filter(searched(searchTerm)).map(product => (
+                <SingleProduct 
+                    product={product}
+                    key={product._id}
+                />
+            ))} */}
+            {products?.map(product => (
                 <SingleProduct 
                     product={product}
                     key={product._id}
