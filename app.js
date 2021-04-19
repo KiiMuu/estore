@@ -8,10 +8,10 @@ import { readdirSync } from 'fs';
 import path from 'path';
 const __dirname = path.resolve();
 
-import dbConnection from './config/dbConnection';
+import dbConnection from './config/dbConnection.js';
 import { 
     REQUEST_SIZE_LIMIT 
-} from './utils/contsants';
+} from './utils/contsants.js';
 
 // * app
 const app = express();

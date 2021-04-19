@@ -6,19 +6,19 @@ import {
     createCoupon,
     getCoupons,
     removeCoupon,
- } from '../controllers/coupon';
+ } from '../controllers/coupon.js';
 
 // * middlewares
 import { 
     authCheck,
     adminCheck,
-} from '../middlewares/auth';
+} from '../middlewares/auth.js';
 
 // * validators
-import { runValidation } from '../validators';
+import { runValidation } from '../validators/index.js';
 import {
     couponValidator,
-} from '../validators/coupon';
+} from '../validators/coupon.js';
 
 // * @desc    Create a new coupon
 // * @route   POST /api/coupon

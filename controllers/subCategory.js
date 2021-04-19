@@ -1,7 +1,7 @@
-import SubCategory from '../models/subCategory';
-import Product from '../models/product';
+import SubCategory from '../models/subCategory.js';
+import Product from '../models/product.js';
 import slugify from 'slugify';
-import { BAD_REQUEST, CREATED, NOT_FOUND, OK } from '../utils/contsants';
+import { BAD_REQUEST, CREATED, NOT_FOUND, OK } from '../utils/contsants.js';
 
 const createSubCategory = async (req, res) => {
     try {

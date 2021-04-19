@@ -13,19 +13,19 @@ import {
     rateProduct,
     relatedProducts,
     searchFilters,
- } from '../controllers/product';
+ } from '../controllers/product.js';
 
 // * middlewares
 import { 
     authCheck,
     adminCheck,
-} from '../middlewares/auth';
+} from '../middlewares/auth.js';
 
 // * validators
-import { runValidation } from '../validators';
+import { runValidation } from '../validators/index.js';
 import {
     productCreateValidator,
-} from '../validators/product';
+} from '../validators/product.js';
 
 // * @desc    Create a new product
 // * @route   POST /api/product

@@ -1,9 +1,9 @@
-import User from '../models/user';
+import User from '../models/user.js';
 import { 
     OK,
     CREATED,
     BAD_REQUEST,
-} from '../utils/contsants';
+} from '../utils/contsants.js';
 
 const createOrUpdateUser = async (req, res) => {
     const { name, email, picture } = req.user;

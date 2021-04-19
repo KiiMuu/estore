@@ -1,5 +1,5 @@
-import Coupon from '../models/coupon';
-import { OK, CREATED, BAD_REQUEST } from '../utils/contsants';
+import Coupon from '../models/coupon.js';
+import { OK, CREATED, BAD_REQUEST } from '../utils/contsants.js';
 
 const createCoupon = async (req, res) => {
     try {

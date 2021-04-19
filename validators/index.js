@@ -1,5 +1,5 @@
 import { validationResult } from 'express-validator';
-import { UNPROCESSABLE_ENTITY } from '../utils/contsants';
+import { UNPROCESSABLE_ENTITY } from '../utils/contsants.js';
 
 const runValidation = (req, res, next) => {
     const errors = validationResult(req);

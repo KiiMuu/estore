@@ -1,5 +1,5 @@
-import Order from '../models/order';
-import { BAD_REQUEST, OK } from '../utils/contsants';
+import Order from '../models/order.js';
+import { BAD_REQUEST, OK } from '../utils/contsants.js';
 
 const getOrders = async (req, res) => {
     try {

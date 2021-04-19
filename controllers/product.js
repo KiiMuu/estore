@@ -1,5 +1,5 @@
-import Product from '../models/product';
-import User from '../models/user';
+import Product from '../models/product.js';
+import User from '../models/user.js';
 import slugify from 'slugify';
 import { 
     handleBrand,
@@ -10,8 +10,8 @@ import {
     handleShipping,
     handleStars,
     handleSubCategories,
-} from './productFilters';
-import { BAD_REQUEST, CREATED, OK } from '../utils/contsants';
+} from './productFilters.js';
+import { BAD_REQUEST, CREATED, OK } from '../utils/contsants.js';
 
 const createProduct = async (req, res) => {
     try {

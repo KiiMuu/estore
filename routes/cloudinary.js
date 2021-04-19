@@ -5,13 +5,13 @@ const router = Router();
 import {
     uploadImages,
     removeImage,
-} from '../controllers/cloudinary';
+} from '../controllers/cloudinary.js';
 
 // * middlewares
 import { 
     authCheck,
     adminCheck,
-} from '../middlewares/auth';
+} from '../middlewares/auth.js';
 
 // * @desc    Upload multiple images for product
 // * @route   post /api/upload-images

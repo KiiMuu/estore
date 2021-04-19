@@ -5,13 +5,13 @@ const router = Router();
 import { 
     createOrUpdateUser,
     currentUser,
- } from '../controllers/auth';
+ } from '../controllers/auth.js';
 
 // * middlewares
 import { 
     authCheck,
     adminCheck,
-} from '../middlewares/auth';
+} from '../middlewares/auth.js';
 
 // * @desc    Create or update a user
 // * @route   POST /api/create-or-update-user

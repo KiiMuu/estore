@@ -5,11 +5,11 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "start": "node --experimental-specifier-resolution=node app",
-    "server": "nodemon --experimental-specifier-resolution=node app",
+    "start": "node --experimental-specifier-resolution=node app.js",
+    "server": "nodemon --experimental-specifier-resolution=node app.js",
     "frontend": "npm start --prefix ../frontend",
     "dev": "concurrently \"npm run server\" \"npm run frontend\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run server"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false"
   },
   "keywords": [],
   "author": "Kariim Muhamad",
