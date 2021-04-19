@@ -80,22 +80,28 @@ const Categories = ({ searched, searchTerm }) => {
     }, [removeSuccess, removeError, dispatch, removedCategory]);
 
     const catsItems = () => (
-        <Space size={[8, 10]} wrap>
-            {categories?.length === 0 ? (
-                <StyledPageHeader
-                    subTitle='No categories added yet, once you add categories they will be listed here'
-                />
-            ) : categories?.filter(searched(searchTerm)).length === 0 ? (
-                <StyledPageHeader
-                    subTitle='No categories matched your keyword'
-                />
-            ) : categories?.filter(searched(searchTerm)).map(category => (
-                <SingleCategory 
-                    category={category}
-                    key={category._id}
-                />
-            ))}
-        </Space>
+        // <Space size={[8, 10]} wrap>
+        //     {categories?.length === 0 ? (
+        //         <StyledPageHeader
+        //             subTitle='No categories added yet, once you add categories they will be listed here'
+        //         />
+        //     ) : categories?.filter(searched(searchTerm)).length === 0 ? (
+        //         <StyledPageHeader
+        //             subTitle='No categories matched your keyword'
+        //         />
+        //     ) : categories?.filter(searched(searchTerm)).map(category => (
+        //         <SingleCategory 
+        //             category={category}
+        //             key={category._id}
+        //         />
+        //     ))}
+        // </Space>
+        categories?.filter(searched(searchTerm)).map(category => (
+            <SingleCategory 
+                category={category}
+                key={category._id}
+            />
+        ))
     )
 
     return (
