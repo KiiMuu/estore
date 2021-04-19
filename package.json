@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "eStore app API",
   "main": "app.js",
-  "engines": {
-    "node": "14.16.0"
-  },
   "type": "module",
   "scripts": {
     "start": "node --experimental-specifier-resolution=node app",

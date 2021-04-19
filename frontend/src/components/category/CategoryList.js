@@ -31,19 +31,24 @@ const CategoryList = () => {
     }, [dispatch]);
 
     const showCategoires = () => (
-        <Space size={[8, 10]} wrap>
-            {categories?.length === 0 ? (
-                <Alert 
-                    message='No categories added yet.' 
-                    type='info' 
-                    showIcon
-                />
-            ) : categories?.map(category => (
-                <Link key={category._id} to={`/category/${category.slug}`}>
-                    <Button type='primary'>{category.name}</Button>
-                </Link>
-            ))}
-        </Space>
+        // <Space size={[8, 10]} wrap>
+        //     {categories?.length === 0 ? (
+        //         <Alert 
+        //             message='No categories added yet.' 
+        //             type='info' 
+        //             showIcon
+        //         />
+        //     ) : categories?.map(category => (
+        //         <Link key={category._id} to={`/category/${category.slug}`}>
+        //             <Button type='primary'>{category.name}</Button>
+        //         </Link>
+        //     ))}
+        // </Space>
+        categories?.map(category => (
+            <Link key={category._id} to={`/category/${category.slug}`}>
+                <Button type='primary'>{category.name}</Button>
+            </Link>
+        ))
     )
 
     return (
