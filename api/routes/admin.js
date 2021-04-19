@@ -5,13 +5,13 @@ const router = Router();
 import {
     getOrders,
     orderStatus,
-} from '../controllers/admin';
+} from '../controllers/admin.js';
 
 // * middlewares
 import { 
     authCheck,
     adminCheck,
-} from '../middlewares/auth';
+} from '../middlewares/auth.js';
 
 // * @desc    Get orders
 // * @route   GET /api/admin/orders

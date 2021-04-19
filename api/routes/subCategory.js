@@ -8,19 +8,19 @@ import {
     getSubCategory,
     updateSubCategory,
     removeSubCategory,
- } from '../controllers/subCategory';
+ } from '../controllers/subCategory.js';
 
 // * middlewares
 import { 
     authCheck,
     adminCheck,
-} from '../middlewares/auth';
+} from '../middlewares/auth.js';
 
 // * validators
-import { runValidation } from '../validators';
+import { runValidation } from '../validators/index.js';
 import {
     subCategoryCreateValidator,
-} from '../validators/subCategory';
+} from '../validators/subCategory.js';
 
 // * @desc    Create a new sub category
 // * @route   POST /api/sub-category

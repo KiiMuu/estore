@@ -14,12 +14,12 @@ import {
     getWishlist,
     addToWishlist,
     removeFromWishlist,
-} from '../controllers/user';
+} from '../controllers/user.js';
 
 // * middlewares
 import { 
     authCheck,
-} from '../middlewares/auth';
+} from '../middlewares/auth.js';
 
 // * @desc    Create cart checkout
 // * @route   POST /api/user/cart

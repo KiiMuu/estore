@@ -1,5 +1,5 @@
-import Product from '../models/product';
-import { OK } from '../utils/contsants';
+import Product from '../models/product.js';
+import { OK } from '../utils/contsants.js';
 
 export const handleQuery = async (req, res, query) => {
     const products = await Product.find({ 

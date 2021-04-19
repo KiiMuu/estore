@@ -1,6 +1,6 @@
-import admin from '../firebase';
-import User from '../models/user';
-import { UNAUTHORIZED } from '../utils/contsants';
+import admin from '../firebase/index.js';
+import User from '../models/user.js';
+import { UNAUTHORIZED } from '../utils/contsants.js';
 
 const authCheck = async (req, res, next) => {
     try {

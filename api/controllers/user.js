@@ -1,10 +1,10 @@
-import User from '../models/user';
-import Product from '../models/product';
-import Cart from '../models/cart';
-import Coupon from '../models/coupon';
-import Order from '../models/order';
+import User from '../models/user.js';
+import Product from '../models/product.js';
+import Cart from '../models/cart.js';
+import Coupon from '../models/coupon.js';
+import Order from '../models/order.js';
 import uniqid from 'uniqid';
-import { OK, BAD_REQUEST, UNPROCESSABLE_ENTITY } from '../utils/contsants';
+import { OK, BAD_REQUEST, UNPROCESSABLE_ENTITY } from '../utils/contsants.js';
 
 const proceedCheckout = async (req, res) => {
     try {

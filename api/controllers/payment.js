@@ -1,10 +1,10 @@
-import User from '../models/user';
-import Cart from '../models/cart';
-import Product from '../models/product';
-import Coupon from '../models/coupon';
+import User from '../models/user.js';
+import Cart from '../models/cart.js';
+import Product from '../models/product.js';
+import Coupon from '../models/coupon.js';
 import Stripe from 'stripe';
 const stripe = new Stripe(process.env.STRIPE_SECRET);
-import { OK, BAD_REQUEST } from '../utils/contsants';
+import { OK, BAD_REQUEST } from '../utils/contsants.js';
 
 const createPaymentIntent = async (req, res) => {
     try {

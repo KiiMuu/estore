@@ -9,19 +9,19 @@ import {
     updateCategory,
     removeCategory,
     getSubsOfSingleParent,
- } from '../controllers/category';
+ } from '../controllers/category.js';
 
 // * middlewares
 import { 
     authCheck,
     adminCheck,
-} from '../middlewares/auth';
+} from '../middlewares/auth.js';
 
 // * validators
-import { runValidation } from '../validators';
+import { runValidation } from '../validators/index.js';
 import {
     categoryCreateValidator,
-} from '../validators/category';
+} from '../validators/category.js';
 
 // * @desc    Create a new category
 // * @route   POST /api/category
