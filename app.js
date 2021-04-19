@@ -27,7 +27,7 @@ app.use(morgan('dev'));
 app.use(cors());
 
 // * use routes
-readdirSync(path.resolve(__dirname, 'api/routes')).map(route => {
+readdirSync('api/routes').map(route => {
     import(`./routes/${route}`).then(r => {
         app.use('/api', r.default);
     });
