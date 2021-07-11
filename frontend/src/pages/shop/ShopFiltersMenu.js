@@ -230,6 +230,7 @@ const ShopFiltersMenu = ({ setShopProds }) => {
     const showBrands = () => (
         brands.map(b => (
             <Radio 
+                key={b._id}
                 value={b} 
                 name={b} 
                 checked={b === brand} 
@@ -264,6 +265,7 @@ const ShopFiltersMenu = ({ setShopProds }) => {
     const showColors = () => (
         colors.map(c => (
             <Radio 
+                key={c._id}
                 value={c} 
                 name={c} 
                 checked={c === color} 

@@ -14,25 +14,24 @@ const { Content, Sider } = Layout;
 export const StyledSider = styled(Sider)`
     && {
         padding-top: ${headerHeight};
-        background: #eee;
+        background: #fff;
         border-right: .2rem solid #eee;
         box-shadow: 0 0 0.3rem 0.2rem rgb(0 0 0 / 3%);
         position: fixed;
         height: 100vh;
-        max-width: 25rem !important;
-        min-width: 25rem !important;
-        width: 25rem !important;
         left: 0;
         z-index: 98;
-        overflow: auto;
-        ::-webkit-scrollbar {
-            width: .8rem;
-            border-radius: .8rem;
-            background-color: #ddd;
-        }
-        ::-webkit-scrollbar-thumb {
-            background-color: #666;
-            border-radius: .8rem;
+        > div {
+            overflow: auto;
+            ::-webkit-scrollbar {
+                width: .8rem;
+                border-radius: .8rem;
+                background-color: #ddd;
+            }
+            ::-webkit-scrollbar-thumb {
+                background-color: #666;
+                border-radius: .8rem;
+            }
         }
     }
 `;

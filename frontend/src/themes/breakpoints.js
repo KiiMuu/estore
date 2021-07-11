@@ -19,7 +19,7 @@ export const addButtonQuery = () => {
 export const layoutQuery = () => {
     return `
         @media screen and (min-width: 768px) {
-            margin-left: 25rem;
+            margin-left: 20rem;
         }
     `;
 }
