@@ -4,8 +4,8 @@ import { Switch, Route, useLocation } from 'react-router-dom';
 import { Fallback } from './globalStyles';
 import { LoadingOutlined } from '@ant-design/icons';
 
-// // * components
-// // * public
+// * components
+// * public
 // import Home from './pages/home/Home';
 // import Header from './components/nav/Header';
 // import SideDrawer from './components/drawer/SideDrawer';
