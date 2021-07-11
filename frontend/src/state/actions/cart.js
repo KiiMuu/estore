@@ -26,7 +26,7 @@ export const checkoutProceed = (cart, authtoken) => async dispatch => {
             }
         }
     
-        const { data } = await axios.post('/api/user/cart', { cart }, config);
+        const { data } = await axios.post(`${process.env.REACT_APP_API}/api/user/cart`, { cart }, config);
     
         dispatch({
             type: PROCEED_CHECKOUT_SUCCESS,
@@ -52,7 +52,7 @@ export const getUserCart = authtoken => async dispatch => {
             }
         }
     
-        const { data } = await axios.get('/api/user/cart', config);
+        const { data } = await axios.get(`${process.env.REACT_APP_API}/api/user/cart`, config);
     
         dispatch({
             type: GET_USER_CART_SUCCESS,
@@ -79,7 +79,7 @@ export const removeUserCart = authtoken => async dispatch => {
         }
     
         // * at least {} in put request
-        const { data } = await axios.put('/api/user/cart', {}, config);
+        const { data } = await axios.put(`${process.env.REACT_APP_API}/api/user/cart`, {}, config);
 
         dispatch({
             type: DELETE_USER_CART_SUCCESS,
@@ -105,7 +105,7 @@ export const saveUserAddress = (address, authtoken) => async dispatch => {
             }
         }
     
-        const { data } = await axios.post('/api/user/address', { address }, config);
+        const { data } = await axios.post(`${process.env.REACT_APP_API}/api/user/address`, { address }, config);
 
         dispatch({
             type: DELIVERY_ADDRESS_SUCCESS,

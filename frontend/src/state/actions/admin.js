@@ -20,7 +20,7 @@ export const getOrders = authtoken => async dispatch => {
             }
         }
 
-        const { data } = await axios.get('/api/admin/orders', config);
+        const { data } = await axios.get(`${process.env.REACT_APP_API}/api/admin/orders`, config);
 
         dispatch({
             type: ORDER_LIST_SUCCESS,
@@ -46,7 +46,7 @@ export const updateOrderStatus = (orderId, orderStatus, authtoken) => async disp
             }
         }
 
-        const { data } = await axios.put('/api/admin/update-status', { orderId, orderStatus }, config);
+        const { data } = await axios.put(`${process.env.REACT_APP_API}/api/admin/update-status`, { orderId, orderStatus }, config);
 
         dispatch({
             type: ORDER_UPDATE_SUCCESS,

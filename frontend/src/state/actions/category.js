@@ -26,7 +26,7 @@ export const getCategories = () => async dispatch => {
             type: CATEGORY_LIST_REQUEST,
         });
 
-        const { data } = await axios.get('/api/categories');
+        const { data } = await axios.get(`${process.env.REACT_APP_API}/api/categories`);
 
         dispatch({
             type: CATEGORY_LIST_SUCCESS,
@@ -46,7 +46,7 @@ export const getCategory = slug => async dispatch => {
             type: CATEGORY_SINGLE_REQUEST,
         });
     
-        const { data } = await axios.get(`/api/category/${slug}`);
+        const { data } = await axios.get(`${process.env.REACT_APP_API}/api/category/${slug}`);
     
         dispatch({
             type: CATEGORY_SINGLE_SUCCESS,
@@ -72,7 +72,7 @@ export const createCategory = (category, authtoken) => async dispatch => {
             }
         }
     
-        const { data } = await axios.post('/api/category', category, config);
+        const { data } = await axios.post(`${process.env.REACT_APP_API}/api/category`, category, config);
     
         dispatch({
             type: CATEGORY_CREATE_SUCCESS,
@@ -98,7 +98,7 @@ export const updateCategory = (slug, category, authtoken) => async dispatch => {
             }
         }
     
-        const { data } = await axios.put(`/api/category/${slug}`, category, config);
+        const { data } = await axios.put(`${process.env.REACT_APP_API}/api/category/${slug}`, category, config);
     
         dispatch({
             type: CATEGORY_UPDATE_SUCCESS,
@@ -124,7 +124,7 @@ export const deleteCategory = (slug, authtoken) => async dispatch => {
             }
         }
     
-        const { data } = await axios.delete(`/api/category/${slug}`, config);
+        const { data } = await axios.delete(`${process.env.REACT_APP_API}/api/category/${slug}`, config);
     
         dispatch({
             type: CATEGORY_DELETE_SUCCESS,
@@ -144,7 +144,7 @@ export const getSubsOfParent = _id => async dispatch => {
             type: SUBS_OF_PARENT_REQUEST,
         });
     
-        const { data } = await axios.get(`/api/category/sub-categories/${_id}`);
+        const { data } = await axios.get(`${process.env.REACT_APP_API}/api/category/sub-categories/${_id}`);
     
         dispatch({
             type: SUBS_OF_PARENT_SUCCESS,

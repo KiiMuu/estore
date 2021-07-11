@@ -20,7 +20,7 @@ export const getCoupons = () => async dispatch => {
             type: COUPON_LIST_REQUEST,
         });
 
-        const { data } = await axios.get('/api/coupons');
+        const { data } = await axios.get(`${process.env.REACT_APP_API}/api/coupons`);
 
         dispatch({
             type: COUPON_LIST_SUCCESS,
@@ -46,7 +46,7 @@ export const createCoupon = (coupon, authtoken) => async dispatch => {
             }
         }
     
-        const { data } = await axios.post('/api/coupon', coupon, config);
+        const { data } = await axios.post(`${process.env.REACT_APP_API}/api/coupon`, coupon, config);
     
         dispatch({
             type: COUPON_CREATE_SUCCESS,
@@ -72,7 +72,7 @@ export const deleteCoupon = (couponId, authtoken) => async dispatch => {
             }
         }
     
-        const { data } = await axios.delete(`/api/coupon/${couponId}`, config);
+        const { data } = await axios.delete(`${process.env.REACT_APP_API}/api/coupon/${couponId}`, config);
     
         dispatch({
             type: COUPON_DELETE_SUCCESS,
@@ -98,7 +98,7 @@ export const createDiscount = (coupon, authtoken) => async dispatch => {
             }
         }
     
-        const { data } = await axios.post('/api/user/apply-coupon', { coupon }, config);
+        const { data } = await axios.post(`${process.env.REACT_APP_API}/api/user/apply-coupon`, { coupon }, config);
     
         dispatch({
             type: APPLY_COUPON_SUCCESS,

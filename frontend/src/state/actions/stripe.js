@@ -17,7 +17,7 @@ export const payWithStripe = (authtoken, isCouponApplied) => async dispatch => {
             }
         }
     
-        const { data } = await axios.post('/api/create-payment-intent', { isCouponApplied }, config);
+        const { data } = await axios.post(`${process.env.REACT_APP_API}/api/create-payment-intent`, { isCouponApplied }, config);
     
         dispatch({
             type: STRIPE_SUCCESS,

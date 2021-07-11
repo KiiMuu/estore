@@ -19,8 +19,8 @@ export const uploadImages = (image, authtoken) => async dispatch => {
                 authtoken,
             }
         }
-    
-        const { data } = await axios.post('/api/upload-images', image, config);
+        
+        const { data } = await axios.post(`${process.env.REACT_APP_API}/api/upload-images`, image, config);
     
         dispatch({
             type: UPLOAD_IMGS_SUCCESS,
@@ -46,7 +46,7 @@ export const deleteImg = (public_id, authtoken) => async dispatch => {
             }
         }
     
-        await axios.post('/api/remove-image', public_id, config);
+        await axios.post(`${process.env.REACT_APP_API}/api/remove-image`, public_id, config);
     
         dispatch({
             type: REMOVE_IMG_SUCCESS,

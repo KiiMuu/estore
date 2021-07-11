@@ -23,7 +23,7 @@ export const getSubCategories = () => async dispatch => {
             type: SUB_CATEGORY_LIST_REQUEST,
         });
         
-        const { data } = await axios.get('/api/sub-categories');
+        const { data } = await axios.get(`${process.env.REACT_APP_API}/api/sub-categories`);
 
         dispatch({
             type: SUB_CATEGORY_LIST_SUCCESS,
@@ -43,7 +43,7 @@ export const getSubCategory = slug => async dispatch => {
             type: SUB_CATEGORY_SINGLE_REQUEST,
         });
     
-        const { data } = await axios.get(`/api/sub-category/${slug}`);
+        const { data } = await axios.get(`${process.env.REACT_APP_API}/api/sub-category/${slug}`);
     
         dispatch({
             type: SUB_CATEGORY_SINGLE_SUCCESS,
@@ -69,7 +69,7 @@ export const createSubCategory = (subCategory, authtoken) => async dispatch => {
             }
         }
     
-        const { data } = await axios.post('/api/sub-category', subCategory, config);
+        const { data } = await axios.post(`${process.env.REACT_APP_API}/api/sub-category`, subCategory, config);
     
         dispatch({
             type: SUB_CATEGORY_CREATE_SUCCESS,
@@ -95,7 +95,7 @@ export const updateSubCategory = (slug, subCategory, authtoken) => async dispatc
             }
         }
     
-        const { data } = await axios.put(`/api/sub-category/${slug}`, subCategory, config);
+        const { data } = await axios.put(`${process.env.REACT_APP_API}/api/sub-category/${slug}`, subCategory, config);
     
         dispatch({
             type: SUB_CATEGORY_UPDATE_SUCCESS,
@@ -121,7 +121,7 @@ export const deleteSubCategory = (slug, authtoken) => async (dispatch, getState)
             }
         }
     
-        const { data } = await axios.delete(`/api/sub-category/${slug}`, config);
+        const { data } = await axios.delete(`${process.env.REACT_APP_API}/api/sub-category/${slug}`, config);
     
         dispatch({
             type: SUB_CATEGORY_DELETE_SUCCESS,

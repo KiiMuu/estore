@@ -23,7 +23,7 @@ export const getWishlist = authtoken => async dispatch => {
             }
         }
 
-        const { data } = await axios.get('/api/user/wishlist', config);
+        const { data } = await axios.get(`${process.env.REACT_APP_API}/api/user/wishlist`, config);
 
         dispatch({
             type: WISH_LIST_SUCCESS,
@@ -49,7 +49,7 @@ export const addItemToWishlist = (productId, authtoken) => async dispatch => {
             }
         }
 
-        const { data } = await axios.post('/api/user/wishlist', { productId }, config);
+        const { data } = await axios.post(`${process.env.REACT_APP_API}/api/user/wishlist`, { productId }, config);
 
         dispatch({
             type: ADD_TO_WISHLIST_SUCCESS,
@@ -75,7 +75,7 @@ export const removeItemFromWishlist = (productId, authtoken) => async dispatch =
             }
         }
 
-        const { data } = await axios.put(`/api/user/wishlist/${productId}`, {}, config);
+        const { data } = await axios.put(`${process.env.REACT_APP_API}/api/user/wishlist/${productId}`, {}, config);
 
         dispatch({
             type: REMOVE_FROM_WISHLIST_SUCCESS,

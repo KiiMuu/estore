@@ -35,7 +35,7 @@ export const createProduct = (product, authtoken) => async dispatch => {
             }
         }
 
-        const { data } = await axios.post('/api/product', product, config);
+        const { data } = await axios.post(`${process.env.REACT_APP_API}/api/product`, product, config);
 
         dispatch({
             type: PRODUCT_CREATE_SUCCESS,
@@ -55,7 +55,7 @@ export const getProductsByCount = count => async dispatch => {
             type: PRODUCT_LIST_REQUEST,
         });
 
-        const { data } = await axios.get(`/api/products/${count}`);
+        const { data } = await axios.get(`${process.env.REACT_APP_API}/api/products/${count}`);
 
         dispatch({
             type: PRODUCT_LIST_SUCCESS,
@@ -75,7 +75,7 @@ export const getProduct = slug => async dispatch => {
             type: PRODUCT_SINGLE_REQUEST,
         });
     
-        const { data } = await axios.get(`/api/product/${slug}`);
+        const { data } = await axios.get(`${process.env.REACT_APP_API}/api/product/${slug}`);
     
         dispatch({
             type: PRODUCT_SINGLE_SUCCESS,
@@ -101,7 +101,7 @@ export const updateProduct = (slug, product, authtoken) => async dispatch => {
             }
         }
     
-        const { data } = await axios.put(`/api/product/${slug}`, product, config);
+        const { data } = await axios.put(`${process.env.REACT_APP_API}/api/product/${slug}`, product, config);
     
         dispatch({
             type: PRODUCT_UPDATE_SUCCESS,
@@ -127,7 +127,7 @@ export const deleteProduct = (slug, authtoken) => async dispatch => {
             }
         }
     
-        const { data } = await axios.delete(`/api/product/${slug}`, config);
+        const { data } = await axios.delete(`${process.env.REACT_APP_API}/api/product/${slug}`, config);
     
         dispatch({
             type: PRODUCT_DELETE_SUCCESS,
@@ -143,7 +143,7 @@ export const deleteProduct = (slug, authtoken) => async dispatch => {
 
 export const listAllProducts = async (sort, order, page) => {
     try {
-        const { data } = await axios.post('/api/products', {
+        const { data } = await axios.post(`${process.env.REACT_APP_API}/api/products`, {
             sort,
             order,
             page,
@@ -157,7 +157,7 @@ export const listAllProducts = async (sort, order, page) => {
 
 export const getTotalProducts = async () => {
     try {
-        const { data } = await axios.get('/api/products/total');
+        const { data } = await axios.get(`${process.env.REACT_APP_API}/api/products/total`);
 
         return data;
     } catch (err) {
@@ -177,7 +177,7 @@ export const rateProduct = (id, numberOfStars, rateText, authtoken) => async dis
             }
         }
     
-        await axios.put(`/api/product/rate/${id}`, { 
+        await axios.put(`${process.env.REACT_APP_API}/api/product/rate/${id}`, { 
             numberOfStars,
             rateText, 
         }, config);
@@ -199,7 +199,7 @@ export const getRelatedProducts = id => async dispatch => {
             type: PRODUCT_RELATED_REQUEST,
         });
 
-        const { data } = await axios.get(`/api/product/related/${id}`);
+        const { data } = await axios.get(`${process.env.REACT_APP_API}/api/product/related/${id}`);
 
         dispatch({
             type: PRODUCT_RELATED_SUCCESS,
@@ -215,7 +215,7 @@ export const getRelatedProducts = id => async dispatch => {
 
 export const searchProducts = async arg => {
     try {
-        return await axios.post('/api/products/search/filters', arg);
+        return await axios.post(`${process.env.REACT_APP_API}/api/products/search/filters`, arg);
     } catch (err) {
         return err.response?.data.message ? err.response.data.message : err.message;
     }

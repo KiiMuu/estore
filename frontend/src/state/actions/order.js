@@ -23,7 +23,7 @@ export const createOrder = (stripeResponse, authtoken) => async dispatch => {
             }
         }
     
-        const { data } = await axios.post('/api/user/order', { stripeResponse }, config);
+        const { data } = await axios.post(`${process.env.REACT_APP_API}/api/user/order`, { stripeResponse }, config);
     
         dispatch({
             type: ORDER_CREATE_SUCCESS,
@@ -49,7 +49,7 @@ export const getUserOrders = authtoken => async dispatch => {
             }
         }
 
-        const { data } = await axios.get('/api/user/orders', config);
+        const { data } = await axios.get(`${process.env.REACT_APP_API}/api/user/orders`, config);
 
         dispatch({
             type: USER_ORDERS_LIST_SUCCESS,
@@ -75,7 +75,7 @@ export const createCashOnDeliveryOrder = (authtoken, isCashOnDelivery, isCouponA
             }
         }
     
-        const { data } = await axios.post('/api/user/cash-order', { isCashOnDelivery, isCouponApplied }, config);
+        const { data } = await axios.post(`${process.env.REACT_APP_API}/api/user/cash-order`, { isCashOnDelivery, isCouponApplied }, config);
     
         dispatch({
             type: COD_ORDER_CREATE_SUCCESS,

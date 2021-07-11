@@ -7,7 +7,7 @@ import {
 } from '../constants/user';
 
 export const currentUser = async authtoken => {
-    return await axios.post('/api/current-user', {}, {
+    return await axios.post(`${process.env.REACT_APP_API}/api/current-user`, {}, {
         headers: {
             authtoken,
         }
@@ -15,7 +15,7 @@ export const currentUser = async authtoken => {
 }
 
 export const currentAdmin = async authtoken => {
-    return await axios.post('/api/current-admin', {}, {
+    return await axios.post(`${process.env.REACT_APP_API}/api/current-admin`, {}, {
         headers: {
             authtoken,
         }
@@ -55,7 +55,7 @@ export const userAuthState = () => async dispatch => {
 }
 
 export const createOrUpdateUser = async authtoken => {
-    return await axios.post('/api/create-or-update-user', {}, {
+    return await axios.post(`${process.env.REACT_APP_API}/api/create-or-update-user`, {}, {
         headers: {
             authtoken,
         }
